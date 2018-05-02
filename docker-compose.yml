@@ -1,0 +1,28 @@
+version: "2"
+services:
+    wordpress:
+        image: wordpress:latest
+        ports:
+            - "8089:80"
+        depends_on:
+            - db
+        environment:
+            WORDPRESS_DB_HOST: "db:3306"
+            WORDPRESS_DB_NAME: "wordpress"
+            WORDPRESS_DB_USER: "wordpress"
+            WORDPRESS_DB_PASSWORD: "wordpress"
+        volumes:
+            - ./:/var/www/html/wp-content/themes/vue-spa-wp-theme
+    db:
+        image: mysql:latest
+        environment:
+            MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+            MYSQL_DATABASE: "wordpress"
+            MYSQL_USER: "wordpress"
+            MYSQL_PASSWORD: "wordpress"
+        volumes:
+            - db-data:/var/lib/mysql
+
+volumes:
+    db-data:
+        driver: local
