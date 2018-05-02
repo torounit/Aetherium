@@ -1,13 +1,14 @@
 <?php
 
 add_action( 'wp_enqueue_scripts', function () {
+  wp_enqueue_style( 'app', get_theme_file_uri( 'dist/style.css' ) );
   wp_enqueue_script( 'wp-api' );
-  wp_enqueue_script( 'polylith-module', get_theme_file_uri( 'module.js' ), [], false, true );
+  wp_enqueue_script( 'build', get_theme_file_uri( 'dist/build.js' ), [], false, true );
   $data = [
     'permastructs' => get_permastructs(),
     'themeFileUri' => get_theme_file_uri()
   ];
-  $js   = sprintf( 'window.polylith = %s;', wp_json_encode( $data ) );
+  $js   = sprintf( 'window.permastruct = %s;', wp_json_encode( $data ) );
   wp_script_add_data( 'wp-api', 'data', $js );
 } );
 
