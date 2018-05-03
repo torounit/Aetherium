@@ -1,16 +1,17 @@
 <?php
 
 add_action( 'wp_enqueue_scripts', function () {
-	wp_enqueue_style( 'app', get_theme_file_uri( 'dist/style.css' ) );
+	wp_enqueue_style( 'vendor', get_theme_file_uri( 'dist/vendor.css' ) );
+	wp_enqueue_style( 'main', get_theme_file_uri( 'dist/main.css' ) );
 	wp_enqueue_script( 'wp-api' );
 	wp_enqueue_script( 'vendor', get_theme_file_uri( 'dist/vendor.bundle.js' ), [], false, true );
-	wp_enqueue_script( 'build', get_theme_file_uri( 'dist/main.bundle.js' ), [ 'vendor' ], false, true );
+	wp_enqueue_script( 'main', get_theme_file_uri( 'dist/main.bundle.js' ), [ 'vendor' ], false, true );
 
 	$data = [
 		'permastructs' => get_permastructs(),
 		'themeFileUri' => get_theme_file_uri()
 	];
-	$js   = sprintf( 'window.permastruct = %s;', wp_json_encode( $data ) );
+	$js   = sprintf( 'window.themeSettings = %s;', wp_json_encode( $data ) );
 	wp_script_add_data( 'wp-api', 'data', $js );
 } );
 
@@ -57,7 +58,18 @@ function get_permastructs() {
 		];
 	}
 
-	$permastructs = array_merge( $extra_permastructs, $permastructs );
+	if ( get_option( 'page_for_posts' ) ) {
+		$home_structs = [
+			'front-page' => '/',
+			'home' => get_page_uri( get_option( 'page_for_posts' ) )
+		];
+	}else {
+		$home_structs = [
+			'home' => '/'
+		];
+	}
+
+	$permastructs = array_merge( $home_structs, $extra_permastructs, $permastructs );
 
 	return array_map( function ( $key, $value ) {
 		$struct = trim( preg_replace( '/%([^\/]+)%/', ':$1', $value ), '/\\' );
@@ -78,8 +90,8 @@ function get_permastructs() {
 		);
 
 		return [
-			'name'   => $key,
-			'struct' => '/' . $struct . '/*'
+			'name' => $key,
+			'path' => '/' . user_trailingslashit( $struct )
 		];
 	}, array_keys( $permastructs ), array_values( $permastructs ) );
 }

@@ -1,0 +1,4 @@
+export default {
+	SET_SITE_OPTION: 'SET_SITE_OPTION',
+	SET_POSTS: 'SET_POSTS'
+}

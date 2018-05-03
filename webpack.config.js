@@ -22,7 +22,7 @@ module.exports = {
 		// make sure to include the plugin!
 		new VueLoaderPlugin(),
 		new MiniCssExtractPlugin( {
-			filename: 'style.css'
+			filename: '[name].css'
 		} )
 	],
 	module: {
@@ -30,6 +30,7 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [
+					'vue-style-loader',
 					MiniCssExtractPlugin.loader,
 					'css-loader'
 				],
