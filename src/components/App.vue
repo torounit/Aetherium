@@ -7,11 +7,10 @@
 
     <div class="App__main">
       <template v-if="route.name == 'post' || route.name == 'page'">
-        <post :post="post" v-for="post in posts"></post>
+        <post :post="post" v-for="post in posts" :key="post.id"></post>
       </template>
       <template v-else>
         <archive></archive>
-
       </template>
     </div>
 
@@ -81,6 +80,13 @@
   .alignleft,
   .alignright {
     max-width: 50%;
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0
   }
 
 </style>

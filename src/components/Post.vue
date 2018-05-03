@@ -3,9 +3,10 @@
   <article>
     <header>
       <h1>{{ post.title.rendered }}</h1>
-      <p v-for="category in categories">{{ category.name }}</p>
+      <span v-if="author.name">Author: <router-link :to="author.link | path">{{ author.name }}</router-link></span>
+      Categories: <span v-for="category in categories"><router-link :to="category.link | path">{{ category.name }}</router-link></span>
     </header>
-    <div v-html="post.content.rendered"></div>
+    <div class="content" v-html="post.content.rendered"></div>
   </article>
 </template>
 
@@ -20,14 +21,31 @@
     props: {
       post: {},
     },
-    async created () {
-      let categoriesCollection = new wp.api.collections.Categories();
-      let categories = await categoriesCollection.fetch( { data: { post: this.post.id } } )
-      this.categories = categories;
+    created () {
+      this.fetchMetaData()
+    },
+    updated () {
+      this.fetchMetaData()
+    },
+    methods: {
+      fetchMetaData() {
+        let cats = new wp.api.collections.Categories();
+        cats.fetch( { data: { post: this.post.id } } ).then( ( data ) => {
+          this.categories = data;
+        } );
+        let user  = new wp.api.models.User( { id: this.post.author } ) ;
+        user.fetch().then( ( data ) => {
+          this.author = data;
+        } );
+      }
     }
   }
 </script>
 
 <style scoped>
+
+  header {
+    margin: 1em 0;
+  }
 
 </style>

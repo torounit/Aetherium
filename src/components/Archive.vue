@@ -1,6 +1,6 @@
 <template>
   <div class="posts">
-    <div class="media item" v-for="post in posts">
+    <div class="media item" v-for="post in posts"  :key="post.id">
       <div class="media-body small border-bottom">
         <h6>
           <router-link :to="post.link | path">{{ post.title.rendered }}</router-link>
@@ -8,6 +8,7 @@
         <p v-html="post.excerpt.rendered"></p>
       </div>
     </div>
+
   </div>
 </template>
 
