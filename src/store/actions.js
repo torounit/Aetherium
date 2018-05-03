@@ -10,6 +10,7 @@ export const fetchPosts = async ( { commit, state } ) => {
 
 	let postsCollection = new wp.api.collections.Posts();
 	let posts = [];
+	let queriedObject = {};
 
 	switch (state.route.name) {
 		case 'front-page':
@@ -19,7 +20,8 @@ export const fetchPosts = async ( { commit, state } ) => {
 			break;
 		case 'category':
 			let categories = await (new wp.api.collections.Categories()).fetch( { data: { slug: state.route.params.category } } )
-			posts = await postsCollection.fetch( { data: { categories: categories[0].id } } );
+			queriedObject = categories[ 0 ]
+			posts = await postsCollection.fetch( { data: { categories: categories[ 0 ].id } } );
 			break;
 		case 'post':
 
@@ -32,14 +34,16 @@ export const fetchPosts = async ( { commit, state } ) => {
 				posts = [ post ]
 			}
 
+			queriedObject = posts[ 0 ]
+
 			break;
 		case 'page':
 			let pagesCollection = new wp.api.collections.Pages()
 			posts = await pagesCollection.fetch( { data: { slug: state.route.params.pagename } } );
+			queriedObject = posts[ 0 ]
 			break;
 	}
 
-	console.log( posts );
-
+	commit( types.SET_QUERIED_OBJECT, queriedObject )
 	commit( types.SET_POSTS, posts )
 }

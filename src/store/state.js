@@ -1,5 +1,6 @@
 export default {
 	siteOption: {},
 	posts: [],
-	route: {}
+	route: {},
+	queriedObject: {}
 }

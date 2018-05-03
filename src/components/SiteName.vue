@@ -1,5 +1,5 @@
 <template>
-	<router-link to="/">{{ name }}</router-link>
+	<h1><router-link to="/">{{ name }}</router-link></h1>
 </template>
 
 <script>
@@ -13,5 +13,8 @@
 </script>
 
 <style scoped>
+	h1 {
+		font-size: 1.2rem;
+	}
 
 </style>
