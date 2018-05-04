@@ -35,7 +35,7 @@ add_action( 'wp_enqueue_scripts', function () {
 	$data = [
 		'permastructs' => get_permastructs(),
 		'pageForPosts' => absint( get_option( 'page_for_posts' ) ),
-		'pageOnFront'  => absint( get_option( 'page_on_front' ) )
+		'pageOnFront'  => absint( get_option( 'page_on_front' ) ),
 	];
 	$js   = sprintf( 'window.themeSettings = %s;', wp_json_encode( $data ) );
 	wp_script_add_data( 'wp-api', 'data', $js );
@@ -78,12 +78,12 @@ function get_permastructs() {
 
 	if ( $wp_rewrite->use_verbose_page_rules ) {
 
-		$permastructs['post'] = $wp_rewrite->permalink_structure;
 		$permastructs['page'] = $wp_rewrite->get_page_permastruct();
+		$permastructs['post'] = $wp_rewrite->permalink_structure;
 
 	} else {
-		$permastructs['page'] = $wp_rewrite->get_page_permastruct();
 		$permastructs['post'] = $wp_rewrite->permalink_structure;
+		$permastructs['page'] = $wp_rewrite->get_page_permastruct();
 	}
 
 	$permastructs = array_merge( $home_structs, $extra_permastructs, $permastructs );
@@ -108,8 +108,9 @@ function get_permastructs() {
 
 		return [
 			'name' => $key,
-			'path' => untrailingslashit( '/' . $struct ) . '/:endpoint(page)?/:page(\\d*)'
+			'path' => untrailingslashit( '/' . $struct ) . '/:endpoint(page)?/:page(\\d*)?'
 		];
+
 	}, array_keys( $permastructs ), array_values( $permastructs ) );
 }
 
