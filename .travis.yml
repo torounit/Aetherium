@@ -1,0 +1,17 @@
+language: node_js
+sudo: false
+node_js:
+- '9'
+cache:
+  directories:
+  - node_modules
+env:
+  global:
+  - GIT_COMMITTER_NAME=torounit
+  - GIT_COMMITTER_EMAIL=mail@torounit.com
+  - GIT_AUTHOR_NAME=torounit
+  - GIT_AUTHOR_EMAIL=mail@torounit.com
+before_script:
+- npm run build
+script:
+- bash ./bin/dist.sh
