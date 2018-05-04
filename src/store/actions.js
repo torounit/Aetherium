@@ -15,8 +15,6 @@ export const fetchPosts = async ( { commit, state } ) => {
   let page = state.route.params.page || 1;
   let data = { page: page };
   switch (state.route.name) {
-    case 'front-page':
-      break;
     case 'home':
       posts = await postsCollection.fetch( { data: data } );
       hasMore = postsCollection.hasMore();
@@ -54,6 +52,11 @@ export const fetchPosts = async ( { commit, state } ) => {
       let pagesCollection = new wp.api.collections.Pages()
       posts = await pagesCollection.fetch( { data: { slug: state.route.params.pagename } } );
       queriedObject = posts[ 0 ]
+      break;
+    case 'front-page':
+      let pageModel = new wp.api.models.Page( { id: global.themeSettings.pageOnFront } )
+      let post = await pageModel.fetch()
+      posts = [ post ]
       break;
   }
 

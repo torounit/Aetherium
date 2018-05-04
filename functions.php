@@ -9,7 +9,8 @@ add_action( 'wp_enqueue_scripts', function () {
 
 	$data = [
 		'permastructs' => get_permastructs(),
-		'themeFileUri' => get_theme_file_uri()
+		'pageForPosts' => absint( get_option( 'page_for_posts' ) ),
+		'pageOnFront'  => absint( get_option( 'page_on_front' ) )
 	];
 	$js   = sprintf( 'window.themeSettings = %s;', wp_json_encode( $data ) );
 	wp_script_add_data( 'wp-api', 'data', $js );

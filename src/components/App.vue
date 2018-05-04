@@ -6,7 +6,7 @@
     </header>
 
     <div class="App__main">
-      <template v-if="posts.length === 1 && (route.name == 'post' || route.name == 'page')">
+      <template v-if="posts.length === 1 && (route.name === 'post' || route.name === 'page' || route.name === 'front-page')">
         <post :post="post" v-for="post in posts" :key="post.id"></post>
       </template>
       <template v-else>

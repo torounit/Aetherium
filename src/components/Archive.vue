@@ -17,9 +17,6 @@
   import {mapState} from 'vuex'
 
   export default {
-    mounted() {
-      console.log( this.posts )
-    },
     computed: {
       ...mapState( {
         posts: 'posts',
