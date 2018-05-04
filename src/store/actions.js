@@ -16,11 +16,25 @@ export const fetchPosts = async ( { commit, state } ) => {
   let data = { page: page };
 
   if (state.route.query.preview) {
-    let postModel = new wp.api.models.Post( { id: 1709} );
-    let post = await postModel.fetch();
-    console.log(post)
-    posts = [ post ]
-    queriedObject = posts[ 0 ];
+    if (state.route.query.preview_id) {
+      let postModel = new wp.api.models.Post( { id: state.route.query.preview_id } );
+      let post = await postModel.fetch();
+      posts = [ post ]
+      queriedObject = posts[ 0 ];
+    }
+    else if (state.route.query.p) {
+      let postModel = new wp.api.models.Post( { id: state.route.query.p } );
+      let post = await postModel.fetch();
+      posts = [ post ]
+      queriedObject = posts[ 0 ];
+    }
+    else if (state.route.query.page_id) {
+      let postModel = new wp.api.models.Page( { id: state.route.query.page_id } );
+      let post = await postModel.fetch();
+      posts = [ post ]
+      queriedObject = posts[ 0 ];
+    }
+
   }
   else {
     switch (state.route.name) {
