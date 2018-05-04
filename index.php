@@ -16,16 +16,13 @@
 
 <div id="app"></div>
 
-<?php wp_footer(); ?>
+
 <script>
-	// Check that service workers are registered
 	if ('serviceWorker' in navigator) {
-		// Use the window load event to keep the page load performant
-		window.addEventListener( 'load', () => {
-			navigator.serviceWorker.register( '/?sw' );
-			navigator.serviceWorker.register( '<?php echo get_theme_file_uri( 'sw-theme.js' );?>' );
-		} );
+		navigator.serviceWorker.register( '/?sw' );
+		navigator.serviceWorker.register( '<?php echo get_theme_file_uri( 'sw-theme.js' );?>' );
 	}
 </script>
+<?php wp_footer(); ?>
 </body>
 </html>
