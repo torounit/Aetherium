@@ -19,6 +19,7 @@ workbox.precaching.precacheAndRoute( [
 workbox.routing.registerNavigationRoute('/', {
   blacklist: [
     new RegExp('/wp-admin/'),
+    new RegExp('/wp-login/'),
   ]
 });
 
@@ -26,7 +27,15 @@ workbox.routing.registerNavigationRoute('/', {
 //fallback navigate
 workbox.routing.registerRoute(
   ( { event } ) => {
-    return event.request.mode === 'navigate';
+    if (
+      event.request.url.indexOf( 'wp-admin' ) === - 1 &&
+      event.request.url.indexOf( 'wp-login' ) === - 1 &&
+      event.request.url.indexOf( 'preview' ) === - 1 &&
+      event.request.url.indexOf( 'customize_changeset_uuid' ) === - 1
+    ) {
+      return event.request.mode === 'navigate';
+    }
+    return false;
   },
   ( { event } ) => {
     return workbox.strategies.cacheFirst()
