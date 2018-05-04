@@ -16,6 +16,12 @@ workbox.precaching.precacheAndRoute( [
   { url: '/wp-includes/js/wp-embed.min.js?ver=4.9.5', revision: '4.9.5' },
 ] );
 
+workbox.routing.registerNavigationRoute('/', {
+  blacklist: [
+    new RegExp('/wp-admin/'),
+  ]
+});
+
 
 //fallback navigate
 workbox.routing.registerRoute(

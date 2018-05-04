@@ -10,7 +10,7 @@ import {sync} from 'vuex-router-sync'
 const router = new VueRouter( {
   mode: 'history',
   routes: [].concat( global.themeSettings.permastructs )
-} )
+} );
 
 Vue.filter( 'path', ( url ) => {
   if (! url) return ''
