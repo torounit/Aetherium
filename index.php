@@ -5,7 +5,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<meta name="theme-color" content="#42b983">
-	<link rel="manifest" href="<?php echo home_url('?manifest'); ?>">
+	<?php if ( is_front_page() ): ?>
+		<meta name="description" content="<?php bloginfo( 'description' ); ?>">
+	<?php endif; ?>
+	<link rel="manifest" href="<?php echo home_url( '?manifest' ); ?>">
 	<?php wp_head(); ?>
 
 </head>
@@ -20,7 +23,7 @@
 		// Use the window load event to keep the page load performant
 		window.addEventListener( 'load', () => {
 			navigator.serviceWorker.register( '/?sw' );
-			navigator.serviceWorker.register( '<?php echo get_theme_file_uri( 'sw-theme.js');?>' );
+			navigator.serviceWorker.register( '<?php echo get_theme_file_uri( 'sw-theme.js' );?>' );
 		} );
 	}
 </script>
