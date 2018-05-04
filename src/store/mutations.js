@@ -9,5 +9,8 @@ export default {
   },
   [ types.SET_QUERIED_OBJECT ] ( state, posts ) {
     state.queriedObject = posts;
+  },
+  [ types.SET_HASMORE ] ( state, more ) {
+    state.hasMore = more;
   }
 }

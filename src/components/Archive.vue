@@ -8,6 +8,7 @@
         <p v-html="post.excerpt.rendered"></p>
       </div>
     </div>
+    <p v-if="hasMore"><router-link :to="{ name: route.name, params: { endpoint: 'page', page: route.params.page ? route.params.page + 1 : 2  }}">Next</router-link></p>
 
   </div>
 </template>
@@ -16,10 +17,19 @@
   import {mapState} from 'vuex'
 
   export default {
-    computed: mapState( {
-      posts: 'posts',
-      route: 'route'
-    } )
+    mounted() {
+      console.log( this.posts )
+    },
+    computed: {
+      ...mapState( {
+        posts: 'posts',
+        route: 'route',
+        hasMore: 'hasMore'
+      }),
+      nextlink() {
+
+      }
+    }
   }
 </script>
 

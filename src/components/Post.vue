@@ -4,7 +4,7 @@
     <header>
       <h1>{{ post.title.rendered }}</h1>
       <span v-if="author.name">Author: <router-link :to="author.link | path">{{ author.name }}</router-link></span>
-      Categories: <span v-for="category in categories"><router-link :to="category.link | path">{{ category.name }}</router-link></span>
+      Categories: <span v-for="category in categories" class="category"><router-link :to="category.link | path">{{ category.name }}</router-link></span>
     </header>
     <div class="content" v-html="post.content.rendered"></div>
   </article>
@@ -24,7 +24,7 @@
     created () {
       this.fetchMetaData()
     },
-    updated () {
+    mounted () {
       this.fetchMetaData()
     },
     methods: {
@@ -46,6 +46,9 @@
 
   header {
     margin: 1em 0;
+  }
+  .category {
+    margin-right: 0.3em;
   }
 
 </style>

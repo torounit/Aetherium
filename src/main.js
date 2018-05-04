@@ -12,16 +12,16 @@ const router = new VueRouter( {
   routes: [].concat( global.themeSettings.permastructs )
 } )
 
-const unsync = sync( store, router )
-
-Vue.use( VueRouter )
-Vue.use( Vuex )
-
 Vue.filter( 'path', ( url ) => {
   if (! url) return ''
   let link = new URL( url );
   return link.href.replace( link.origin, '' );
 } );
+
+sync( store, router )
+
+Vue.use( VueRouter )
+Vue.use( Vuex )
 
 new Vue( {
   router,
@@ -30,6 +30,12 @@ new Vue( {
   template: '<App/>',
   components: { App }
 } );
+
+
+global.addEventListener( 'load', () => {
+
+} );
+
 
 
 

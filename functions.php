@@ -1,11 +1,11 @@
 <?php
 
 add_action( 'wp_enqueue_scripts', function () {
-	wp_enqueue_style( 'vendor', get_theme_file_uri( 'dist/vendor.css' ) );
-	wp_enqueue_style( 'main', get_theme_file_uri( 'dist/main.css' ) );
+	wp_enqueue_style( 'vendor', get_theme_file_uri( 'dist/vendor.css' ), [], '0.0.1' );
+	wp_enqueue_style( 'main', get_theme_file_uri( 'dist/main.css' ), [], '0.0.1' );
 	wp_enqueue_script( 'wp-api' );
-	wp_enqueue_script( 'vendor', get_theme_file_uri( 'dist/vendor.bundle.js' ), [], false, true );
-	wp_enqueue_script( 'main', get_theme_file_uri( 'dist/main.bundle.js' ), [ 'vendor' ], false, true );
+	wp_enqueue_script( 'vendor', get_theme_file_uri( 'dist/vendor.bundle.js' ), [ 'wp-api' ], '0.0.1', true );
+	wp_enqueue_script( 'main', get_theme_file_uri( 'dist/main.bundle.js' ), [ 'vendor' ], '0.0.1', true );
 
 	$data = [
 		'permastructs' => get_permastructs(),
@@ -61,9 +61,9 @@ function get_permastructs() {
 	if ( get_option( 'page_for_posts' ) ) {
 		$home_structs = [
 			'front-page' => '/',
-			'home' => get_page_uri( get_option( 'page_for_posts' ) )
+			'home'       => get_page_uri( get_option( 'page_for_posts' ) )
 		];
-	}else {
+	} else {
 		$home_structs = [
 			'home' => '/'
 		];
@@ -91,7 +91,40 @@ function get_permastructs() {
 
 		return [
 			'name' => $key,
-			'path' => '/' . user_trailingslashit( $struct )
+			'path' => untrailingslashit( '/' . $struct ) . '/:endpoint(page)?/:page(\\d*)'
 		];
 	}, array_keys( $permastructs ), array_values( $permastructs ) );
 }
+
+/**
+ * Controller
+ */
+add_filter( 'query_vars', function ( $vars ) {
+	$vars[] = 'sw';
+	$vars[] = 'manifest';
+
+	return $vars;
+} );
+
+add_action( 'template_redirect', function () {
+	/**
+	 * Global \WP_Query.
+	 *
+	 * @var \WP_Query;
+	 */
+	global $wp_query;
+
+	if ( isset( $wp_query->query['sw'] ) ) {
+		header( 'Content-Type: text/javascript' );
+		header( 'Cache-Control: max-age=0' );
+		header( 'Service-Worker-Allowed: /' );
+		include dirname( __FILE__ ) . '/sw.js';
+		exit;
+	}
+
+	if ( isset( $wp_query->query['manifest'] ) ) {
+		header( 'Content-Type: application/manifest+json' );
+		include dirname( __FILE__ ) . '/manifest.php';
+		exit;
+	}
+} );

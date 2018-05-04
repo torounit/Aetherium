@@ -6,7 +6,7 @@
     </header>
 
     <div class="App__main">
-      <template v-if="route.name == 'post' || route.name == 'page'">
+      <template v-if="posts.length === 1 && (route.name == 'post' || route.name == 'page')">
         <post :post="post" v-for="post in posts" :key="post.id"></post>
       </template>
       <template v-else>
@@ -51,7 +51,8 @@
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  //text-align: center; color: #2c3e50; margin-top: 60px;
+    color: #2c3e50;
+    margin-top: 60px;
   }
 
   a {
