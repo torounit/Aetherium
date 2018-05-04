@@ -1,5 +1,30 @@
 <?php
 
+add_action( 'after_setup_theme', function() {
+
+	add_theme_support( 'title-tag' );
+	add_theme_support( 'post-thumbnails' );
+	add_editor_style( get_stylesheet_uri() );
+
+	/**
+	 * Add support for core custom logo.
+	 */
+	add_theme_support( 'custom-logo', array(
+		'height'      => 150,
+		'width'       => 150,
+		'flex-width'  => true,
+		'flex-height' => true,
+	) );
+
+	add_theme_support( 'html5', array(
+		'search-form',
+		'comment-form',
+		'comment-list',
+		'gallery',
+		'caption',
+	) );
+});
+
 add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_style( 'vendor', get_theme_file_uri( 'dist/vendor.css' ), [], '0.0.1' );
 	wp_enqueue_style( 'main', get_theme_file_uri( 'dist/main.css' ), [], '0.0.1' );
