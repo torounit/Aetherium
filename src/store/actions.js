@@ -20,10 +20,17 @@ export const fetchPosts = async ( { commit, state } ) => {
       hasMore = postsCollection.hasMore();
       break;
     case 'category': {
-      data = Object.assign( data, )
       let categories = await (new wp.api.collections.Categories()).fetch( { data: { slug: state.route.params.category } } )
       queriedObject = categories[ 0 ]
       data = Object.assign( data, { categories: categories[ 0 ].id } )
+      posts = await postsCollection.fetch( { data: data } );
+      hasMore = postsCollection.hasMore();
+      break;
+    }
+    case 'post_tag': {
+      let tags = await (new wp.api.collections.Tags()).fetch( { data: { slug: state.route.params.post_tag } } )
+      queriedObject = tags[ 0 ]
+      data = Object.assign( data, { tags: tags[ 0 ].id } )
       posts = await postsCollection.fetch( { data: data } );
       hasMore = postsCollection.hasMore();
       break;
@@ -32,7 +39,7 @@ export const fetchPosts = async ( { commit, state } ) => {
       let users = await (new wp.api.collections.Users()).fetch( { data: { slug: state.route.params.author } } )
       queriedObject = users[ 0 ]
       data = Object.assign( data, { author: users[ 0 ].id } )
-      posts = await postsCollection.fetch( { data: { author: users[ 0 ].id } } );
+      posts = await postsCollection.fetch( { data: data } );
       hasMore = postsCollection.hasMore();
       break;
     }

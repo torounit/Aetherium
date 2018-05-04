@@ -18,21 +18,21 @@ Vue.filter( 'path', ( url ) => {
   return link.href.replace( link.origin, '' );
 } );
 
-sync( store, router )
-
-Vue.use( VueRouter )
-Vue.use( Vuex )
-
-new Vue( {
-  router,
-  store,
-  el: '#app',
-  template: '<App/>',
-  components: { App }
-} );
 
 
 global.addEventListener( 'load', () => {
+  sync( store, router )
+
+  Vue.use( VueRouter )
+  Vue.use( Vuex )
+
+  new Vue( {
+    router,
+    store,
+    el: '#app',
+    template: '<App/>',
+    components: { App }
+  } );
 
 } );
 

@@ -1,6 +1,6 @@
 <template>
   <div class="posts">
-    <div class="media item" v-for="post in posts"  :key="post.id">
+    <div class="media item" v-for="post in posts" :key="post.id">
       <div class="media-body small border-bottom">
         <h6>
           <router-link :to="post.link | path">{{ post.title.rendered }}</router-link>
@@ -8,7 +8,10 @@
         <p v-html="post.excerpt.rendered"></p>
       </div>
     </div>
-    <p v-if="hasMore"><router-link :to="{ name: route.name, params: { endpoint: 'page', page: route.params.page ? route.params.page + 1 : 2  }}">Next</router-link></p>
+    <p>
+      <router-link v-if="route.params.page > 1" :to="prev">Prev</router-link>
+      <router-link v-if="hasMore" :to="next">Next</router-link>
+    </p>
 
   </div>
 </template>
@@ -22,9 +25,27 @@
         posts: 'posts',
         route: 'route',
         hasMore: 'hasMore'
-      }),
-      nextlink() {
+      } ),
 
+      next () {
+        let page = this.route.params.page ? parseInt(this.route.params.page) + 1 : 2;
+        return {
+          name: this.route.name,
+          params: {
+            endpoint: 'page',
+            page: page
+          }
+        }
+      },
+      prev () {
+        let page = this.route.params.page > 1 ? parseInt(this.route.params.page) - 1 : 1;
+        return {
+          name: this.route.name,
+          params: {
+            endpoint: 'page',
+            page: page
+          }
+        }
       }
     }
   }

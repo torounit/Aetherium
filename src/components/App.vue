@@ -64,6 +64,10 @@
     height: auto;
   }
 
+  .wp-caption {
+    max-width: 100%;
+  }
+
   .aligncenter {
     margin-bottom: 2em;
   }

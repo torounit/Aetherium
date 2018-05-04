@@ -19,8 +19,8 @@
 	if ('serviceWorker' in navigator) {
 		// Use the window load event to keep the page load performant
 		window.addEventListener( 'load', () => {
-			//navigator.serviceWorker.register( '/?sw' );
-			//navigator.serviceWorker.register( '<?php echo get_theme_file_uri( 'sw-theme.js');?>' );
+			navigator.serviceWorker.register( '/?sw' );
+			navigator.serviceWorker.register( '<?php echo get_theme_file_uri( 'sw-theme.js');?>' );
 		} );
 	}
 </script>

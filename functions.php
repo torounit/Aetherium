@@ -28,37 +28,6 @@ function get_permastructs() {
 	 */
 	global $wp_rewrite;
 
-	$extra_permastructs = array_map( function ( $permastruct ) {
-		return $permastruct['struct'];
-	}, $wp_rewrite->extra_permastructs );
-
-	if ( $wp_rewrite->use_verbose_page_rules ) {
-		$permastructs = [
-			'category' => $wp_rewrite->get_category_permastruct(),
-			'tag'      => $wp_rewrite->get_tag_permastruct(),
-			'search'   => $wp_rewrite->get_search_permastruct(),
-			'author'   => $wp_rewrite->get_author_permastruct(),
-			'date'     => $wp_rewrite->get_date_permastruct(),
-			'month'    => $wp_rewrite->get_month_permastruct(),
-			'year'     => $wp_rewrite->get_year_permastruct(),
-			'post'     => $wp_rewrite->permalink_structure,
-			'page'     => $wp_rewrite->get_page_permastruct(),
-		];
-	} else {
-		$permastructs = [
-			'category' => $wp_rewrite->get_category_permastruct(),
-			'tag'      => $wp_rewrite->get_tag_permastruct(),
-			'search'   => $wp_rewrite->get_search_permastruct(),
-			'author'   => $wp_rewrite->get_author_permastruct(),
-			'date'     => $wp_rewrite->get_date_permastruct(),
-			'month'    => $wp_rewrite->get_month_permastruct(),
-			'year'     => $wp_rewrite->get_year_permastruct(),
-			'page'     => $wp_rewrite->get_page_permastruct(),
-			'post'     => $wp_rewrite->permalink_structure,
-
-		];
-	}
-
 	if ( get_option( 'page_for_posts' ) ) {
 		$home_structs = [
 			'front-page' => '/',
@@ -68,6 +37,28 @@ function get_permastructs() {
 		$home_structs = [
 			'home' => '/'
 		];
+	}
+
+	$extra_permastructs = array_map( function ( $permastruct ) {
+		return $permastruct['struct'];
+	}, $wp_rewrite->extra_permastructs );
+
+	$permastructs = [
+		'search'   => $wp_rewrite->get_search_permastruct(),
+		'author'   => $wp_rewrite->get_author_permastruct(),
+		'date'     => $wp_rewrite->get_date_permastruct(),
+		'month'    => $wp_rewrite->get_month_permastruct(),
+		'year'     => $wp_rewrite->get_year_permastruct(),
+	];
+
+	if ( $wp_rewrite->use_verbose_page_rules ) {
+
+		$permastructs['post'] = $wp_rewrite->permalink_structure;
+		$permastructs['page'] = $wp_rewrite->get_page_permastruct();
+
+	} else {
+		$permastructs['page'] = $wp_rewrite->get_page_permastruct();
+		$permastructs['post'] = $wp_rewrite->permalink_structure;
 	}
 
 	$permastructs = array_merge( $home_structs, $extra_permastructs, $permastructs );
