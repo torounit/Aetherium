@@ -80,6 +80,9 @@ export const fetchPosts = async ( { commit, state } ) => {
           queriedObject = posts[ 0 ];
           break;
         }
+        else {
+          queriedObject = {}
+        }
 
         if( ! global.themeSettings.useVerbosePageRules ) {
           break;
@@ -94,7 +97,13 @@ export const fetchPosts = async ( { commit, state } ) => {
           let post = await postModel.fetch();
           posts = [ post ]
         }
-        queriedObject = posts[ 0 ];
+        if( posts.length > 0 ) {
+          queriedObject = posts[ 0 ];
+          break;
+        }
+        else  {
+          queriedObject = {}
+        }
         break;
       }
 
