@@ -66,9 +66,28 @@ export const fetchPosts = async ( { commit, state } ) => {
         hasMore = postsCollection.hasMore();
         break;
       }
+      case 'front-page':
+        let pageModel = new wp.api.models.Page( { id: global.themeSettings.pageOnFront } );
+        let post = await pageModel.fetch();
+        posts = [ post ];
+        break;
+
+      case 'page':
+        let pagesCollection = new wp.api.collections.Pages();
+        posts = await pagesCollection.fetch( { data: { slug: state.route.params.pagename } } );
+        console.log(posts);
+        if( posts.length > 0 ) {
+          queriedObject = posts[ 0 ];
+          break;
+        }
+
+        if( ! global.themeSettings.useVerbosePageRules ) {
+          break;
+        }
+
       case 'post': {
-        if (state.route.params.postname) {
-          posts = await postsCollection.fetch( { data: { slug: state.route.params.postname } } );
+        if (state.route.params.postname || state.route.params.pagename) {
+          posts = await postsCollection.fetch( { data: { slug: state.route.params.postname || state.route.params.pagename } } );
         }
         else {
           let postModel = new wp.api.models.Post( { id: state.route.params.post_id } );
@@ -78,16 +97,8 @@ export const fetchPosts = async ( { commit, state } ) => {
         queriedObject = posts[ 0 ];
         break;
       }
-      case 'page':
-        let pagesCollection = new wp.api.collections.Pages();
-        posts = await pagesCollection.fetch( { data: { slug: state.route.params.pagename } } );
-        queriedObject = posts[ 0 ];
-        break;
-      case 'front-page':
-        let pageModel = new wp.api.models.Page( { id: global.themeSettings.pageOnFront } );
-        let post = await pageModel.fetch();
-        posts = [ post ];
-        break;
+
+
     }
   }
 

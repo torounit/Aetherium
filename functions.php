@@ -46,10 +46,12 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_script( 'vendor', get_theme_file_uri( 'dist/vendor.bundle.js' ), [ 'wp-api' ], '0.0.1', true );
 	wp_enqueue_script( 'main', get_theme_file_uri( 'dist/main.bundle.js' ), [ 'vendor' ], '0.0.1', true );
 
+	global $wp_rewrite;
 	$data = [
 		'permastructs' => get_permastructs(),
 		'pageForPosts' => absint( get_option( 'page_for_posts' ) ),
 		'pageOnFront'  => absint( get_option( 'page_on_front' ) ),
+		'useVerbosePageRules' => $wp_rewrite->use_verbose_page_rules
 	];
 	$js   = sprintf( 'window.themeSettings = %s;', wp_json_encode( $data ) );
 	wp_script_add_data( 'wp-api', 'data', $js );
