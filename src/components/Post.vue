@@ -6,12 +6,17 @@
       <span v-if="author.name">Author: <router-link :to="author.link | path">{{ author.name }}</router-link></span>
       Categories: <span v-for="category in categories" class="category"><router-link :to="category.link | path">{{ category.name }}</router-link></span>
     </header>
+    <div v-if="post.featured_media">
+      <Media :id="post.featured_media"></Media>
+    </div>
     <div class="content" v-html="post.content.rendered"></div>
   </article>
 </template>
 
 <script>
+  import Media from "./Media";
   export default {
+    components: { Media },
     data () {
       return {
         categories: [],
