@@ -4,7 +4,6 @@ workbox.core.setCacheNameDetails( {
   suffix: 'v1',
 } );
 
-
 workbox.precaching.precacheAndRoute( [
   { url: '/', revision: '0.0.1' },
   { url: '/wp-includes/js/jquery/jquery.js?ver=1.12.4', revision: '1.12.4' },
@@ -18,19 +17,55 @@ workbox.precaching.precacheAndRoute( [
 
 workbox.routing.registerNavigationRoute('/', {
   blacklist: [
-    new RegExp('/wp-admin/'),
-    new RegExp('/wp-login/'),
+    new RegExp('.*wp-admin.*'),
+    new RegExp('.*wp-login.*'),
   ]
 });
 
 
+workbox.routing.registerRoute(
+  ({url, event}) => {
+    //let nonce = event.request.headers.get('X-WP-Nonce');
+    return ( event.request.url.indexOf('wp-json') > -1 );
+  },
+  workbox.strategies.networkFirst()
+);
+
+
+// workbox.routing.registerRoute(
+//   // Cache CSS files
+//   /.*\.(?:css|js)/,
+//   // Use cache but update in the background ASAP
+//   workbox.strategies.staleWhileRevalidate( {} )
+// );
+
+workbox.routing.registerRoute(
+  // Cache image files
+  /.*\.(?:png|jpg|jpeg|svg|gif)/,
+  // Use the cache if it's available
+  workbox.strategies.cacheFirst( {
+    cacheName: 'image-cache',
+    plugins: [
+      new workbox.expiration.Plugin( {
+        // Cache only 20 images
+        maxEntries: 50,
+        // Cache for a maximum of a week
+        maxAgeSeconds: 3 * 24 * 60 * 60,
+      } )
+    ],
+  } )
+);
+
 //fallback navigate
 workbox.routing.registerRoute(
   ( { event } ) => {
+    console.log(event.request.url)
+    console.log(event.request.url.indexOf( 'wp-login' ))
     if (
       event.request.url.indexOf( 'wp-admin' ) === - 1 &&
       event.request.url.indexOf( 'wp-login' ) === - 1 &&
       event.request.url.indexOf( 'preview' ) === - 1 &&
+      event.request.url.indexOf( 'wp-json' ) === - 1 &&
       event.request.url.indexOf( 'customize_changeset_uuid' ) === - 1
     ) {
       return event.request.mode === 'navigate';
@@ -43,35 +78,3 @@ workbox.routing.registerRoute(
       .catch( () => caches.match( '/' ).then( ( response ) => response ) );
   }
 );
-
-
-workbox.routing.registerRoute(
-  /\/wp-json\.*/,
-  workbox.strategies.networkFirst()
-);
-
-
-workbox.routing.registerRoute(
-  // Cache CSS files
-  /.*\.(?:css|js)/,
-  // Use cache but update in the background ASAP
-  workbox.strategies.staleWhileRevalidate( {} )
-);
-
-
-workbox.routing.registerRoute(
-  // Cache image files
-  /.*\.(?:png|jpg|jpeg|svg|gif)/,
-  // Use the cache if it's available
-  workbox.strategies.cacheFirst( {
-    plugins: [
-      new workbox.expiration.Plugin( {
-        // Cache only 20 images
-        maxEntries: 20,
-        // Cache for a maximum of a week
-        maxAgeSeconds: 7 * 24 * 60 * 60,
-      } )
-    ],
-  } )
-);
-
