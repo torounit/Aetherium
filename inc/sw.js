@@ -31,14 +31,6 @@ workbox.routing.registerRoute(
   workbox.strategies.networkFirst()
 );
 
-
-// workbox.routing.registerRoute(
-//   // Cache CSS files
-//   /.*\.(?:css|js)/,
-//   // Use cache but update in the background ASAP
-//   workbox.strategies.staleWhileRevalidate( {} )
-// );
-
 workbox.routing.registerRoute(
   // Cache image files
   /.*\.(?:png|jpg|jpeg|svg|gif)/,
@@ -59,8 +51,6 @@ workbox.routing.registerRoute(
 //fallback navigate
 workbox.routing.registerRoute(
   ( { event } ) => {
-    console.log(event.request.url)
-    console.log(event.request.url.indexOf( 'wp-login' ))
     if (
       event.request.url.indexOf( 'wp-admin' ) === - 1 &&
       event.request.url.indexOf( 'wp-login' ) === - 1 &&
