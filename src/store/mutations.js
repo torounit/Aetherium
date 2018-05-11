@@ -7,6 +7,9 @@ export default {
   [ types.SET_POSTS ] ( state, posts ) {
     state.posts = posts;
   },
+  [ types.SET_POST_TYPES ] ( state, postTypes ) {
+    state.postTypes = postTypes;
+  },
   [ types.SET_TAXONOMIES ] ( state, taxonomies ) {
     state.taxonomies = taxonomies;
   },

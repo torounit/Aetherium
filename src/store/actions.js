@@ -3,6 +3,7 @@ import moment from 'moment';
 
 export const initialize = async ( { commit, state } ) => {
   await fetchSiteOption( { commit, state } );
+  await fetchTypes( { commit, state } );
   await fetchTaxonomies( { commit, state } );
   await fetchPosts( { commit, state } );
 }
@@ -12,6 +13,13 @@ export const fetchSiteOption = async ( { commit } ) => {
   let data = await response.json()
   commit( types.SET_SITE_OPTION, data )
 };
+
+export const fetchTypes = async ( { commit } ) => {
+  let postTypes = await (new wp.api.collections.Types()).fetch()
+  console.log(postTypes);
+  commit( types.SET_POST_TYPES, postTypes );
+}
+
 
 export const fetchTaxonomies = async ( { commit, state } ) => {
   let taxnomies = await (new wp.api.collections.Taxonomies()).fetch()
@@ -125,27 +133,11 @@ const AuthorArchivePosts = async ( { commit, state } ) => {
   return false;
 }
 
-export const fetchPosts = async ( { commit, state } ) => {
+const singularPost = async ( { commit, state } ) => {
 
   let postsCollection = new wp.api.collections.Posts();
   let posts = [];
   let queriedObject = {};
-  let hasMore = false;
-  let page = state.route.params.page || 1;
-  let data = { page: page };
-
-  if (await dateArchivePosts( { commit, state } )) {
-    return true
-  }
-  else if (await homePosts( { commit, state } )) {
-    return true
-  }
-  else if (await taxonomyArchivePosts( { commit, state } )) {
-    return true
-  }
-  else if (await AuthorArchivePosts( { commit, state } )) {
-    return true
-  }
 
   //for singular
   if (state.route.query.preview) {
@@ -214,6 +206,15 @@ export const fetchPosts = async ( { commit, state } ) => {
   }
 
   commit( types.SET_QUERIED_OBJECT, queriedObject );
-  commit( types.SET_HASMORE, hasMore );
+  commit( types.SET_HASMORE, false );
   commit( types.SET_POSTS, posts );
+}
+
+export const fetchPosts = async ( { commit, state } ) => {
+
+  if (await dateArchivePosts( { commit, state } )) {}
+  else if (await homePosts( { commit, state } )) {}
+  else if (await taxonomyArchivePosts( { commit, state } )) {}
+  else if (await AuthorArchivePosts( { commit, state } )) {}
+  else if (await singularPost( { commit, state } )) {}
 };
