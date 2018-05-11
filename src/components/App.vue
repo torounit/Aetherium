@@ -31,8 +31,7 @@
       SiteName,
     },
     created () {
-      this.$store.dispatch( 'fetchSiteOption' )
-      this.$store.dispatch( 'fetchPosts' )
+      this.$store.dispatch( 'initialize' )
       this.$router.afterEach( () => {
         this.$store.dispatch( 'fetchPosts' )
       } )

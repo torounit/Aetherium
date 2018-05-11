@@ -1,14 +1,24 @@
 import types from './mutation-types';
 import moment from 'moment';
 
+export const initialize = async ( { commit, state } ) => {
+  await fetchSiteOption( { commit, state } );
+  await fetchTaxonomies( { commit, state } );
+  await fetchPosts( { commit, state } );
+}
+
 export const fetchSiteOption = async ( { commit } ) => {
   let response = await fetch( global.wpApiSettings.root );
   let data = await response.json()
   commit( types.SET_SITE_OPTION, data )
 };
 
+export const fetchTaxonomies = async ( { commit, state } ) => {
+  let taxnomies = await (new wp.api.collections.Taxonomies()).fetch()
+  commit( types.SET_TAXONOMIES, taxnomies );
+}
 
-export const fetchPosts = async ( { commit, state } ) => {
+const dateArchivePosts = async ( { commit, state } ) => {
 
   let postsCollection = new wp.api.collections.Posts();
   let posts = [];
@@ -32,48 +42,109 @@ export const fetchPosts = async ( { commit, state } ) => {
     case 'year': {
       year = state.route.params.year;
       let first = `${year}-${monthnum}-${day}T00:00:00`;
-      let last = moment(`${year}-${monthnum}-${day}`).endOf('year').format('YYYY-MM-DDTHH:mm:ss');
+      let last = moment( `${year}-${monthnum}-${day}` ).endOf( 'year' ).format( 'YYYY-MM-DDTHH:mm:ss' );
       data = Object.assign( data, { after: first, before: last } );
       posts = await postsCollection.fetch( { data: data } );
       hasMore = postsCollection.hasMore();
-      break;
+
+      commit( types.SET_QUERIED_OBJECT, queriedObject );
+      commit( types.SET_HASMORE, hasMore );
+      commit( types.SET_POSTS, posts );
+
+      return true;
     }
   }
 
-  //for archives
-  switch (state.route.name) {
+  return false;
+};
 
-    case 'home':
+const taxonomyArchivePosts = async ( { commit, state } ) => {
+
+  let postsCollection = new wp.api.collections.Posts();
+  let posts = [];
+  let queriedObject = {};
+  let hasMore = false;
+  let page = state.route.params.page || 1;
+  let data = { page: page };
+
+  for (let taxonomy in state.taxonomies) {
+    if (state.route.name === taxonomy) {
+      let restBase = state.taxonomies[ taxonomy ].rest_base;
+      let slug = state.taxonomies[ taxonomy ].slug;
+      let Collection = wp.api.getCollectionByRoute( `/wp/v2/${restBase}` )
+      let terms = await (new Collection()).fetch( { data: { slug: state.route.params[ slug ] } } )
+      queriedObject = terms[ 0 ];
+      data[ restBase ] = queriedObject.id;
       posts = await postsCollection.fetch( { data: data } );
       hasMore = postsCollection.hasMore();
-      break;
 
-    case 'category': {
-      let categories = await (new wp.api.collections.Categories()).fetch( { data: { slug: state.route.params.category } } );
-      queriedObject = categories[ 0 ];
-      data = Object.assign( data, { categories: categories[ 0 ].id } );
-      posts = await postsCollection.fetch( { data: data } );
-      hasMore = postsCollection.hasMore();
-      break;
+      commit( types.SET_QUERIED_OBJECT, queriedObject );
+      commit( types.SET_HASMORE, hasMore );
+      commit( types.SET_POSTS, posts );
+
+      return true;
     }
+  }
+  return false;
+};
 
-    case 'post_tag': {
-      let tags = await (new wp.api.collections.Tags()).fetch( { data: { slug: state.route.params.post_tag } } );
-      queriedObject = tags[ 0 ];
-      data = Object.assign( data, { tags: tags[ 0 ].id } );
-      posts = await postsCollection.fetch( { data: data } );
-      hasMore = postsCollection.hasMore();
-      break;
-    }
+const homePosts = async ( { commit, state } ) => {
 
-    case 'author': {
-      let users = await (new wp.api.collections.Users()).fetch( { data: { slug: state.route.params.author } } );
-      queriedObject = users[ 0 ];
-      data = Object.assign( data, { author: users[ 0 ].id } );
-      posts = await postsCollection.fetch( { data: data } );
-      hasMore = postsCollection.hasMore();
-      break;
-    }
+  let postsCollection = new wp.api.collections.Posts();
+  let posts = [];
+  let page = state.route.params.page || 1;
+  let data = { page: page };
+
+  if (state.route.name === 'home') {
+    posts = await postsCollection.fetch( { data: data } );
+    commit( types.SET_QUERIED_OBJECT, {} );
+    commit( types.SET_HASMORE, postsCollection.hasMore() );
+    commit( types.SET_POSTS, posts );
+
+    return true;
+  }
+  return false;
+};
+
+const AuthorArchivePosts = async ( { commit, state } ) => {
+  let postsCollection = new wp.api.collections.Posts();
+  let page = state.route.params.page || 1;
+  let data = { page: page };
+
+  if (state.route.name === 'author') {
+    let users = await (new wp.api.collections.Users()).fetch( { data: { slug: state.route.params.author } } );
+    let queriedObject = users[ 0 ];
+    data = Object.assign( data, { author: queriedObject.id } );
+    let posts = await postsCollection.fetch( { data: data } );
+    commit( types.SET_QUERIED_OBJECT, queriedObject );
+    commit( types.SET_HASMORE, postsCollection.hasMore() );
+    commit( types.SET_POSTS, posts );
+
+    return true;
+  }
+  return false;
+}
+
+export const fetchPosts = async ( { commit, state } ) => {
+
+  let postsCollection = new wp.api.collections.Posts();
+  let posts = [];
+  let queriedObject = {};
+  let hasMore = false;
+  let page = state.route.params.page || 1;
+  let data = { page: page };
+
+  if (await dateArchivePosts( { commit, state } )) {
+    return true
+  }
+  else if (await homePosts( { commit, state } )) {
+    return true
+  }
+  else if (await taxonomyArchivePosts( { commit, state } )) {
+    return true
+  }
+  else if (await AuthorArchivePosts( { commit, state } )) {
+    return true
   }
 
   //for singular
@@ -120,6 +191,7 @@ export const fetchPosts = async ( { commit, state } ) => {
         }
 
       case 'post': {
+
         if (state.route.params.postname || state.route.params.pagename) {
           posts = await postsCollection.fetch( {
             data: {

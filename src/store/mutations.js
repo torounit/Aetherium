@@ -7,6 +7,9 @@ export default {
   [ types.SET_POSTS ] ( state, posts ) {
     state.posts = posts;
   },
+  [ types.SET_TAXONOMIES ] ( state, taxonomies ) {
+    state.taxonomies = taxonomies;
+  },
   [ types.SET_QUERIED_OBJECT ] ( state, posts ) {
     state.queriedObject = posts;
   },
