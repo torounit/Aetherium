@@ -17,6 +17,7 @@ git clone -b distribution --quiet "https://github.com/${TRAVIS_REPO_SLUG}.git" d
 npm run build
 mkdir -p distribution
 cp -R ./dist/ distribution/dist
+cp -R ./inc/ distribution/inc
 find . -name '*.js' -maxdepth 1 -exec cp {} distribution \;
 find . -name '*.php' -maxdepth 1 -exec cp {} distribution \;
 find . -name '*.css' -maxdepth 1 -exec cp {} distribution \;
