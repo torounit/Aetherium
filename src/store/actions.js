@@ -6,7 +6,7 @@ export const initialize = async ( { commit, state } ) => {
   await fetchTypes( { commit, state } );
   await fetchTaxonomies( { commit, state } );
   await fetchPosts( { commit, state } );
-}
+};
 
 export const fetchSiteOption = async ( { commit } ) => {
   let response = await fetch( global.wpApiSettings.root );
@@ -16,15 +16,14 @@ export const fetchSiteOption = async ( { commit } ) => {
 
 export const fetchTypes = async ( { commit } ) => {
   let postTypes = await (new wp.api.collections.Types()).fetch()
-  console.log(postTypes);
   commit( types.SET_POST_TYPES, postTypes );
-}
+};
 
 
 export const fetchTaxonomies = async ( { commit, state } ) => {
   let taxnomies = await (new wp.api.collections.Taxonomies()).fetch()
   commit( types.SET_TAXONOMIES, taxnomies );
-}
+};
 
 const dateArchivePosts = async ( { commit, state } ) => {
 

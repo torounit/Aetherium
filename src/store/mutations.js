@@ -17,6 +17,6 @@ export default {
     state.queriedObject = posts;
   },
   [ types.SET_HASMORE ] ( state, more ) {
-    state.hasMore = more;
+    state.hasMore = ! ! more;
   }
 }
