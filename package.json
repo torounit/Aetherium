@@ -1,7 +1,7 @@
 {
   "name": "aetherium",
   "description": "A next-generation WordPress theme built with the Rest API and Vue.js.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Hiroshi Urabe <mail@torounit.com>",
   "license": "MIT",
   "private": true,
