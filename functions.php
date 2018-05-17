@@ -4,8 +4,10 @@ require __DIR__ . '/inc/optimize-js.php';
 require __DIR__ . '/inc/pwa.php';
 
 
-add_action( 'after_setup_theme', function () {
-
+/**
+ * Setup Theme.
+ */
+function aetherium_setup() {
 	add_editor_style( get_stylesheet_uri() );
 
 	add_theme_support( 'title-tag' );
@@ -25,9 +27,15 @@ add_action( 'after_setup_theme', function () {
 		'gallery',
 		'caption',
 	) );
-} );
+}
 
-add_action( 'wp_enqueue_scripts', function () {
+add_action( 'after_setup_theme', 'aetherium_setup' );
+
+
+/**
+ * Register assets.
+ */
+function aetherium_enqueue_scripts() {
 	wp_enqueue_style( 'vendor', get_theme_file_uri( 'dist/vendor.css' ), [], '0.0.1' );
 	wp_enqueue_style( 'main', get_theme_file_uri( 'dist/main.css' ), [], '0.0.1' );
 	wp_enqueue_script( 'wp-api' );
@@ -39,14 +47,16 @@ add_action( 'wp_enqueue_scripts', function () {
 	 */
 	global $wp_rewrite;
 	$data = [
-		'permastructs'        => get_permastructs(),
+		'permastructs'        => aetherium_get_permastructs(),
 		'pageForPosts'        => absint( get_option( 'page_for_posts' ) ),
 		'pageOnFront'         => absint( get_option( 'page_on_front' ) ),
 		'useVerbosePageRules' => $wp_rewrite->use_verbose_page_rules
 	];
 	$js   = sprintf( 'window.themeSettings = %s;', wp_json_encode( $data ) );
 	wp_script_add_data( 'wp-api', 'data', $js );
-} );
+}
+
+add_action( 'wp_enqueue_scripts', 'aetherium_enqueue_scripts' );
 
 
 /**
@@ -54,7 +64,7 @@ add_action( 'wp_enqueue_scripts', function () {
  *
  * @return array
  */
-function get_permastructs() {
+function aetherium_get_permastructs() {
 	/**
 	 * @var WP_Rewrite $wp_rewrite
 	 */
@@ -93,7 +103,7 @@ function get_permastructs() {
 		$permastructs['page'] = $wp_rewrite->get_page_permastruct();
 	}
 
-	$permastructs = array_merge(  $extra_permastructs, $permastructs, $home_structs );
+	$permastructs = array_merge( $extra_permastructs, $permastructs, $home_structs );
 
 	return array_map( function ( $key, $value ) {
 		$struct = trim( preg_replace( '/%([^\/]+)%/', ':$1', $value ), '/\\' );
