@@ -1,10 +1,8 @@
 <template>
   <div id="app" class="container App">
-
     <header class="App__header">
       <site-name></site-name>
     </header>
-
     <div class="App__main">
       <template v-if="posts.length === 1 && (route.name === 'post' || route.name === 'page' || route.name === 'front-page')">
         <post :post="post" v-for="post in posts" :key="post.id"></post>
@@ -12,10 +10,9 @@
       <template v-else>
         <archive></archive>
       </template>
+
     </div>
-
   </div>
-
 </template>
 
 <script>
@@ -76,10 +73,12 @@
     margin: 0 2em 0 0;
   }
 
+
   .alignright {
     float: right;
     margin: 0 0 0 2em;
   }
+
 
   .alignleft,
   .alignright {
