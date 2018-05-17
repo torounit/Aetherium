@@ -19,6 +19,7 @@ workbox.routing.registerNavigationRoute( '/', {
   blacklist: [
     new RegExp( '.*wp-admin.*' ),
     new RegExp( '.*wp-login.*' ),
+    new RegExp( '.*wp-json.*' ),
     new RegExp( '.*customize_changeset_uuid.*' ),
     new RegExp( '.*preview.*' ),
   ]
@@ -50,7 +51,11 @@ workbox.routing.registerRoute(
 //fallback navigate
 workbox.routing.registerRoute(
   ( { event } ) => {
-    return event.request.mode === 'navigate' && [ "audio", "audioworklet", "embed", "font", "image", "manifest", "object", "paintworklet", "report", "script", "serviceworker", "sharedworker", "style", "track", "video", "worker", "xslt" ].indexOf( event.request.destination ) === - 1;
+    let destinations = [ "audio", "audioworklet", "embed", "font", "image", "manifest", "object", "paintworklet", "report", "script", "serviceworker", "sharedworker", "style", "track", "video", "worker", "xslt" ];
+    let blacklist = ['wp-json', 'wp-admin', 'wp-login', 'preview', 'customize_changeset_uuid'];
+    return event.request.mode === 'navigate' &&
+      destinations.indexOf( event.request.destination ) === - 1 &&
+      blacklist.every( (word) => event.request.url.indexOf(word) === -1)
   },
   ( { event } ) => {
     return workbox.strategies.cacheFirst()

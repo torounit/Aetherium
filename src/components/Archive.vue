@@ -8,45 +8,22 @@
         <p v-html="post.excerpt.rendered"></p>
       </div>
     </div>
-    <p>
-      <router-link v-if="route.params.page > 1" :to="prev">Prev</router-link>
-      <router-link v-if="hasMore" :to="next">Next</router-link>
-    </p>
+
+    <pagination></pagination>
 
   </div>
 </template>
 
 <script>
   import {mapState} from 'vuex'
+  import Pagination from "./Pagination";
 
   export default {
+    components: { Pagination },
     computed: {
       ...mapState( {
         posts: 'posts',
-        route: 'route',
-        hasMore: 'hasMore'
       } ),
-
-      next () {
-        let page = this.route.params.page ? parseInt(this.route.params.page) + 1 : 2;
-        return {
-          name: this.route.name,
-          params: {
-            endpoint: 'page',
-            page: page
-          }
-        }
-      },
-      prev () {
-        let page = this.route.params.page > 1 ? parseInt(this.route.params.page) - 1 : 1;
-        return {
-          name: this.route.name,
-          params: {
-            endpoint: 'page',
-            page: page
-          }
-        }
-      }
     }
   }
 </script>
