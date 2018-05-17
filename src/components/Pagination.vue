@@ -1,8 +1,9 @@
 <template>
-  <p>
+  <div class="pagination">
     <router-link v-if="route.params.page > 1" :to="prev">Prev</router-link>
+    <div class="pagination__spacer"></div>
     <router-link v-if="hasMore" :to="next">Next</router-link>
-  </p>
+  </div>
 </template>
 
 <script>
@@ -40,5 +41,13 @@
 </script>
 
 <style scoped>
+  .pagination {
+    display: flex;
+    width: 100%;
+  }
+
+  .pagination__spacer {
+    flex: 1 1 auto;
+  }
 
 </style>
