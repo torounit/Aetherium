@@ -14,7 +14,8 @@ const router = new VueRouter( {
 
 Vue.filter( 'path', ( url ) => {
   if (! url) return ''
-  let link = new URL( url );
+  let link = document.createElement('a');
+  link.href = url;
   return link.href.replace( link.origin, '' );
 } );
 
