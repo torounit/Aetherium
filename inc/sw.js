@@ -15,19 +15,18 @@ workbox.precaching.precacheAndRoute( [
   { url: '/wp-includes/js/wp-embed.min.js?ver=4.9.5', revision: '4.9.5' },
 ] );
 
-workbox.routing.registerNavigationRoute('/', {
+workbox.routing.registerNavigationRoute( '/', {
   blacklist: [
-    new RegExp('.*wp-admin.*'),
-    new RegExp('.*wp-login.*'),
+    new RegExp( '.*wp-admin.*' ),
+    new RegExp( '.*wp-login.*' ),
+    new RegExp( '.*customize_changeset_uuid.*' ),
+    new RegExp( '.*preview.*' ),
   ]
-});
+} );
 
 
 workbox.routing.registerRoute(
-  ({url, event}) => {
-    //let nonce = event.request.headers.get('X-WP-Nonce');
-    return ( event.request.url.indexOf('wp-json') > -1 );
-  },
+  new RegExp( '.*/wp-json/.*' ),
   workbox.strategies.networkFirst()
 );
 
@@ -51,16 +50,7 @@ workbox.routing.registerRoute(
 //fallback navigate
 workbox.routing.registerRoute(
   ( { event } ) => {
-    if (
-      event.request.url.indexOf( 'wp-admin' ) === - 1 &&
-      event.request.url.indexOf( 'wp-login' ) === - 1 &&
-      event.request.url.indexOf( 'preview' ) === - 1 &&
-      event.request.url.indexOf( 'wp-json' ) === - 1 &&
-      event.request.url.indexOf( 'customize_changeset_uuid' ) === - 1
-    ) {
-      return event.request.mode === 'navigate';
-    }
-    return false;
+    return event.request.mode === 'navigate' && [ "audio", "audioworklet", "embed", "font", "image", "manifest", "object", "paintworklet", "report", "script", "serviceworker", "sharedworker", "style", "track", "video", "worker", "xslt" ].indexOf( event.request.destination ) === - 1;
   },
   ( { event } ) => {
     return workbox.strategies.cacheFirst()
