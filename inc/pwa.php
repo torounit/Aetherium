@@ -5,8 +5,6 @@
  * Controller
  */
 add_filter( 'query_vars', function ( $vars ) {
-	$vars[] = 'sw';
-	$vars[] = 'manifest';
 
 	return $vars;
 } );
@@ -19,7 +17,7 @@ add_action( 'template_redirect', function () {
 	 */
 	global $wp_query;
 
-	if ( isset( $wp_query->query['sw'] ) ) {
+	if ( isset( $_GET['sw'] ) ) {
 		header( 'Content-Type: text/javascript' );
 		header( 'Cache-Control: max-age=0' );
 		header( 'Service-Worker-Allowed: /' );
@@ -27,7 +25,7 @@ add_action( 'template_redirect', function () {
 		exit;
 	}
 
-	if ( isset( $wp_query->query['manifest'] ) ) {
+	if ( isset( $_GET['manifest'] ) ) {
 		header( 'Content-Type: application/manifest+json' );
 		include dirname( __FILE__ ) . '/manifest.php';
 		exit;
