@@ -3,7 +3,7 @@
     <div class="media item" v-for="post in posts" :key="post.id">
       <div class="media-body small border-bottom">
         <h6>
-          <router-link :to="post.link | path">{{ post.title.rendered }}</router-link>
+          <router-link :to="post.link | path" v-html="post.title.rendered"></router-link>
         </h6>
         <p v-html="post.excerpt.rendered"></p>
       </div>

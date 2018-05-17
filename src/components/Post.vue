@@ -2,7 +2,7 @@
 
   <article>
     <header>
-      <h1>{{ post.title.rendered }}</h1>
+      <h1 v-html="post.title.rendered"></h1>
       <span v-if="author.name">Author: <router-link :to="author.link | path">{{ author.name }}</router-link></span>
       Categories: <span v-for="category in categories" class="category"><router-link :to="category.link | path">{{ category.name }}</router-link></span>
     </header>
