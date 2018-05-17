@@ -11,7 +11,7 @@ docker-compose exec wordpress wp core install \
 	--allow-root
 
 docker-compose exec wordpress wp plugin install wordpress-importer --activate --allow-root
-
+docker-compose exec wordpress wp theme activate aetherium --allow-root
 # import unit test data.
 docker-compose exec wordpress curl -O https://raw.githubusercontent.com/WPTRT/theme-unit-test/master/themeunittestdata.wordpress.xml > /tmp/themeunittestdata.wordpress.xml
 docker-compose exec wordpress wp import themeunittestdata.wordpress.xml --authors=create --quiet --allow-root

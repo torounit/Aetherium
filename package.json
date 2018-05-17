@@ -7,7 +7,8 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack  --watch -d --progress --hide-modules & browser-sync start --proxy 'localhost:8089' --files '**/*'",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "build": "cross-env NODE_ENV=development webpack --progress --hide-modules",
+    "production": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
