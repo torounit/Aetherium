@@ -1,4 +1,5 @@
 const path = require( 'path' );
+const basename = path.basename;
 const { VueLoaderPlugin } = require( 'vue-loader' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 const webpack = require( 'webpack' );
@@ -7,11 +8,15 @@ const env = process.env.NODE_ENV;
 
 module.exports = {
   mode: env || 'development',
-  entry: './src/main.js',
+  entry: [
+    'webpack-dev-server/client?http://localhost:' + 3000,
+    'webpack/hot/only-dev-server',
+    './src/main.js'
+  ],
   output: {
-    path: path.resolve( __dirname, './dist' ),
-    publicPath: '/dist/',
-    filename: '[name].bundle.js',
+    path: __dirname,
+    publicPath: '/wp-content/themes/' + basename(__dirname) + '/',
+    filename: 'dist/[name].bundle.js',
   },
   optimization: {
     splitChunks: {
@@ -23,7 +28,7 @@ module.exports = {
     // make sure to include the plugin!
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin( {
-      filename: '[name].css'
+      filename: 'dist/[name].css'
     } ),
     new UglifyJSPlugin()
   ],
@@ -67,7 +72,26 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#inline-source-map'
+  devtool: '#inline-source-map',
+  devServer: {
+    //contentBase: __dirname,
+    publicPath: '/wp-content/themes/' + basename(__dirname) + '/',
+    port: 3000,
+    noInfo: true,
+    historyApiFallback: true,
+    hot: true,
+    quiet: false,
+    stats: {colors: true},
+    proxy: {
+      '**': {
+        target: {
+          protocol: 'http:',
+          host: '0.0.0.0',
+          port: 8089
+        },
+      },
+    }
+  }
 }
 
 if (process.env.NODE_ENV === 'production') {
