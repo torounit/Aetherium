@@ -123,6 +123,13 @@ function aetherium_get_permastructs() {
 			$struct
 		);
 
+		if ( in_array( $key, get_post_types( [ 'public' => true ] ) ) ) {
+			return [
+				'name' => $key,
+				'path' => untrailingslashit( '/' . $struct )
+			];
+		}
+
 		return [
 			'name' => $key,
 			'path' => untrailingslashit( '/' . $struct ) . '/:endpoint(page)?/:page(\\d*)?'
