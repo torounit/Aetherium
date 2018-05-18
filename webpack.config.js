@@ -9,8 +9,6 @@ const env = process.env.NODE_ENV;
 module.exports = {
   mode: env || 'development',
   entry: [
-    'webpack-dev-server/client?http://localhost:' + 3000,
-    'webpack/hot/only-dev-server',
     './src/main.js'
   ],
   output: {
@@ -80,13 +78,14 @@ module.exports = {
     noInfo: true,
     historyApiFallback: true,
     hot: true,
+    hotOnly: true,
     quiet: false,
     stats: {colors: true},
     proxy: {
       '**': {
         target: {
           protocol: 'http:',
-          host: '0.0.0.0',
+          host: 'localhost',
           port: 8089
         },
       },
