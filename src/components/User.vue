@@ -1,8 +1,8 @@
 <template>
   <router-link :to="user.link | path">
-    <div class="media p-3 mb-5 mt-5 border border-info rounded">
-      <img class="mr-3" :src="avatar" alt="">
-      <div class="media-body">
+    <div class="user">
+      <img class="avatar" :src="avatar" alt="">
+      <div class="content">
         <h5 class="mt-0">{{ user.name }}</h5>
         <p>{{ user.description }}</p>
       </div>
@@ -37,5 +37,19 @@
 </script>
 
 <style scoped>
+  .user {
+    display: flex;
+    width: 100%;
+    margin: 1em 0;
+    background-color: #f2f2f2;
+  }
+
+  .avatar {
+    margin-right: 0.5em;
+  }
+
+  .content {
+
+  }
 
 </style>

@@ -7,16 +7,20 @@
         <site-name></site-name>
       </header>
 
-      <div class="App__main container my-3 p-5 bg-white rounded shadow">
-        <template
-          v-if="posts.length === 1 && (route.name === 'post' || route.name === 'page' || route.name === 'front-page')">
-          <post :post="post" v-for="post in posts" :key="post.id"></post>
-        </template>
-        <template v-else>
-          <archive></archive>
-        </template>
+      <div class="container">
+
+        <div class="App__main">
+          <template
+            v-if="posts.length === 1 && (route.name === 'post' || route.name === 'page' || route.name === 'front-page')">
+            <post :post="post" v-for="post in posts" :key="post.id"></post>
+          </template>
+          <template v-else>
+            <archive></archive>
+          </template>
+        </div>
 
       </div>
+
     </div>
 
   </div>
@@ -48,64 +52,36 @@
 </script>
 
 <style>
-  @import '~bootstrap/dist/css/bootstrap.css';
+  @import "~normalize.css/normalize.css";
+  @import "../styles/alignments.css";
+  @import "../styles/elements.css";
+  @import "../styles/captions.css";
+  @import "../styles/gallery.css";
 
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
-    overflow: hidden;
-  }
-
-  a {
-    color: #42b983;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .wp-caption {
-    max-width: 100%;
-  }
-
-  .aligncenter {
-    margin-bottom: 2em;
-  }
-
-  .alignleft {
-    float: left;
-    margin: 0 2em 0 0;
-  }
-
-  .alignright {
-    float: right;
-    margin: 0 0 0 2em;
-  }
-
-  .alignleft,
-  .alignright {
-    max-width: 50%;
-  }
-
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s
-  }
-
-  .fade-enter, .fade-leave-to {
-    opacity: 0
-  }
 
 </style>
 
 <style scoped>
-  .App {
-    margin-top: 60px;
+
+  .container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 80%;
   }
+
+  .App {
+    background-color: #f2f2f2;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
   .App__main {
-    margin: 1rem auto;
+    margin: auto;
+    padding: 60px;
+    background-color: #fff;
   }
 
 </style>

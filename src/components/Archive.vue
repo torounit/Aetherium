@@ -1,12 +1,8 @@
 <template>
   <div class="posts">
-    <div class="media item" v-for="post in posts" :key="post.id">
-      <div class="media-body small border-bottom">
-        <h6>
-          <router-link :to="post.link | path" v-html="post.title.rendered"></router-link>
-        </h6>
-        <p v-html="post.excerpt.rendered"></p>
-      </div>
+    <div class="post" v-for="post in posts" :key="post.id">
+      <h3><router-link :to="post.link | path" v-html="post.title.rendered"></router-link></h3>
+      <div class="content" v-html="post.excerpt.rendered"></div>
     </div>
 
     <pagination></pagination>
@@ -29,8 +25,22 @@
 </script>
 
 <style scoped>
-  .item {
+
+  h3 {
+    font-size: 1em;
+  }
+
+  .content {
+    color: #888;
+    font-size: 0.8em;
+  }
+
+  .post {
     margin: 1rem 0;
+  }
+
+  .post + .post {
+    border-top: 1px solid #eee;
   }
 
 </style>

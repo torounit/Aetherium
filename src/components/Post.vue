@@ -2,7 +2,7 @@
 
   <article>
     <header>
-      <h1 v-html="post.title.rendered"></h1>
+      <h1 class="title" v-html="post.title.rendered"></h1>
       <post-categories :post-id="post.id"></post-categories>
     </header>
     <Media v-if="post.featured_media" :id="post.featured_media"></Media>
@@ -29,6 +29,10 @@
 
   header {
     margin: 1em 0;
+  }
+
+  .title {
+    font-weight: normal;
   }
 
   .content::after {

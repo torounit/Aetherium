@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "bootstrap": "^4.1.1",
     "moment": "^2.22.1",
+    "normalize.css": "^8.0.0",
     "path-to-regexp": "^2.2.1",
     "vue": "^2.5.11",
     "vue-router": "^3.0.1",
