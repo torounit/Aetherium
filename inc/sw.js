@@ -28,7 +28,7 @@ workbox.routing.registerNavigationRoute( '/', {
 
 workbox.routing.registerRoute(
   new RegExp( '.*/wp-json/.*' ),
-  workbox.strategies.networkFirst()
+  workbox.strategies.staleWhileRevalidate()
 );
 
 workbox.routing.registerRoute(
