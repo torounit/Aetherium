@@ -19,8 +19,8 @@
 
 <script>
 	if ('serviceWorker' in navigator) {
-		navigator.serviceWorker.register( '/?sw' );
-		navigator.serviceWorker.register( '<?php echo get_theme_file_uri( 'sw-theme.js' );?>' );
+		//navigator.serviceWorker.register( '/?sw' );
+		//navigator.serviceWorker.register( '<?php echo get_theme_file_uri( 'sw-theme.js' );?>' );
 	}
 </script>
 <?php wp_footer(); ?>

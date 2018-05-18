@@ -1,17 +1,24 @@
 <template>
-  <div id="app" class="container App">
-    <header class="App__header">
-      <site-name></site-name>
-    </header>
-    <div class="App__main">
-      <template v-if="posts.length === 1 && (route.name === 'post' || route.name === 'page' || route.name === 'front-page')">
-        <post :post="post" v-for="post in posts" :key="post.id"></post>
-      </template>
-      <template v-else>
-        <archive></archive>
-      </template>
+  <div id="app" class="bg-light">
 
+    <div class="App ">
+
+      <header class="App__header container">
+        <site-name></site-name>
+      </header>
+
+      <div class="App__main container my-3 p-5 bg-white rounded shadow">
+        <template
+          v-if="posts.length === 1 && (route.name === 'post' || route.name === 'page' || route.name === 'front-page')">
+          <post :post="post" v-for="post in posts" :key="post.id"></post>
+        </template>
+        <template v-else>
+          <archive></archive>
+        </template>
+
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -48,7 +55,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
-    margin-top: 60px;
+    overflow: hidden;
   }
 
   a {
@@ -73,12 +80,10 @@
     margin: 0 2em 0 0;
   }
 
-
   .alignright {
     float: right;
     margin: 0 0 0 2em;
   }
-
 
   .alignleft,
   .alignright {
@@ -88,6 +93,7 @@
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s
   }
+
   .fade-enter, .fade-leave-to {
     opacity: 0
   }
@@ -95,9 +101,11 @@
 </style>
 
 <style scoped>
-
+  .App {
+    margin-top: 60px;
+  }
   .App__main {
-    margin: 1rem 0;
+    margin: 1rem auto;
   }
 
 </style>

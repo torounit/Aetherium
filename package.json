@@ -6,7 +6,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot -d --inline --progress",
+    "bs": "cross-env NODE_ENV=development webpack --watch -d --progress --hide-modules & browser-sync start --proxy 'localhost:8089' --files '**/*' --ignore 'src/**/*'",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config devserver.config.js --open --hot -d --inline --progress",
     "build": "cross-env NODE_ENV=development webpack -d --progress --hide-modules",
     "production": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },

@@ -169,17 +169,23 @@ const singularPost = async ( { commit, state } ) => {
       }
 
       case 'page':
-
         let pagesCollection = new wp.api.collections.Pages();
-        posts = await pagesCollection.fetch( { data: { slug: state.route.params.pagename } } );
-        if (posts.length > 0) {
-          queriedObject = posts[ 0 ];
-          break;
+        let pagenames = [];
+        if (state.route.params.pagename) {
+          pagenames = state.route.params.pagename.split('/');
+          let pagename = pagenames.pop();
+          posts = await pagesCollection.fetch( { data: { slug: pagename } } );
+          if (posts.length > 0) {
+            queriedObject = posts[ 0 ];
+            break;
+          }
+
+          if (! global.themeSettings.useVerbosePageRules) {
+            break;
+          }
         }
 
-        if (! global.themeSettings.useVerbosePageRules) {
-          break;
-        }
+
 
       case 'post': {
 

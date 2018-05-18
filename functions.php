@@ -124,6 +124,14 @@ function aetherium_get_permastructs() {
 		);
 
 		if ( in_array( $key, get_post_types( [ 'public' => true ] ) ) ) {
+			$post_type = get_post_type_object( $key );
+			if ( $post_type->hierarchical ) {
+				return [
+					'name' => $key,
+					'path' => untrailingslashit( '/' . $struct ) . '+'
+				];
+			}
+
 			return [
 				'name' => $key,
 				'path' => untrailingslashit( '/' . $struct )

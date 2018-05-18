@@ -2,7 +2,7 @@
 
 docker-compose exec wordpress wp db reset --yes --allow-root
 docker-compose exec wordpress wp core install \
-    --url="http://0.0.0.0:8089" \
+    --url="http://localhost:8089" \
     --title="WP Theme Test Environment" \
     --admin_user="admin" \
     --admin_password="admin" \

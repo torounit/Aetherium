@@ -3,44 +3,24 @@
   <article>
     <header>
       <h1 v-html="post.title.rendered"></h1>
-      <span v-if="author.name">Author: <router-link :to="author.link | path">{{ author.name }}</router-link></span>
-      Categories: <span v-for="category in categories" class="category"><router-link :to="category.link | path">{{ category.name }}</router-link></span>
+      <post-categories :post-id="post.id"></post-categories>
     </header>
     <Media v-if="post.featured_media" :id="post.featured_media"></Media>
     <div class="content" v-html="post.content.rendered"></div>
+
+    <User :id="post.author"></User>
   </article>
 </template>
 
 <script>
   import Media from "./Media";
+  import PostCategories from "./PostCategories";
+  import PostAuthor from "./PostAuthor";
+  import User from "./User";
   export default {
-    components: { Media },
-    data () {
-      return {
-        categories: [],
-        author: {}
-      }
-    },
+    components: { User, PostAuthor, PostCategories, Media },
     props: {
       post: {},
-    },
-    created () {
-      this.fetchMetaData()
-    },
-    mounted () {
-      this.fetchMetaData()
-    },
-    methods: {
-      fetchMetaData() {
-        let cats = new wp.api.collections.Categories();
-        cats.fetch( { data: { post: this.post.id } } ).then( ( data ) => {
-          this.categories = data;
-        } );
-        let user  = new wp.api.models.User( { id: this.post.author } ) ;
-        user.fetch().then( ( data ) => {
-          this.author = data;
-        } );
-      }
     }
   }
 </script>
@@ -50,8 +30,12 @@
   header {
     margin: 1em 0;
   }
-  .category {
-    margin-right: 0.3em;
+
+  .content::after {
+    content: '';
+    display: table;
+    clear: both;
   }
+
 
 </style>
