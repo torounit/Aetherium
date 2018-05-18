@@ -128,13 +128,13 @@ function aetherium_get_permastructs() {
 			if ( $post_type->hierarchical ) {
 				return [
 					'name' => $key,
-					'path' => untrailingslashit( '/' . $struct ) . '+'
+					'path' => untrailingslashit( '/' . $struct ) . '(.+?)' . '/(\\d*)?'
 				];
 			}
 
 			return [
 				'name' => $key,
-				'path' => untrailingslashit( '/' . $struct )
+				'path' => untrailingslashit( '/' . $struct ) . '/(\\d*)?'
 			];
 		}
 
