@@ -18,7 +18,7 @@ rm -rf distribution/*.*
 rm -rf distribution/dist
 rm -rf distribution/inc
 
-npm run build
+npm run production
 
 cp -R ./dist distribution
 cp -R ./inc distribution

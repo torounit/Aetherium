@@ -11,7 +11,5 @@ env:
   - GIT_COMMITTER_EMAIL=mail@torounit.com
   - GIT_AUTHOR_NAME=torounit
   - GIT_AUTHOR_EMAIL=mail@torounit.com
-before_script:
-- npm run build
 script:
 - bash ./bin/dist.sh
