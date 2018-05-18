@@ -76,10 +76,14 @@ const taxonomyArchivePosts = async ( { commit, state } ) => {
 
   for (let taxonomy in state.taxonomies) {
     if (state.route.name === taxonomy) {
+
       let restBase = state.taxonomies[ taxonomy ].rest_base;
-      let slug = state.taxonomies[ taxonomy ].slug;
-      let Collection = wp.api.getCollectionByRoute( `/wp/v2/${restBase}` )
-      let terms = await (new Collection()).fetch( { data: { slug: state.route.params[ slug ] } } )
+      let Collection = wp.api.getCollectionByRoute( `/wp/v2/${restBase}` );
+      let key = state.taxonomies[ taxonomy ].slug;
+      let slugs = [];
+      slugs = state.route.params[ key ].split('/');
+      let slug = slugs.pop();
+      let terms = await (new Collection()).fetch( { data: { slug: slug } } )
       queriedObject = terms[ 0 ];
       data[ restBase ] = queriedObject.id;
       posts = await postsCollection.fetch( { data: data } );

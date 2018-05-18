@@ -103,7 +103,7 @@ function aetherium_get_permastructs() {
 		$permastructs['page'] = $wp_rewrite->get_page_permastruct();
 	}
 
-	$permastructs = array_merge( $extra_permastructs, $permastructs, $home_structs );
+	$permastructs = array_merge( $extra_permastructs, $home_structs, $permastructs );
 
 	return array_map( function ( $key, $value ) {
 		$struct = trim( preg_replace( '/%([^\/]+)%/', ':$1', $value ), '/\\' );
@@ -136,6 +136,17 @@ function aetherium_get_permastructs() {
 				'name' => $key,
 				'path' => untrailingslashit( '/' . $struct ) . '/(\\d*)?'
 			];
+		}
+
+		if (  in_array( $key, get_taxonomies([ 'public' => true ] ) ) ) {
+			$taxonomy = get_taxonomy( $key );
+			if ( $taxonomy->hierarchical ) {
+				return [
+					'name' => $key,
+					'path' => untrailingslashit( '/' . $struct ) . '(.+?)' . '/(\\d*)?'
+				];
+			}
+
 		}
 
 		return [
