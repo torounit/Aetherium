@@ -8,7 +8,7 @@
 $manifest = [
 	'name'             => esc_html( get_bloginfo( 'name' ) ),
 	'short_name'       => esc_html( get_bloginfo( 'name' ) ),
-	'start_url'        => home_url(),
+	'start_url'        => trailingslashit( home_url() ),
 	'display'          => 'standalone',
 	'background_color' => '#42b983',
 	'description'      => esc_html( get_bloginfo( 'description' ) ),
