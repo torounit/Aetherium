@@ -3,7 +3,7 @@ import moment from 'moment'
 
 export const initialize = async ({ commit, state }) => {
   await fetchSiteOption({ commit, state })
-  await fetchTypes({ commit, state })
+  await fetchTypes({ commit, state });
   await fetchTaxonomies({ commit, state })
   await fetchPosts({ commit, state })
 }
@@ -19,7 +19,7 @@ export const fetchTypes = async ({ commit }) => {
   commit(types.SET_POST_TYPES, postTypes)
 }
 
-export const fetchTaxonomies = async ({ commit, state }) => {
+export const fetchTaxonomies = async ({ commit }) => {
   let taxnomies = await (new wp.api.collections.Taxonomies()).fetch()
   commit(types.SET_TAXONOMIES, taxnomies)
 }

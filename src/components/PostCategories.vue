@@ -8,25 +8,25 @@
 </template>
 
 <script>
-	export default {
-    props: {
-      postId: {},
-    },
-    data () {
-      return {
-        categories: [],
-      }
-    },
-    created () {
-      this.fetchMetaData()
-    },
-    methods: {
-      async fetchMetaData() {
-        let collection = new wp.api.collections.Categories()
-        this.categories = await collection.fetch( { data: { post: this.postId } } )
-      }
+export default {
+  props: {
+    postId: {}
+  },
+  data () {
+    return {
+      categories: []
     }
-	}
+  },
+  created () {
+    this.fetchMetaData()
+  },
+  methods: {
+    async fetchMetaData () {
+      let collection = new wp.api.collections.Categories()
+      this.categories = await collection.fetch({ data: { post: this.postId } })
+    }
+  }
+}
 </script>
 
 <style scoped>

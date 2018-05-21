@@ -25,11 +25,13 @@ global.addEventListener('load', () => {
   Vue.use(VueRouter)
   Vue.use(Vuex)
 
-  new Vue({
+  const app = new Vue({
     router,
     store,
-    el: '#app',
     template: '<App/>',
     components: { App }
   })
+
+  app.$mount('#app')
+
 })

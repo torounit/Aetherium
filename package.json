@@ -28,6 +28,7 @@
   ],
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-3": "^6.24.1",
@@ -40,6 +41,7 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.1.0",
+    "eslint-plugin-vue": "^4.5.0",
     "file-loader": "^1.1.4",
     "mini-css-extract-plugin": "^0.4.0",
     "postcss": "^6.0.22",

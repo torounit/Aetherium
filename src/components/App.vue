@@ -31,28 +31,28 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
-  import SiteName from './SiteName.vue'
-  import Post from "./Post"
-  import Archive from "./Archive"
+import {mapState} from 'vuex'
+import SiteName from './SiteName.vue'
+import Post from './Post'
+import Archive from './Archive'
 
-  export default {
-    components: {
-      Archive,
-      Post,
-      SiteName,
-    },
-    created () {
-      this.$store.dispatch( 'initialize' )
-      this.$router.afterEach( () => {
-        this.$store.dispatch( 'fetchPosts' )
-      } )
-    },
-    computed: mapState( {
-      posts: 'posts',
-      route: 'route'
-    } )
-  }
+export default {
+  components: {
+    Archive,
+    Post,
+    SiteName
+  },
+  created () {
+    this.$store.dispatch('initialize')
+    this.$router.afterEach(() => {
+      this.$store.dispatch('fetchPosts')
+    })
+  },
+  computed: mapState({
+    posts: 'posts',
+    route: 'route'
+  })
+}
 </script>
 
 <style>
@@ -61,7 +61,6 @@
   @import "../styles/elements.css";
   @import "../styles/captions.css";
   @import "../styles/gallery.css";
-
 
 </style>
 
