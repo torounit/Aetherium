@@ -17,7 +17,7 @@
       } ),
 
       next () {
-        let page = this.route.params.page ? parseInt(this.route.params.page) + 1 : 2;
+        let page = this.route.params.page ? parseInt(this.route.params.page) + 1 : 2
         return {
           name: this.route.name,
           params: {
@@ -27,7 +27,7 @@
         }
       },
       prev () {
-        let page = this.route.params.page > 1 ? parseInt(this.route.params.page) - 1 : 1;
+        let page = this.route.params.page > 1 ? parseInt(this.route.params.page) - 1 : 1
         return {
           name: this.route.name,
           params: {

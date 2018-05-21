@@ -1,9 +1,9 @@
 export default {
   siteOption: {},
   posts: [],
-  postTypes:{},
-  taxonomies:{},
+  postTypes: {},
+  taxonomies: {},
   route: {},
   queriedObject: {},
-  hasMore: false,
+  hasMore: false
 }

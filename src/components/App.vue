@@ -28,9 +28,9 @@
 
 <script>
   import {mapState} from 'vuex'
-  import SiteName from './SiteName.vue';
-  import Post from "./Post";
-  import Archive from "./Archive";
+  import SiteName from './SiteName.vue'
+  import Post from "./Post"
+  import Archive from "./Archive"
 
   export default {
     components: {

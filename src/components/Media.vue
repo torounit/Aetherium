@@ -3,23 +3,23 @@
 </template>
 
 <script>
-	export default {
-		name: "Media",
+  export default {
+    name: "Media",
     props: {
       id: 0,
     },
-    data() {
-		  return {
+    data () {
+      return {
         object: {}
       }
     },
-    mounted() {
+    mounted () {
       let media = new wp.api.models.Media( { id: this.id } )
       media.fetch().then( ( data ) => {
         this.object = data;
-      } );
+      } )
     }
-	}
+  }
 </script>
 
 <style scoped>
