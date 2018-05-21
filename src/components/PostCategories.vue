@@ -22,7 +22,7 @@
     },
     methods: {
       async fetchMetaData() {
-        let collection = new wp.api.collections.Categories();
+        let collection = new wp.api.collections.Categories()
         this.categories = await collection.fetch( { data: { post: this.postId } } )
       }
     }

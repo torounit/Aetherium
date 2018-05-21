@@ -12,7 +12,7 @@
 
 <script>
   import {mapState} from 'vuex'
-  import Pagination from "./Pagination"
+  import Pagination from './Pagination'
 
   export default {
     components: { Pagination },

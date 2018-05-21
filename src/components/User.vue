@@ -22,8 +22,8 @@
       id: {},
     },
     async created () {
-      let model = new wp.api.models.User( { id: this.id } );
-      this.user = await model.fetch();
+      let model = new wp.api.models.User( { id: this.id } )
+      this.user = await model.fetch()
     },
     computed: {
       avatar () {
