@@ -1,22 +1,26 @@
 <template>
-  <div id="app" class="bg-light">
+  <div id="app">
 
-    <div class="App ">
+    <div class="App">
 
       <header class="App__header container">
+
         <site-name></site-name>
+
       </header>
 
       <div class="container">
 
         <div class="App__main">
-          <template
-            v-if="posts.length === 1 && (route.name === 'post' || route.name === 'page' || route.name === 'front-page')">
+
+          <template v-if="posts.length === 1 && (route.name === 'post' || route.name === 'page' || route.name === 'front-page')">
             <post :post="post" v-for="post in posts" :key="post.id"></post>
+
           </template>
           <template v-else>
             <archive></archive>
           </template>
+
         </div>
 
       </div>
