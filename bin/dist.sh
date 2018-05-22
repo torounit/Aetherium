@@ -19,14 +19,7 @@ rm -rf distribution/dist
 rm -rf distribution/inc
 
 npm run production
-
-cp -R ./dist distribution
-cp -R ./inc distribution
-find . -name '*.js'  -maxdepth 1 -exec cp {} distribution \;
-find . -name '*.php' -maxdepth 1 -exec cp {} distribution \;
-find . -name '*.css' -maxdepth 1 -exec cp {} distribution \;
-find . -name '*.png' -maxdepth 1 -exec cp {} distribution \;
-find . -name '*.svg' -maxdepth 1 -exec cp {} distribution \;
+npm run dist
 cd distribution
 
 git add -A

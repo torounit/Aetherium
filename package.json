@@ -6,6 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "dist": "cpx -C \"{./dist, ./inc}/**/*\" ./distribution && cpx -C \"{!node_modules/**/*, *.svg, **/*.php, *.css, *.js}\" ./distribution",
     "bs": "cross-env NODE_ENV=development webpack --watch -d --progress --hide-modules & browser-sync start --proxy 'localhost:8089' --files '**/*' --ignore 'src/**/*'",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config devserver.config.js --open --hot -d --inline --progress",
     "build": "cross-env NODE_ENV=development webpack -d --progress --hide-modules",
@@ -33,6 +34,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-3": "^6.24.1",
     "browser-sync": "^2.24.4",
+    "cpx": "^1.5.0",
     "cross-env": "^5.1.5",
     "css-loader": "^0.28.7",
     "eslint": "^4.19.1",
