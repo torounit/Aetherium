@@ -9,6 +9,12 @@ add_filter( 'query_vars', function ( $vars ) {
 	return $vars;
 } );
 
+add_action( 'wp_head', function() {
+	?>
+	<link rel="manifest" href="<?php echo home_url( '?manifest' ); ?>">
+	<?php
+});
+
 add_action( 'template_redirect', function () {
 	/**
 	 * Global \WP_Query.

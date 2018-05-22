@@ -8,9 +8,7 @@
 	<?php if ( is_front_page() ): ?>
 		<meta name="description" content="<?php bloginfo( 'description' ); ?>">
 	<?php endif; ?>
-	<link rel="manifest" href="<?php echo home_url( '?manifest' ); ?>">
 	<?php wp_head(); ?>
-
 </head>
 <body <?php body_class(); ?>>
 

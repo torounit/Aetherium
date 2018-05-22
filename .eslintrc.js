@@ -14,6 +14,8 @@ module.exports = {
     'standard'
   ],
   globals: {
-    'wp': true
+    'wp': true,
+    'workbox':true,
+    'importScripts': true,
   }
 }
