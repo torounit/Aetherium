@@ -19,7 +19,17 @@ Vue.filter('path', (url) => {
   return link.href.replace(link.origin, '')
 })
 
+// nonce on inline js. so, update.
+const updateNonce = async () => {
+  let response = await fetch(global.wpApiSettings.root)
+  let data = await response.json()
+  if (data.authentication.cookie && data.authentication.cookie.nonce) {
+    global.wpApiSettings.nonce = data.authentication.cookie.nonce
+  }
+}
+
 global.addEventListener('load', () => {
+  updateNonce()
   sync(store, router)
 
   Vue.use(VueRouter)

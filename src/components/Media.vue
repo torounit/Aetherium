@@ -9,7 +9,10 @@ export default {
   },
   data () {
     return {
-      object: {}
+      object: {
+        media_type: '',
+        source_url: ''
+      }
     }
   },
   mounted () {

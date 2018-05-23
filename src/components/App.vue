@@ -3,30 +3,24 @@
 
     <div class="App">
 
-      <header class="App__header container">
-
-        <site-name></site-name>
-
-      </header>
+      <div class="container">
+        <header class="App__header">
+          <site-name></site-name>
+        </header>
+      </div>
 
       <div class="container">
-
         <div class="App__main">
-
           <template v-if="posts.length === 1 && (route.name === 'post' || route.name === 'page' || route.name === 'front-page')">
             <post :post="post" v-for="post in posts" :key="post.id"></post>
-
           </template>
           <template v-else>
             <archive></archive>
           </template>
-
         </div>
-
       </div>
 
     </div>
-
   </div>
 </template>
 
@@ -61,7 +55,6 @@ export default {
   @import "../styles/elements.css";
   @import "../styles/captions.css";
   @import "../styles/gallery.css";
-
 </style>
 
 <style scoped>
@@ -77,8 +70,7 @@ export default {
 
   .App {
     background-color: #f2f2f2;
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding: 60px 0;
   }
 
   .App__main {

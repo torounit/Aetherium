@@ -21,7 +21,12 @@ import User from './User'
 export default {
   components: { User, PostAuthor, PostCategories, Media },
   props: {
-    post: {}
+    post: {
+      featured_media: '',
+      content: {
+        rendered: ''
+      }
+    }
   }
 }
 </script>

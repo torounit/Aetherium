@@ -1,5 +1,6 @@
 <template>
   <div class="posts">
+
     <div class="post" v-for="post in posts" :key="post.id">
       <h3><router-link :to="post.link | path" v-html="post.title.rendered"></router-link></h3>
       <div class="content" v-html="post.excerpt.rendered"></div>

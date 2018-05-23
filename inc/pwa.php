@@ -5,15 +5,27 @@
  * Controller
  */
 add_filter( 'query_vars', function ( $vars ) {
-
 	return $vars;
 } );
 
-add_action( 'wp_head', function() {
+add_filter( 'rest_index', function ( WP_REST_Response $response ) {
+	$data                             = $response->get_data();
+	$data['authentication']['cookie'] = [
+		'root'          => esc_url_raw( get_rest_url() ),
+		'nonce'         => ( wp_installing() && ! is_multisite() ) ? '' : wp_create_nonce( 'wp_rest' ),
+		'versionString' => 'wp/v2/',
+	];
+	$response->set_data( $data );
+
+	return $response;
+} );
+
+
+add_action( 'wp_head', function () {
 	?>
 	<link rel="manifest" href="<?php echo home_url( '?manifest' ); ?>">
 	<?php
-});
+} );
 
 add_action( 'template_redirect', function () {
 	/**
