@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dist": "cpx -C \"{./dist, ./inc}/**/*\" ./distribution && cpx -C \"{!node_modules/**/*, *.svg, **/*.php, *.css, *.js}\" ./distribution",
+    "dist": "cpx -C \"{./dist, ./inc}/**/*\" ./distribution && cpx -C \"./{*.svg,**/*.php,*.css,*.js}\" ./distribution",
     "bs": "cross-env NODE_ENV=development webpack --watch -d --progress --hide-modules & browser-sync start --proxy 'localhost:8089' --files '**/*' --ignore 'src/**/*'",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config devserver.config.js --open --hot -d --inline --progress",
     "build": "cross-env NODE_ENV=development webpack -d --progress --hide-modules",
