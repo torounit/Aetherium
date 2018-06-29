@@ -37,9 +37,12 @@ module.exports = {
 		rules: [
 			{
 				test: /\.css$/,
-				use: [
+				use: ( 'production' === process.env.NODE_ENV ) ? [
 					'vue-style-loader',
 					MiniCssExtractPlugin.loader,
+					'css-loader?minimize'
+				] : [
+					'vue-style-loader',
 					'css-loader?minimize'
 				]
 			}, {
