@@ -1,3 +1,4 @@
+require( 'dotenv' ).config();
 const path = require( 'path' );
 const basename = path.basename;
 const { VueLoaderPlugin } = require( 'vue-loader' );
@@ -5,6 +6,7 @@ const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 const webpack = require( 'webpack' );
 const UglifyJSPlugin = require( 'uglifyjs-webpack-plugin' );
 const env = process.env.NODE_ENV;
+const port = process.env.WORDPRESS_PORT;
 
 module.exports = {
 	mode: env || 'development',
@@ -89,7 +91,7 @@ module.exports = {
 				target: {
 					protocol: 'http:',
 					host: 'localhost',
-					port: 8089
+					port: port
 				}
 			}
 		}
