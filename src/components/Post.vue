@@ -13,10 +13,10 @@
 </template>
 
 <script>
-	import Media from './Media'
-	import PostCategories from './PostCategories'
-	import PostAuthor from './PostAuthor'
-	import User from './User'
+	import Media from './Media';
+	import PostCategories from './PostCategories';
+	import PostAuthor from './PostAuthor';
+	import User from './User';
 
 	export default {
 		components: { User, PostAuthor, PostCategories, Media },
@@ -28,7 +28,7 @@
 				}
 			}
 		}
-	}
+	};
 </script>
 
 <style scoped>

@@ -5,13 +5,13 @@
 </template>
 
 <script>
-	import { mapState } from 'vuex'
+	import { mapState } from 'vuex';
 
 	export default {
-		computed: mapState( {
+		computed: mapState({
 			name: state => state.siteOption.name
-		} )
-	}
+		})
+	};
 </script>
 
 <style scoped>

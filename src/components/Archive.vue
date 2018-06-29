@@ -14,17 +14,17 @@
 </template>
 
 <script>
-	import { mapState } from 'vuex'
-	import Pagination from './Pagination'
+	import { mapState } from 'vuex';
+	import Pagination from './Pagination';
 
 	export default {
 		components: { Pagination },
 		computed: {
-			...mapState( {
+			...mapState({
 				posts: 'posts'
-			} )
+			})
 		}
-	}
+	};
 </script>
 
 <style scoped>

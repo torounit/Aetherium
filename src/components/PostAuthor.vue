@@ -6,19 +6,19 @@
 
 <script>
 	export default {
-		data () {
+		data() {
 			return {
 				user: {}
-			}
+			};
 		},
 		props: {
 			userId: {}
 		},
-		async created () {
-			let model = new wp.api.models.User( { id: this.userId } )
-			this.user = await model.fetch()
+		async created() {
+			let model = new wp.api.models.User({ id: this.userId });
+			this.user = await model.fetch();
 		}
-	}
+	};
 </script>
 
 <style scoped>

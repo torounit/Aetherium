@@ -12,21 +12,21 @@
 		props: {
 			postId: {}
 		},
-		data () {
+		data() {
 			return {
 				categories: []
-			}
+			};
 		},
-		created () {
-			this.fetchMetaData()
+		created() {
+			this.fetchMetaData();
 		},
 		methods: {
-			async fetchMetaData () {
-				let collection = new wp.api.collections.Categories()
-				this.categories = await collection.fetch( { data: { post: this.postId } } )
+			async fetchMetaData() {
+				let collection = new wp.api.collections.Categories();
+				this.categories = await collection.fetch({ data: { post: this.postId } });
 			}
 		}
-	}
+	};
 </script>
 
 <style scoped>

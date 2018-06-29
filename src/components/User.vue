@@ -11,26 +11,26 @@
 </template>
 <script>
 	export default {
-		data () {
+		data() {
 			return {
 				user: {}
-			}
+			};
 		},
 		props: {
 			id: {}
 		},
-		async created () {
-			let model = new wp.api.models.User( { id: this.id } )
-			this.user = await model.fetch()
+		async created() {
+			let model = new wp.api.models.User({ id: this.id });
+			this.user = await model.fetch();
 		},
 		computed: {
-			avatar () {
+			avatar() {
 				if ( this.user.avatar_urls ) {
-					return this.user.avatar_urls['96']
+					return this.user.avatar_urls['96'];
 				}
 			}
 		}
-	}
+	};
 </script>
 
 <style scoped>

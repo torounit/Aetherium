@@ -6,4 +6,4 @@ export default {
 	route: {},
 	queriedObject: {},
 	hasMore: false
-}
+};

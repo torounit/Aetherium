@@ -1,8 +1,6 @@
 <template>
 	<div id="app">
-
 		<div class="App">
-
 			<div class="container">
 				<header class="App__header">
 					<site-name></site-name>
@@ -26,10 +24,10 @@
 </template>
 
 <script>
-	import { mapState } from 'vuex'
-	import SiteName from './SiteName.vue'
-	import Post from './Post'
-	import Archive from './Archive'
+	import { mapState } from 'vuex';
+	import SiteName from './SiteName.vue';
+	import Post from './Post';
+	import Archive from './Archive';
 
 	export default {
 		components: {
@@ -37,17 +35,17 @@
 			Post,
 			SiteName
 		},
-		created () {
-			this.$store.dispatch( 'initialize' )
+		created() {
+			this.$store.dispatch( 'initialize' );
 			this.$router.afterEach( () => {
-				this.$store.dispatch( 'fetchPosts' )
-			} )
+				this.$store.dispatch( 'fetchPosts' );
+			});
 		},
-		computed: mapState( {
+		computed: mapState({
 			posts: 'posts',
 			route: 'route'
-		} )
-	}
+		})
+	};
 </script>
 
 <style>
