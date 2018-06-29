@@ -205,14 +205,17 @@ const singularPost = async({ commit, state }) => {
 };
 
 export const fetchPosts = async({ commit, state }) => {
-	if ( await dateArchivePosts({ commit, state }) ) {} else if ( await homePosts({
-		commit,
-		state
-	}) ) {} else if ( await taxonomyArchivePosts({
-		commit,
-		state
-	}) ) {} else if ( await AuthorArchivePosts({ commit, state }) ) {} else if ( await singularPost({
-		commit,
-		state
-	}) ) {}
+	let loaded = false;
+	if ( await dateArchivePosts({ commit, state }) ) {
+		loaded = true;
+	} else if ( await homePosts({ commit, state }) ) {
+		loaded = true;
+	} else if ( await taxonomyArchivePosts({ commit, state }) ) {
+		loaded = true;
+	} else if ( await AuthorArchivePosts({ commit, state }) ) {
+		loaded = true;
+	} else if ( await singularPost({ commit, state }) ) {
+		loaded = true;
+	}
+	commit( types.SET_TEMPLATE_TYPE );
 };

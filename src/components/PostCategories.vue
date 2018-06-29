@@ -1,7 +1,7 @@
 <template>
 	<p v-if="categories.length">
 		Categories:
-		<span v-for="category in categories" class="category">
+		<span v-for="category in categories" :key="category.id" class="category">
           <router-link :to="category.link | path">{{ category.name }}</router-link>
         </span>
 	</p>

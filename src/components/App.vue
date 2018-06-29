@@ -10,7 +10,7 @@
 			<div class="container">
 				<div class="App__main">
 					<template
-						v-if="posts.length === 1 && (route.name === 'post' || route.name === 'page' || route.name === 'front-page')">
+						v-if="posts.length === 1 && singular.includes( templateType )">
 						<post :post="post" v-for="post in posts" :key="post.id"></post>
 					</template>
 					<template v-else>
@@ -41,9 +41,14 @@
 				this.$store.dispatch( 'fetchPosts' );
 			});
 		},
+		data() {
+			return {
+				singular: [ 'post', 'page', 'front-page' ]
+			};
+		},
 		computed: mapState({
 			posts: 'posts',
-			route: 'route'
+			templateType: 'templateType'
 		})
 	};
 </script>
