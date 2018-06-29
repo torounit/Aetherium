@@ -12,19 +12,10 @@
 </head>
 <body <?php body_class(); ?>>
 
+
 <div id="app"></div>
 
 
-<script>
-	if ( 'serviceWorker' in navigator ) {
-		navigator.serviceWorker.register( '/?sw' )
-	}
-</script>
-<script>
-	if ( 'serviceWorker' in navigator ) {
-		navigator.serviceWorker.register( '<?php echo get_theme_file_uri( 'sw-theme.js' );?>' )
-	}
-</script>
 <?php wp_footer(); ?>
 </body>
 </html>
