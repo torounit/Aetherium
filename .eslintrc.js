@@ -10,8 +10,8 @@ module.exports = {
     'vue'
   ],
   extends: [
-    'plugin:vue/essential',
-    'standard'
+    'wordpress',
+    'plugin:vue/essential'
   ],
   globals: {
     'wp': true,

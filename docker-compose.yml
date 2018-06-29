@@ -3,7 +3,7 @@ services:
     wordpress:
         build: ./docker/wordpress
         ports:
-            - "8089:80"
+            - "${PORT}:80"
         depends_on:
             - db
         environment:

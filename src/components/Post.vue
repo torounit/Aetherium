@@ -1,50 +1,50 @@
 <template>
 
-  <article>
-    <header>
-      <h1 class="title" v-html="post.title.rendered"></h1>
-      <post-categories :post-id="post.id"></post-categories>
-    </header>
-    <Media v-if="post.featured_media" :id="post.featured_media"></Media>
-    <div class="content" v-html="post.content.rendered"></div>
+	<article>
+		<header>
+			<h1 class="title" v-html="post.title.rendered"></h1>
+			<post-categories :post-id="post.id"></post-categories>
+		</header>
+		<Media v-if="post.featured_media" :id="post.featured_media"></Media>
+		<div class="content" v-html="post.content.rendered"></div>
 
-    <User :id="post.author"></User>
-  </article>
+		<User :id="post.author"></User>
+	</article>
 </template>
 
 <script>
-import Media from './Media'
-import PostCategories from './PostCategories'
-import PostAuthor from './PostAuthor'
-import User from './User'
+	import Media from './Media'
+	import PostCategories from './PostCategories'
+	import PostAuthor from './PostAuthor'
+	import User from './User'
 
-export default {
-  components: { User, PostAuthor, PostCategories, Media },
-  props: {
-    post: {
-      featured_media: '',
-      content: {
-        rendered: ''
-      }
-    }
-  }
-}
+	export default {
+		components: { User, PostAuthor, PostCategories, Media },
+		props: {
+			post: {
+				featured_media: '',
+				content: {
+					rendered: ''
+				}
+			}
+		}
+	}
 </script>
 
 <style scoped>
 
-  header {
-    margin: 1em 0;
-  }
+	header {
+		margin: 1em 0;
+	}
 
-  .title {
-    font-weight: normal;
-  }
+	.title {
+		font-weight: normal;
+	}
 
-  .content::after {
-    content: '';
-    display: table;
-    clear: both;
-  }
+	.content::after {
+		content: '';
+		display: table;
+		clear: both;
+	}
 
 </style>
