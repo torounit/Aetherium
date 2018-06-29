@@ -13,6 +13,9 @@ module.exports = {
 		'wordpress',
 		'plugin:vue/essential'
 	],
+	rules: {
+		camelcase: [ 'error', { properties: 'never' } ],
+	},
 	globals: {
 		'wpApiSettings': true,
 		'wp': true,
