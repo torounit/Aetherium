@@ -1,14 +1,19 @@
 #!/bin/sh
 
 sleep 10
+if [ -n "$DEVSERVER_PORT" ]; then
+    SETUP_PORT=$DEVSERVER_PORT
+else
+    SETUP_PORT=$WORDPRESS_PORT
+fi
+echo $SETUP_PORT;
 
-if [ $WORDPRESS_PORT = 80 ]; then
+if [ $SETUP_PORT = 80 ]; then
   wp core install --url="http://localhost" --title="WP Theme Test Environment" --admin_user="admin" --admin_password="admin" --admin_email="admin@example.com" --path="/var/www/html"
 else
-  wp core install --url="http://localhost:$WORDPRESS_PORT" --title="WP Theme Test Environment" --admin_user="admin" --admin_password="admin" --admin_email="admin@example.com" --path="/var/www/html"
+  wp core install --url="http://localhost:$SETUP_PORT" --title="WP Theme Test Environment" --admin_user="admin" --admin_password="admin" --admin_email="admin@example.com" --path="/var/www/html"
 fi
 
-wp plugin install dynamic-hostname --activate
 wp plugin install wordpress-importer --activate
 wp theme activate $WORDPRESS_THEME
 

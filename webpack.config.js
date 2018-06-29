@@ -6,7 +6,9 @@ const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 const webpack = require( 'webpack' );
 const UglifyJSPlugin = require( 'uglifyjs-webpack-plugin' );
 const env = process.env.NODE_ENV;
-const port = process.env.WORDPRESS_PORT;
+const wpPort = process.env.WORDPRESS_PORT;
+const port = process.env.DEVSERVER_PORT;
+
 
 module.exports = {
 	mode: env || 'development',
@@ -82,9 +84,10 @@ module.exports = {
 
 		// contentBase: __dirname,
 		publicPath: '/wp-content/themes/' + basename( __dirname ) + '/',
-		port: 3000,
+		port: port,
 		noInfo: true,
 		historyApiFallback: true,
+		disableHostCheck: true,
 		hot: true,
 		hotOnly: true,
 		quiet: false,
@@ -94,7 +97,7 @@ module.exports = {
 				target: {
 					protocol: 'http:',
 					host: 'localhost',
-					port: port
+					port: wpPort
 				}
 			}
 		}
