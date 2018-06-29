@@ -1,8 +1,7 @@
 <?php
 
-require __DIR__ . '/inc/optimize.php';
+//require __DIR__ . '/inc/optimize.php';
 require __DIR__ . '/inc/pwa.php';
-
 
 
 /**
