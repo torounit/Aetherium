@@ -43,7 +43,11 @@
 		},
 		data() {
 			return {
-				singular: [ 'post', 'page', 'front-page' ]
+				singular: [
+					'post',
+					'page',
+					'front-page'
+				]
 			};
 		},
 		computed: mapState({
@@ -73,7 +77,7 @@
 	}
 
 	.App {
-		background-color: #f2f2f2;
+		background-color: #fff;
 		padding: 60px 0;
 	}
 

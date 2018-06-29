@@ -5,5 +5,6 @@ export default {
 	taxonomies: {},
 	route: {},
 	queriedObject: {},
-	hasMore: false
+	hasMore: false,
+	templateType: 'home'
 };
