@@ -1,20 +1,14 @@
 <template>
 
 	<article>
-		<header class="header">
-			<Media class="media" v-if="post.featured_media" :id="post.featured_media"></Media>
-			<div class="headline">
-				<div class="meta">
-					<template v-if="post.type === 'post'">{{ post.date }}</template>
-				</div>
-				<h1 class="title" v-html="post.title.rendered"></h1>
-			</div>
-		</header>
-		<div class="container">
-			<div class="categories">
-				<post-categories :post-id="post.id"></post-categories>
-			</div>
+		<PageHeader :title="post.title.rendered" :mediaId="post.featured_media">
+			<template slot="meta" v-if="'post' === post.type">{{ post.date | dateFormat }}</template>
+		</PageHeader>
 
+		<div class="container body">
+			<div class="categories">
+				<post-categories :post-id="post.id" :link="true"></post-categories>
+			</div>
 			<div class="content" v-html="post.content.rendered"></div>
 			<User :id="post.author"></User>
 		</div>
@@ -26,9 +20,10 @@
 	import PostCategories from './PostCategories';
 	import PostAuthor from './PostAuthor';
 	import User from './User';
+	import PageHeader from './PageHeader';
 
 	export default {
-		components: { User, PostAuthor, PostCategories, Media },
+		components: { PageHeader, User, PostAuthor, PostCategories, Media },
 		props: {
 			post: {
 				featured_media: '',
@@ -85,6 +80,18 @@
 		position: absolute;
 		bottom: 100%;
 		font-size: 12px;
+	}
+
+	.body {
+		position: relative;
+		z-index: 1;
+		padding: var(--gutter, 16px);
+		background-color: #fff;
+		margin-top: calc( var(--gutter, 16px) * -2);
+	}
+
+	.content {
+		margin: var(--gutter, 16px) 0;
 	}
 
 	.content::after {

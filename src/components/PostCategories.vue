@@ -1,9 +1,11 @@
 <template>
 	<div v-if="categories.length">
 		<template v-if="link">
-			<span v-for="category in categories" :key="category.id" class="category">
-				<router-link :to="category.link | path" >{{ category.name }}</router-link>
-			</span>
+			<router-link
+				v-for="category in categories"
+				:key="category.id" class="category"
+				:to="category.link | path"
+			>{{ category.name }}</router-link>
 		</template>
 		<template v-else>
 			<span v-for="category in categories" :key="category.id" class="category">
@@ -39,8 +41,10 @@
 <style scoped>
 	.category {
 		margin-right: 0.3em;
+		font-size: 12px;
+		font-weight: bold;
 		display: inline-block;
-		background-color: #212529;
+		background-color: var(--interaction-color, #42b983);
 		color: #FFF;
 		padding: 0.2em 0.4em;
 	}

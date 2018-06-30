@@ -79,12 +79,9 @@
 	@import "../styles/captions.css";
 	@import "../styles/gallery.css";
 
-	pre {
-		white-space: pre-wrap;
-	}
-
 	:root {
 		--gutter: 16px;
+		--interaction-color: #42b983;
 	}
 
 	@media (min-width: 600px) {
@@ -93,8 +90,15 @@
 		}
 	}
 
+	@media (min-width: 1000px) {
+		:root {
+			--gutter: 32px;
+		}
+	}
+
 	.container {
-		width: 100%;
+		width: 90%;
+		max-width: 1000px;
 		padding-right: var(--gutter, 16px);
 		padding-left: var(--gutter, 16px);
 		margin-right: auto;
@@ -108,7 +112,7 @@
 
 
 	.App {
-		background-color: #fafafa;
+		background-color: #f2f2f2;
 		//padding: 60px 0;
 	}
 
@@ -130,7 +134,8 @@
 
 	.main {
 		margin: auto;
-		background-color: #fff;
+		overflow: hidden;
+
 	}
 
 </style>

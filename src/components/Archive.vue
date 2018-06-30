@@ -1,8 +1,6 @@
 <template>
 	<section class="archive">
-		<header class="header">
-			<archive-title class="title"></archive-title>
-		</header>
+		<page-header :title="title"></page-header>
 		<div class="container">
 			<div class="posts">
 				<post-card class="card" :post="post" v-for="post in posts" :key="post.id"></post-card>
@@ -18,13 +16,24 @@
 	import Pagination from './Pagination';
 	import PostCard from './PostCard';
 	import ArchiveTitle from './ArchiveTitle';
+	import PageHeader from './PageHeader';
 
 	export default {
-		components: { ArchiveTitle, PostCard, Pagination },
+		components: { PageHeader, ArchiveTitle, PostCard, Pagination },
 		computed: {
 			...mapState({
-				posts: 'posts'
-			})
+				posts: 'posts',
+				queriedObject: 'queriedObject'
+			}),
+			title() {
+				let qm = this.queriedObject;
+				if ( qm.name ) {
+					return qm.name;
+				}
+				if ( qm.title && qm.title.rendered ) {
+					return qm.title.rendered;
+				}
+			}
 		}
 	};
 </script>
@@ -45,12 +54,8 @@
 		font-size: 28px;
 	}
 
-	.container {
-		max-width: 1000px;
-	}
-
 	.posts {
-		margin: 32px 0;
+		margin: var(--gutter, 16px) 0;
 	}
 
 	.card {
