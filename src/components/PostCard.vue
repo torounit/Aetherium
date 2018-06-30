@@ -1,26 +1,37 @@
 <template>
 	<article class="card">
-		<router-link :to="post.link | path">
-			<Media v-if="post.featured_media" :id="post.featured_media"></Media>
-		</router-link>
+		<paper>
+			<template slot="media">
+				<router-link :to="post.link | path">
+					<Media v-if="post.featured_media" :id="post.featured_media"></Media>
+				</router-link>
+			</template>
 
-		<div class="body">
-			<header>
-				<h1 class="title"><router-link :to="post.link | path" v-html="post.title.rendered"></router-link></h1>
-				<PostCategories :post-id="post.id" :link="true"></PostCategories>
-			</header>
-			<div class="content" v-html="post.excerpt.rendered"></div>
-			<p><router-link :to="post.link | path">Read more</router-link></p>
-		</div>
+			<template>
+				<div class="body">
+					<header>
+						<h1 class="title"><router-link :to="post.link | path" v-html="post.title.rendered"></router-link></h1>
+						<PostCategories :post-id="post.id" :link="true"></PostCategories>
+					</header>
+					<div v-html="post.excerpt.rendered"></div>
+					<p><router-link :to="post.link | path">Read more</router-link></p>
+				</div>
+			</template>
+
+
+
+		</paper>
 	</article>
 </template>
 
 <script>
 	import Media from './Media';
 	import PostCategories from './PostCategories';
+	import Paper from './Paper';
 	export default {
 		name: 'PostCard',
 		components: {
+			Paper,
 			PostCategories,
 			Media
 		},
@@ -42,19 +53,6 @@
 </script>
 
 <style scoped>
-	.card {
-		overflow: hidden;
-		background-color: #fff;
-		box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .2);
-	}
-
-	.body {
-		margin: var(--gutter, 16px);
-	}
-
-	.content {
-
-	}
 
 	.title {
 		font-size: 20px;

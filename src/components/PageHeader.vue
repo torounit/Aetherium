@@ -32,6 +32,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		margin-bottom: calc( var(--gutter, 16px) * -2);
+
 	}
 
 	.media {

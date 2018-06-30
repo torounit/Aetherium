@@ -4,14 +4,19 @@
 		<PageHeader :title="post.title.rendered" :mediaId="post.featured_media">
 			<template slot="meta" v-if="'post' === post.type">{{ post.date | dateFormat }}</template>
 		</PageHeader>
+		<PageBody>
+			<paper>
+				<div class="post">
+					<div class="categories">
+						<post-categories :post-id="post.id" :link="true"></post-categories>
+					</div>
+					<div class="content" v-html="post.content.rendered"></div>
+					<User :id="post.author"></User>
+				</div>
+			</paper>
 
-		<div class="container body">
-			<div class="categories">
-				<post-categories :post-id="post.id" :link="true"></post-categories>
-			</div>
-			<div class="content" v-html="post.content.rendered"></div>
-			<User :id="post.author"></User>
-		</div>
+		</PageBody>
+
 	</article>
 </template>
 
@@ -21,9 +26,11 @@
 	import PostAuthor from './PostAuthor';
 	import User from './User';
 	import PageHeader from './PageHeader';
+	import PageBody from './PageBody';
+	import Paper from './Paper';
 
 	export default {
-		components: { PageHeader, User, PostAuthor, PostCategories, Media },
+		components: { Paper, PageBody, PageHeader, User, PostAuthor, PostCategories, Media },
 		props: {
 			post: {
 				featured_media: '',
@@ -39,55 +46,8 @@
 
 <style scoped>
 
-	.header {
-		padding: 24px;
-		background-color: #263238;
-		color: #fff;
-		position: relative;
-		height: 50vh;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-
-	.media {
-		width: 100%;
-		height: 100%;
-		top:0;
-		left: 0;
-		position: absolute;
-		object-fit: cover;
-	}
-
-	.headline {
-		position: relative;
-		z-index: 2;
-		text-shadow: 1px 1px 5px rgba(51,51,51,.8);
-	}
-
 	.categories {
 		margin: 1em 0;
-	}
-
-	.title {
-		font-size: 28px;
-		margin: 0;
-	}
-
-	.meta {
-		margin: 0;
-		display: flex;
-		position: absolute;
-		bottom: 100%;
-		font-size: 12px;
-	}
-
-	.body {
-		position: relative;
-		z-index: 1;
-		padding: var(--gutter, 16px);
-		background-color: #fff;
-		margin-top: calc( var(--gutter, 16px) * -2);
 	}
 
 	.content {

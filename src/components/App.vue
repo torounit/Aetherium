@@ -91,7 +91,6 @@
 	}
 
 	.container {
-		width: 90%;
 		max-width: 1000px;
 		padding-right: var(--gutter, 16px);
 		padding-left: var(--gutter, 16px);

@@ -1,11 +1,12 @@
 <template>
 	<section class="archive">
 		<page-header :title="title"></page-header>
-		<div class="container">
+		<page-body>
 			<div class="posts">
 				<post-card class="card" :post="post" v-for="post in posts" :key="post.id"></post-card>
 			</div>
-		</div>
+		</page-body>
+
 		<pagination></pagination>
 
 	</section>
@@ -17,9 +18,10 @@
 	import PostCard from './PostCard';
 	import ArchiveTitle from './ArchiveTitle';
 	import PageHeader from './PageHeader';
+	import PageBody from './PageBody';
 
 	export default {
-		components: { PageHeader, ArchiveTitle, PostCard, Pagination },
+		components: { PageBody, PageHeader, ArchiveTitle, PostCard, Pagination },
 		computed: {
 			...mapState({
 				posts: 'posts',
@@ -52,10 +54,6 @@
 	}
 	.title {
 		font-size: 28px;
-	}
-
-	.posts {
-		margin: var(--gutter, 16px) 0;
 	}
 
 	.card {
