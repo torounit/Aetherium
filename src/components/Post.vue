@@ -1,12 +1,12 @@
 <template>
 
-	<article>
+	<article class="post">
 		<PageHeader :title="post.title.rendered" :mediaId="post.featured_media">
 			<template slot="meta" v-if="'post' === post.type">{{ post.date | dateFormat }}</template>
 		</PageHeader>
 		<PageBody>
 			<paper>
-				<div class="post">
+				<div >
 					<div class="post-categories">
 						<post-categories :post-id="post.id" :link="true"></post-categories>
 					</div>
@@ -46,8 +46,14 @@
 
 <style scoped>
 
+	.post {
+		position: relative;
+	}
+
 	.post-categories {
-		margin: 1em 0;
+		position: absolute;
+		top: 0;
+		transform: translateY(-50%);
 	}
 
 	.post-content {

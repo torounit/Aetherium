@@ -1,17 +1,16 @@
 <template>
 	<article class="post-card">
 		<paper>
-			<template slot="paper-header">
+			<div class="post-card-media" slot="paper-header" v-if="post.featured_media">
 				<router-link :to="post.link | path">
-					<Media v-if="post.featured_media" :id="post.featured_media"></Media>
+					<Media :id="post.featured_media" class="post-card-media-image"></Media>
 				</router-link>
-			</template>
-
+			</div>
 			<template>
 				<div class="body">
 					<header>
-						<h1 class="title"><router-link :to="post.link | path" v-html="post.title.rendered"></router-link></h1>
-						<PostCategories :post-id="post.id" :link="true"></PostCategories>
+						<PostCategories class="post-card-categories" :post-id="post.id" :link="true"></PostCategories>
+						<h1 class="post-card-title"><router-link :to="post.link | path" v-html="post.title.rendered"></router-link></h1>
 					</header>
 					<div v-html="post.excerpt.rendered"></div>
 					<p><router-link :to="post.link | path">Read more</router-link></p>
@@ -54,8 +53,31 @@
 
 <style scoped>
 
-	.title {
+	.post-card {
+		position: relative;
+	}
+
+	.post-card-title {
 		font-size: 20px;
+	}
+
+	.post-card-media {
+		position: relative;
+		height: 200px;
+	}
+
+	.post-card-categories {
+		position: absolute;
+		top: 0;
+		transform: translateY(-50%);
+
+	}
+
+	.post-card-media-image {
+		position: absolute;
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
 	}
 
 </style>

@@ -2,8 +2,8 @@
 	<section class="archive">
 		<page-header :title="title"></page-header>
 		<page-body>
-			<div class="posts">
-				<post-card class="card" :post="post" v-for="post in posts" :key="post.id"></post-card>
+			<div class="archive-posts">
+				<post-card class="archive-card" :post="post" v-for="post in posts" :key="post.id"></post-card>
 			</div>
 		</page-body>
 
@@ -42,40 +42,29 @@
 
 <style scoped>
 
-	.header {
-		padding: 24px;
-		background-color: #263238;
-		color: #fff;
-		position: relative;
-		height: 50vh;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-	.title {
-		font-size: 28px;
-	}
-
-	.card {
+	.archive-card {
 		margin: 0 0 var(--gutter, 16px);
 	}
 
 	@media (min-width: 600px) {
-		.posts {
+		.archive-posts {
 			display: flex;
 			flex-wrap: wrap;
-			justify-content: space-between;
+			justify-content: flex-start;
+			margin-left: calc( var(--gutter, 16px) * -1 / 2);
+			margin-right: calc( var(--gutter, 16px) * -1 / 2);
 		}
-		.card {
-
-			width: calc( calc(100% - var(--gutter, 16px) ) / 2 );
+		.archive-card {
+			box-sizing: border-box;
+			width: 50%;
+			padding-left: calc(var(--gutter, 16px) / 2);
+			padding-right: calc(var(--gutter, 16px) / 2);
 		}
-
 	}
 
 	@media (min-width: 900px) {
-		.card {
-			width: calc( calc(100% - calc( var(--gutter, 16px) * 2 ) ) / 3 );
+		.archive-card {
+			width: 33.333333333%;
 		}
 	}
 

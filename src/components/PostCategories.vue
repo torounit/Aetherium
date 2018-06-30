@@ -1,9 +1,9 @@
 <template>
-	<div v-if="categories.length">
+	<div v-if="categories.length" class="post-categories">
 		<template v-if="link">
 			<router-link
 				v-for="category in categories"
-				:key="category.id" class="category"
+				:key="category.id" class="post-categories-category"
 				:to="category.link | path"
 			>{{ category.name }}</router-link>
 		</template>
@@ -39,7 +39,12 @@
 </script>
 
 <style scoped>
-	.category {
+
+	.post-categories {
+		display: flex;
+		align-items: center;
+	}
+	.post-categories-category {
 		margin-right: 0.3em;
 		font-size: 12px;
 		font-weight: bold;

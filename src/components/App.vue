@@ -74,7 +74,7 @@
 	@import "../styles/gallery.css";
 
 	:root {
-		--gutter: 16px;
+		--gutter: 20px;
 		--interaction-color: #42b983;
 	}
 
