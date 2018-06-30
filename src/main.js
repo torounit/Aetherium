@@ -3,7 +3,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import App from './components/App.vue';
 import store from './store/index.js';
-
+import filters from './filters';
 import VueRouter from 'vue-router';
 import { sync } from 'vuex-router-sync';
 
@@ -12,14 +12,8 @@ const router = new VueRouter({
 	routes: [].concat( global.themeSettings.permastructs )
 });
 
-Vue.filter( 'path', ( url ) => {
-	if ( ! url ) {
-		return '';
-	}
-	let link = document.createElement( 'a' );
-	link.href = url;
-	return link.href.replace( link.origin, '' );
-});
+
+Vue.use( filters );
 
 // nonce on inline js. so, update.
 const updateNonce = async() => {
