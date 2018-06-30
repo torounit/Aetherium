@@ -1,22 +1,17 @@
 <template>
 	<div id="app">
 		<div class="App">
-			<div class="container">
-				<header class="App__header">
-					<site-name></site-name>
-				</header>
-			</div>
+			<header class="navbar" :class="{ 'navbar--bg': scrollY > 0}">
+				<site-name></site-name>
+			</header>
 
-			<div class="container">
-				<div class="App__main">
-					<template
-						v-if="posts.length === 1 && singular.includes( templateType )">
-						<post :post="post" v-for="post in posts" :key="post.id"></post>
-					</template>
-					<template v-else>
-						<archive></archive>
-					</template>
-				</div>
+			<div class="main">
+				<template v-if="posts.length === 1 && singular.includes( templateType )">
+					<post :post="post" v-for="post in posts" :key="post.id"></post>
+				</template>
+				<template v-else>
+					<archive></archive>
+				</template>
 			</div>
 
 		</div>
@@ -27,22 +22,37 @@
 	import { mapState } from 'vuex';
 	import SiteName from './SiteName.vue';
 	import Post from './Post';
+	import Pagination from './Pagination';
 	import Archive from './Archive';
 
 	export default {
 		components: {
 			Archive,
 			Post,
-			SiteName
+			SiteName,
+			Pagination
 		},
 		created() {
 			this.$store.dispatch( 'initialize' );
 			this.$router.afterEach( () => {
 				this.$store.dispatch( 'fetchPosts' );
 			});
+
+		},
+		mounted() {
+			this.onScroll();
+			window.addEventListener( 'scroll', this.onScroll );
+			window.addEventListener( 'resize', this.onScroll );
+			this.$router.afterEach( () => {
+				window.scroll({
+					top: 0,
+					behavior: 'auto'
+				});
+			});
 		},
 		data() {
 			return {
+				scrollY: window.scrollY,
 				singular: [
 					'post',
 					'page',
@@ -53,7 +63,12 @@
 		computed: mapState({
 			posts: 'posts',
 			templateType: 'templateType'
-		})
+		}),
+		methods: {
+			onScroll() {
+				this.scrollY = window.scrollY;
+			}
+		}
 	};
 </script>
 
@@ -63,27 +78,58 @@
 	@import "../styles/elements.css";
 	@import "../styles/captions.css";
 	@import "../styles/gallery.css";
+
+	pre {
+		white-space: pre-wrap;
+	}
+
+	:root {
+		--gutter: 16px;
+	}
+
+	@media (min-width: 600px) {
+		:root {
+			--gutter: 24px;
+		}
+	}
+
+	.container {
+		width: 100%;
+		padding-right: var(--gutter, 16px);
+		padding-left: var(--gutter, 16px);
+		margin-right: auto;
+		margin-left: auto;
+		box-sizing: border-box;
+	}
+
 </style>
 
 <style scoped>
 
-	.container {
-		width: 100%;
-		padding-right: 15px;
-		padding-left: 15px;
-		margin-right: auto;
-		margin-left: auto;
-		max-width: 80%;
-	}
 
 	.App {
-		background-color: #fff;
-		padding: 60px 0;
+		background-color: #fafafa;
+		//padding: 60px 0;
 	}
 
-	.App__main {
+	.navbar {
+		padding-right: 20px;
+		padding-left: 20px;
+		position: fixed;
+		z-index: 5;
+		top: 0;
+		width: 100vw;
+		box-sizing: border-box;
+		transition: all 300ms ease-out 0ms;
+		background-color: transparent;
+	}
+
+	.navbar--bg {
+		background: rgba( 255, 255, 255, 0.75 );
+	}
+
+	.main {
 		margin: auto;
-		padding: 60px;
 		background-color: #fff;
 	}
 

@@ -102,7 +102,13 @@ const homePosts = async({ commit, state }) => {
 
 	if ( 'home' === state.route.name ) {
 		posts = await postsCollection.fetch({ data: data });
-		commit( types.SET_QUERIED_OBJECT, {});
+		let queriedObject = {};
+		if ( global.themeSettings.pageOnFront ) {
+			let model = new wp.api.models.Page({ id: global.themeSettings.pageForPosts });
+			queriedObject = await model.fetch();
+		}
+
+		commit( types.SET_QUERIED_OBJECT, queriedObject);
 		commit( types.SET_HASMORE, postsCollection.hasMore() );
 		commit( types.SET_POSTS, posts );
 
@@ -156,7 +162,7 @@ const singularPost = async({ commit, state }) => {
 		switch ( state.route.name ) {
 			case 'front-page': {
 				let model = new wp.api.models.Page({ id: global.themeSettings.pageOnFront });
-				let queriedObject = await model.fetch();
+				queriedObject = await model.fetch();
 				posts = [ queriedObject ];
 				break;
 			}
@@ -198,7 +204,6 @@ const singularPost = async({ commit, state }) => {
 			}
 		}
 	}
-
 	commit( types.SET_QUERIED_OBJECT, queriedObject );
 	commit( types.SET_HASMORE, false );
 	commit( types.SET_POSTS, posts );

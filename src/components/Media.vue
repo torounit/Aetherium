@@ -4,6 +4,7 @@
 
 <script>
 	export default {
+		name: 'Media',
 		props: {
 			id: 0
 		},
@@ -27,6 +28,6 @@
 <style scoped>
 	img {
 		width: 100%;
-		margin: 1em 0;
+		display: block;
 	}
 </style>

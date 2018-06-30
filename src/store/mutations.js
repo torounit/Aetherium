@@ -13,8 +13,8 @@ export default {
 	[types.SET_TAXONOMIES]( state, taxonomies ) {
 		state.taxonomies = taxonomies;
 	},
-	[types.SET_QUERIED_OBJECT]( state, posts ) {
-		state.queriedObject = posts;
+	[types.SET_QUERIED_OBJECT]( state, object ) {
+		state.queriedObject = object;
 	},
 	[types.SET_HASMORE]( state, more ) {
 		state.hasMore = !! more;
