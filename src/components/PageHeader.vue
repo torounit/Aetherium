@@ -1,7 +1,7 @@
 <template>
 	<header class="header">
 		<Media class="media" v-if="mediaId" :id="mediaId"></Media>
-		<div class="headline">
+		<div class="headline container">
 			<div class="meta">
 				<slot name="meta"></slot>
 			</div>
@@ -29,6 +29,7 @@
 		color: #fff;
 		position: relative;
 		height: 50vh;
+		min-height: 200px;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

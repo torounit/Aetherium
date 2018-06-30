@@ -47,6 +47,7 @@ function aetherium_enqueue_scripts() {
 	 */
 	global $wp_rewrite;
 	$data = [
+		'isUserLoggedIn'      => is_user_logged_in(),
 		'permastructs'        => aetherium_get_permastructs(),
 		'pageForPosts'        => absint( get_option( 'page_for_posts' ) ),
 		'pageOnFront'         => absint( get_option( 'page_on_front' ) ),

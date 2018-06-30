@@ -41,7 +41,6 @@
 </script>
 
 <style scoped>
-
 	.archive-card {
 		margin: 0 0 var(--gutter, 16px);
 	}

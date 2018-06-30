@@ -27,21 +27,25 @@ const router = new VueRouter({
 
 Vue.use( filters );
 
-// nonce on inline js. so, update.
+// nonce on inline js. so, update. for Not Logged in user.
 const updateNonce = async() => {
-	let response = await fetch( global.wpApiSettings.root );
-	let data = await response.json();
-	if ( data.authentication.cookie && data.authentication.cookie.nonce ) {
-		wp.api.endpoints.forEach( ( model ) => {
-			model.set( 'nonce', data.authentication.cookie.nonce );
-		});
+	if ( ! global.themeSettings.isUserLoggedIn )  {
+		let response = await fetch( global.wpApiSettings.root );
+		let data = await response.json();
+		if ( data.authentication.cookie && data.authentication.cookie.nonce ) {
+			wp.api.endpoints.forEach( ( model ) => {
+				global.wpApiSettings.nonce = data.authentication.cookie.nonce;
+				model.set( 'nonce', data.authentication.cookie.nonce );
+			});
+		}
 	}
+
 };
 
-global.addEventListener( 'load', () => {
-	updateNonce();
-	sync( store, router );
+global.addEventListener( 'load', async () => {
+	await updateNonce();
 
+	sync( store, router );
 	Vue.use( VueRouter );
 	Vue.use( Vuex );
 
