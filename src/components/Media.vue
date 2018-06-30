@@ -1,5 +1,10 @@
 <template>
-	<img v-if="object.media_type" :src="object.source_url" alt="">
+	<img
+		v-if="object.media_type"
+		:src="object.source_url"
+		:height="object.media_details.height"
+		:width="object.media_details.width"
+		alt="">
 </template>
 
 <script>
@@ -12,7 +17,22 @@
 			return {
 				object: {
 					media_type: '',
-					source_url: ''
+					source_url: '',
+					media_details: {
+						file: '',
+						height: 0,
+						width: 0,
+						image_meta: {},
+						sizes: {
+							thumbnail: {
+								file: '',
+								width: 0,
+								height: 0,
+								mime_type: '',
+								source_url: ''
+							}
+						}
+					}
 				}
 			};
 		},
