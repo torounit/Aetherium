@@ -43,12 +43,6 @@
 			this.onScroll();
 			window.addEventListener( 'scroll', this.onScroll );
 			window.addEventListener( 'resize', this.onScroll );
-			this.$router.afterEach( () => {
-				window.scroll({
-					top: 0,
-					behavior: 'auto'
-				});
-			});
 		},
 		data() {
 			return {

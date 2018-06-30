@@ -9,7 +9,19 @@ import { sync } from 'vuex-router-sync';
 
 const router = new VueRouter({
 	mode: 'history',
-	routes: [].concat( global.themeSettings.permastructs )
+	routes: [].concat( global.themeSettings.permastructs ),
+	scrollBehavior( to, from, savedPosition ) {
+		return new Promise( ( resolve, reject ) => {
+			store.watch( ( state ) => state.posts, () => {
+				if ( savedPosition ) {
+					resolve( savedPosition );
+				} else {
+					resolve({ x: 0, y: 0 });
+				}
+			});
+		});
+
+	}
 });
 
 
@@ -20,7 +32,9 @@ const updateNonce = async() => {
 	let response = await fetch( global.wpApiSettings.root );
 	let data = await response.json();
 	if ( data.authentication.cookie && data.authentication.cookie.nonce ) {
-		global.wpApiSettings.nonce = data.authentication.cookie.nonce;
+		wp.api.endpoints.forEach( ( model ) => {
+			model.set( 'nonce', data.authentication.cookie.nonce );
+		});
 	}
 };
 
