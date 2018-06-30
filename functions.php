@@ -2,7 +2,7 @@
 
 //require __DIR__ . '/inc/optimize.php';
 require __DIR__ . '/inc/pwa.php';
-
+require __DIR__ . '/inc/class-asset-seeker.php';
 
 /**
  * Setup Theme.
@@ -58,6 +58,36 @@ function aetherium_enqueue_scripts() {
 
 add_action( 'wp_enqueue_scripts', 'aetherium_enqueue_scripts' );
 
+function aetherium_setup_assets_cache() {
+	if ( $assets = get_transient( 'aetherium_assets_check' ) ) {
+		return $assets;
+	}
+	$seeker = new Assets_Seeker();
+	$assets = $seeker->get_assets();
+	update_option( 'aetherium_assets', $assets );
+	set_transient( 'aetherium_assets_check', current_time( 'timestamp' ), HOUR_IN_SECONDS );
+}
+
+add_action( 'wp_enqueue_scripts', 'aetherium_setup_assets_cache', 9999 );
+
+/**
+ * @param WP_REST_Response $response
+ *
+ * @return WP_REST_Response
+ */
+function aetherium_wp_api_setting( WP_REST_Response $response ) {
+	$data                             = $response->get_data();
+	$data['authentication']['cookie'] = [
+		'root'          => esc_url_raw( get_rest_url() ),
+		'nonce'         => ( wp_installing() && ! is_multisite() ) ? '' : wp_create_nonce( 'wp_rest' ),
+		'versionString' => 'wp/v2/',
+	];
+	$response->set_data( $data );
+
+	return $response;
+}
+
+add_filter( 'rest_index', 'aetherium_wp_api_setting' );
 
 /**
  * Permastruct Lists.
@@ -138,7 +168,7 @@ function aetherium_get_permastructs() {
 			];
 		}
 
-		if (  in_array( $key, get_taxonomies([ 'public' => true ] ) ) ) {
+		if ( in_array( $key, get_taxonomies( [ 'public' => true ] ) ) ) {
 			$taxonomy = get_taxonomy( $key );
 			if ( $taxonomy->hierarchical ) {
 				return [
@@ -146,7 +176,6 @@ function aetherium_get_permastructs() {
 					'path' => untrailingslashit( '/' . $struct ) . '(.+?)' . '/(\\d*)?'
 				];
 			}
-
 		}
 
 		return [
