@@ -1,9 +1,10 @@
 <template>
 	<div class="paper">
-		<slot name="media"></slot>
-		<div class="paper__content">
+		<slot name="paper-header"></slot>
+		<div class="paper-body">
 			<slot></slot>
 		</div>
+		<slot name="paper-footer"></slot>
 	</div>
 
 </template>
@@ -22,7 +23,7 @@
 		box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.2);
 	}
 
-	.paper__content {
+	.paper-body {
 		margin: var(--gutter, 16px);
 	}
 </style>

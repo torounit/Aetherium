@@ -1,9 +1,12 @@
 <template>
-	<div class="pagination">
-		<router-link v-if="route.params.page > 1" :to="prev">Prev</router-link>
-		<div class="pagination__spacer"></div>
-		<router-link v-if="hasMore" :to="next">Next</router-link>
+	<div class="container">
+		<div class="pagination">
+			<router-link v-if="route.params.page > 1" :to="prev">Prev</router-link>
+			<div class="pagination-spacer"></div>
+			<router-link v-if="hasMore" :to="next">Next</router-link>
+		</div>
 	</div>
+
 </template>
 
 <script>
@@ -41,11 +44,12 @@
 
 <style scoped>
 	.pagination {
+		margin: calc( var(--gutter,16px) ) 0;
 		display: flex;
 		width: 100%;
 	}
 
-	.pagination__spacer {
+	.pagination-spacer {
 		flex: 1 1 auto;
 	}
 

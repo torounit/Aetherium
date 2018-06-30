@@ -7,10 +7,10 @@
 		<PageBody>
 			<paper>
 				<div class="post">
-					<div class="categories">
+					<div class="post-categories">
 						<post-categories :post-id="post.id" :link="true"></post-categories>
 					</div>
-					<div class="content" v-html="post.content.rendered"></div>
+					<div class="post-content" v-html="post.content.rendered"></div>
 					<User :id="post.author"></User>
 				</div>
 			</paper>
@@ -46,15 +46,15 @@
 
 <style scoped>
 
-	.categories {
+	.post-categories {
 		margin: 1em 0;
 	}
 
-	.content {
+	.post-content {
 		margin: var(--gutter, 16px) 0;
 	}
 
-	.content::after {
+	.post-content::after {
 		content: '';
 		display: table;
 		clear: both;

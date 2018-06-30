@@ -1,11 +1,11 @@
 <template>
 	<div id="app">
-		<div class="App">
-			<header class="navbar" :class="{ 'navbar--bg': scrollY > 0}">
+		<div class="app">
+			<header class="app-navbar" :class="{ 'app-navbar--bg': scrollY > 0}">
 				<site-name></site-name>
 			</header>
 
-			<div class="main">
+			<div class="app-main">
 				<template v-if="posts.length === 1 && singular.includes( templateType )">
 					<post :post="post" v-for="post in posts" :key="post.id"></post>
 				</template>
@@ -104,12 +104,12 @@
 <style scoped>
 
 
-	.App {
+	.app {
 		background-color: #f2f2f2;
 		//padding: 60px 0;
 	}
 
-	.navbar {
+	.app-navbar {
 		padding-right: 20px;
 		padding-left: 20px;
 		position: fixed;
@@ -121,11 +121,11 @@
 		background-color: transparent;
 	}
 
-	.navbar--bg {
+	.app-navbar--bg {
 		background: rgba( 255, 255, 255, 0.75 );
 	}
 
-	.main {
+	.app-main {
 		margin: auto;
 		overflow: hidden;
 

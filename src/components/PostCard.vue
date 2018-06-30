@@ -1,7 +1,7 @@
 <template>
-	<article class="card">
+	<article class="post-card">
 		<paper>
-			<template slot="media">
+			<template slot="paper-header">
 				<router-link :to="post.link | path">
 					<Media v-if="post.featured_media" :id="post.featured_media"></Media>
 				</router-link>
