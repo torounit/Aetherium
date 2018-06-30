@@ -5,7 +5,7 @@
 			<Media class="media" v-if="post.featured_media" :id="post.featured_media"></Media>
 			<div class="headline">
 				<div class="meta">
-					<template v-if="post.post_type === 'post'">{{ post.date }}</template>
+					<template v-if="post.type === 'post'">{{ post.date }}</template>
 				</div>
 				<h1 class="title" v-html="post.title.rendered"></h1>
 			</div>
@@ -36,7 +36,7 @@
 					rendered: ''
 				},
 				date: '',
-				post_type: ''
+				type: ''
 			}
 		}
 	};
