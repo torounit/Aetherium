@@ -1,6 +1,19 @@
 <?php
 
 
+add_action( 'wp_enqueue_scripts', function () {
+	if( ! is_user_logged_in() ) {
+		wp_enqueue_script( 'register-sw', get_theme_file_uri( 'register-sw.js' ), [], '0.0.1', true );
+	} else {
+		wp_enqueue_script( 'unregister-sw', get_theme_file_uri( 'unregister-sw.js' ), [], '0.0.1', true );
+	}
+} );
+
+add_action( 'admin_enqueue_scripts', function () {
+	wp_enqueue_script( 'unregister-sw', get_theme_file_uri( 'unregister-sw.js' ), [], '0.0.1', true );
+});
+
+
 add_action( 'wp_head', function () {
 	?>
 	<link rel="manifest" href="<?php echo home_url( '?manifest' ); ?>">
