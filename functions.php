@@ -173,7 +173,7 @@ function aetherium_get_permastructs() {
 			if ( $taxonomy->hierarchical ) {
 				return [
 					'name' => $key,
-					'path' => untrailingslashit( '/' . $struct ) . '(.+?)' . '/(\\d*)?'
+					'path' => untrailingslashit( '/' . $struct ) . '(.+?)' . '/:endpoint(page)?/:page(\\d*)?'
 				];
 			}
 		}
