@@ -17,7 +17,7 @@
 
 <style scoped>
 	.paper {
-
+		height: 100%;
 		background-color: #fff;
 		overflow: hidden;
 		box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.2);

@@ -18,7 +18,7 @@
 		props: {
 			title: '',
 			mediaId: 0
-		},
+		}
 	};
 </script>
 
