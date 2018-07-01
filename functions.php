@@ -136,7 +136,8 @@ function aetherium_get_permastructs() {
 
 	$permastructs = array_merge( $extra_permastructs, $home_structs, $permastructs );
 
-	return array_map( function ( $key, $value ) {
+	$structs = [];
+	foreach ( $permastructs as $key => $value ) {
 		$struct = trim( preg_replace( '/%([^\/]+)%/', ':$1', $value ), '/\\' );
 		$struct = str_replace(
 			[
@@ -157,32 +158,40 @@ function aetherium_get_permastructs() {
 		if ( in_array( $key, get_post_types( [ 'public' => true ] ) ) ) {
 			$post_type = get_post_type_object( $key );
 			if ( $post_type->hierarchical ) {
-				return [
+				$structs[] = [
 					'name' => $key,
 					'path' => untrailingslashit( '/' . $struct ) . '(.+?)' . '/(\\d*)?'
 				];
+				continue;
 			}
 
-			return [
+			$structs[] = [
 				'name' => $key,
 				'path' => untrailingslashit( '/' . $struct ) . '/(\\d*)?'
 			];
+			continue;
 		}
 
 		if ( in_array( $key, get_taxonomies( [ 'public' => true ] ) ) ) {
 			$taxonomy = get_taxonomy( $key );
 			if ( $taxonomy->hierarchical ) {
-				return [
+				$structs[] = [
 					'name' => $key,
-					'path' => untrailingslashit( '/' . $struct ) . '(.+?)' . '/:endpoint(page)?/:page(\\d*)?'
+					'path' => untrailingslashit( '/' . $struct ) . '(.+?)' . '/page/:page(\\d*)?',
 				];
+				$structs[] = [
+					'name' => $key,
+					'path' => untrailingslashit( '/' . $struct ) . '(.+?)',
+				];
+				continue;
 			}
 		}
 
-		return [
+		$structs[] = [
 			'name' => $key,
-			'path' => untrailingslashit( '/' . $struct ) . '/:endpoint(page)?/:page(\\d*)?'
+			'path' => untrailingslashit( '/' . $struct ) . '/:page(page\/\\d*)?'
 		];
+	}
 
-	}, array_keys( $permastructs ), array_values( $permastructs ) );
+	return $structs;
 }

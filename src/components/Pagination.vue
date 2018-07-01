@@ -44,7 +44,7 @@
 
 <style scoped>
 	.pagination {
-		margin: calc( var(--gutter,16px) ) 0;
+		margin: calc( var( --gutter, 16px ) * 1 ) 0;
 		display: flex;
 		width: 100%;
 	}
