@@ -49,6 +49,7 @@ function aetherium_enqueue_scripts() {
 	$data = [
 		'isUserLoggedIn'      => is_user_logged_in(),
 		'permastructs'        => aetherium_get_permastructs(),
+		'postsPerPage'        => absint( get_option( 'posts_per_page' ) ),
 		'pageForPosts'        => absint( get_option( 'page_for_posts' ) ),
 		'pageOnFront'         => absint( get_option( 'page_on_front' ) ),
 		'useVerbosePageRules' => $wp_rewrite->use_verbose_page_rules

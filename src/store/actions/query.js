@@ -167,8 +167,10 @@ const getPosts = async( data, type = 'Posts' ) => {
 
 const createPostsArguments = ( state, param = {}) => {
 	let page = state.route.params.page || 1;
+	let perPage = global.themeSettings.postsPerPage
 	let data = {
-		page: page
+		page: page,
+		per_page: perPage
 	};
 	return Object.assign( data, param );
 };
