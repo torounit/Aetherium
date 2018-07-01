@@ -2,6 +2,7 @@ import 'babel-polyfill';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import App from './components/App.vue';
+import HtmlTitle from './components/HtmlTitle';
 import store from './store/index.js';
 import filters from './filters';
 import VueRouter from 'vue-router';
@@ -52,10 +53,18 @@ global.addEventListener( 'load', async () => {
 	const app = new Vue({
 		router,
 		store,
-		template: '<App/>',
-		components: { App }
-	});
+		components: { App },
+		template: '<App/>'
 
+	});
 	app.$mount( '#app' );
+
+	const title = new Vue({
+		router,
+		store,
+		components: { HtmlTitle },
+		template: '<HtmlTitle/>'
+	});
+	title.$mount( 'title' );
 
 });

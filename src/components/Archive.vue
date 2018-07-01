@@ -13,29 +13,21 @@
 </template>
 
 <script>
-	import { mapState } from 'vuex';
+	import { mapState, mapGetters } from 'vuex';
 	import Pagination from './Pagination';
 	import PostCard from './PostCard';
-	import ArchiveTitle from './ArchiveTitle';
 	import PageHeader from './PageHeader';
 	import PageBody from './PageBody';
 
 	export default {
-		components: { PageBody, PageHeader, ArchiveTitle, PostCard, Pagination },
+		components: { PageBody, PageHeader, PostCard, Pagination },
 		computed: {
-			...mapState({
-				posts: 'posts',
-				queriedObject: 'queriedObject'
+			...mapGetters({
+				title: 'title'
 			}),
-			title() {
-				let qm = this.queriedObject;
-				if ( qm.name ) {
-					return qm.name;
-				}
-				if ( qm.title && qm.title.rendered ) {
-					return qm.title.rendered;
-				}
-			}
+			...mapState({
+				posts: 'posts'
+			}),
 		}
 	};
 </script>
