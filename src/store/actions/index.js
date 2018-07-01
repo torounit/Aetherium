@@ -1,4 +1,4 @@
-import types from './mutation-types';
+import types from '../mutation-types';
 import moment from 'moment';
 
 export const initialize = async({ commit, state }) => {
