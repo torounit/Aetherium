@@ -155,8 +155,11 @@ function aetherium_get_permastructs() {
 			$struct
 		);
 
+		// for singular
 		if ( in_array( $key, get_post_types( [ 'public' => true ] ) ) ) {
 			$post_type = get_post_type_object( $key );
+
+			// for pages.
 			if ( $post_type->hierarchical ) {
 				$structs[] = [
 					'name' => $key,
@@ -165,13 +168,14 @@ function aetherium_get_permastructs() {
 				continue;
 			}
 
+			//for posts.
 			$structs[] = [
 				'name' => $key,
 				'path' => untrailingslashit( '/' . $struct ) . '/(\\d*)?'
 			];
 			continue;
 		}
-
+		// for hierarchical taxonomies.
 		if ( in_array( $key, get_taxonomies( [ 'public' => true ] ) ) ) {
 			$taxonomy = get_taxonomy( $key );
 			if ( $taxonomy->hierarchical ) {
@@ -186,10 +190,14 @@ function aetherium_get_permastructs() {
 				continue;
 			}
 		}
-
+		//for archives.
 		$structs[] = [
 			'name' => $key,
-			'path' => untrailingslashit( '/' . $struct ) . '/:page(page\/\\d*)?'
+			'path' => untrailingslashit( '/' . $struct ) . '/page/:page(\\d*)?'
+		];
+		$structs[] = [
+			'name' => $key,
+			'path' => untrailingslashit( '/' . $struct ),
 		];
 	}
 
