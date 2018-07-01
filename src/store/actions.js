@@ -101,6 +101,7 @@ const taxonomyArchivePosts = async({ state }) => {
 		let slug = slugs.pop();
 		let terms = await( new Collection() ).fetch({ data: { slug: slug } });
 		queriedObject = terms[0];
+
 		data[restBase] = queriedObject.id;
 		posts = await postsCollection.fetch({ data: data });
 	}

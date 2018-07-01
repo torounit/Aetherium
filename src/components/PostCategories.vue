@@ -49,6 +49,7 @@
 		font-size: 12px;
 		font-weight: bold;
 		display: inline-block;
+		white-space: nowrap;
 		background-color: var(--interaction-color, #42b983);
 		color: #FFF;
 		padding: 0.2em 0.4em;

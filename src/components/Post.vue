@@ -7,7 +7,7 @@
 		<PageBody>
 			<paper>
 				<div >
-					<div class="post-categories">
+					<div class="post-meta">
 						<post-categories :post-id="post.id" :link="true"></post-categories>
 					</div>
 					<div class="post-content" v-html="post.content.rendered"></div>
@@ -50,7 +50,7 @@
 		position: relative;
 	}
 
-	.post-categories {
+	.post-meta {
 		position: absolute;
 		top: 0;
 		transform: translateY(-50%);
