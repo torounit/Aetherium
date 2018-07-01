@@ -1,46 +1,25 @@
 import moment from 'moment/moment';
 
 export const date = async({ state }) => {
-	let postsCollection = new wp.api.collections.Posts();
-	let posts = [];
+
+	let year = state.route.params.year;
+	let monthnum = state.route.params.monthnum || '01';
+	let day = state.route.params.day || '01';
+
+	let first = `${year}-${monthnum}-${day}T00:00:00`;
+	let last = moment( `${year}-${monthnum}-${day}` ).endOf( 'year' ).format( 'YYYY-MM-DDTHH:mm:ss' );
+	let posts = await getPosts( createPostsArguments( state, { after: first, before: last }) );
 	let queriedObject = {};
-	let page = state.route.params.page || 1;
-	let data = { page: page };
-
-	let year = '';
-	let monthnum = '01';
-	let day = '01';
-
-	switch ( state.route.name ) {
-		case 'day': {
-			day = state.route.params.day;
-		}
-		case 'month': {
-			monthnum = state.route.params.monthnum;
-		}
-		case 'year': {
-			year = state.route.params.year;
-			let first = `${year}-${monthnum}-${day}T00:00:00`;
-			let last = moment( `${year}-${monthnum}-${day}` ).endOf( 'year' ).format( 'YYYY-MM-DDTHH:mm:ss' );
-			data = Object.assign( data, { after: first, before: last });
-			posts = await postsCollection.fetch({ data: data });
-		}
-	}
-
 	return {
 		queriedObject,
 		posts,
-		hasMore: postsCollection.hasMore()
+		hasMore: getCollectionInstance( 'Posts' ).hasMore()
 	};
 };
 
 export const term = async({ state }) => {
-	let postsCollection = new wp.api.collections.Posts();
 	let posts = [];
 	let queriedObject = {};
-	let page = state.route.params.page || 1;
-	let data = { page: page };
-
 	let taxonomy = state.taxonomies[state.route.name];
 	if ( taxonomy ) {
 		let restBase = taxonomy.rest_base;
@@ -50,115 +29,95 @@ export const term = async({ state }) => {
 		let slug = slugs.pop();
 		let terms = await( new Collection() ).fetch({ data: { slug: slug } });
 		queriedObject = terms[0];
-
-		data[restBase] = queriedObject.id;
-		posts = await postsCollection.fetch({ data: data });
+		posts = await getPosts( createPostsArguments( state, { [restBase]: queriedObject.id }) );
+		return {
+			queriedObject,
+			posts,
+			hasMore: getCollectionInstance( 'Posts' ).hasMore()
+		};
 	}
-
 	return {
-		queriedObject,
-		posts,
-		hasMore: postsCollection.hasMore()
+		queriedObject: {},
+		posts: {},
+		hasMore: false
 	};
+
 };
 
 export const home = async({ state }) => {
-	let postsCollection = new wp.api.collections.Posts();
-	let page = state.route.params.page || 1;
-	let data = { page: page };
-
-	let posts = await postsCollection.fetch({ data: data });
-
 	let queriedObject = {};
 	if ( global.themeSettings.pageOnFront ) {
-		let model = new wp.api.models.Page({ id: global.themeSettings.pageForPosts });
-		queriedObject = await model.fetch();
+		queriedObject = await getPost( global.themeSettings.pageForPosts, 'Page' );
 	}
+	let posts = await getPosts( createPostsArguments( state ) );
 	return {
 		queriedObject,
 		posts,
-		hasMore: postsCollection.hasMore()
+		hasMore: getCollectionInstance( 'Posts' ).hasMore()
 	};
 };
 
 export const author = async({ state }) => {
-	let postsCollection = new wp.api.collections.Posts();
-	let page = state.route.params.page || 1;
-	let data = { page: page };
-	let users = await( new wp.api.collections.Users() ).fetch({ data: { slug: state.route.params.author } });
-	let queriedObject = users[0];
-	data = Object.assign( data, { author: queriedObject.id });
-	let posts = await postsCollection.fetch({ data: data });
-
+	let queriedObject = await getUserbySlug( state.route.params.author );
+	let posts = await getPosts( createPostsArguments( state, { author: queriedObject.id }) );
 	return {
 		queriedObject,
 		posts,
-		hasMore: postsCollection.hasMore()
+		hasMore: getCollectionInstance( 'Posts' ).hasMore()
 	};
 
 };
 
 export const singular = async({ state }) => {
-	let postsCollection = new wp.api.collections.Posts();
 	let posts = [];
 	let queriedObject = {};
 
 	// for singular
 	if ( state.route.query.preview ) {
 		if ( state.route.query.preview_id ) {
-			let model = new wp.api.models.Post({ id: state.route.query.preview_id });
-			queriedObject = await model.fetch();
+			queriedObject = await getPost( state.route.query.preview_id );
 			posts = [ queriedObject ];
 		} else if ( state.route.query.p ) {
-			let model = new wp.api.models.Post({ id: state.route.query.p });
-			queriedObject = await model.fetch();
+			queriedObject = await getPost( state.route.query.p );
 			posts = [ queriedObject ];
 		} else if ( state.route.query.page_id ) {
-			let model = new wp.api.models.Page({ id: state.route.query.page_id });
-			queriedObject = await model.fetch();
+			queriedObject = await getPost( state.route.query.page_id, 'Page' );
 			posts = [ queriedObject ];
 		}
 	} else {
 
 		// for singular
+		// noinspection FallThroughInSwitchStatementJS
 		switch ( state.route.name ) {
 			case 'front-page': {
-				let model = new wp.api.models.Page({ id: global.themeSettings.pageOnFront });
-				queriedObject = await model.fetch();
+				queriedObject = await getPost( global.themeSettings.pageOnFront, 'Page' );
 				posts = [ queriedObject ];
 				break;
 			}
 
 			case 'page':
-				let pagesCollection = new wp.api.collections.Pages();
-				let pagenames = [];
 				if ( state.route.params.pagename ) {
-					pagenames = state.route.params.pagename.split( '/' );
+					let pagenames = state.route.params.pagename.split( '/' );
 					let pagename = pagenames.pop();
-					posts = await pagesCollection.fetch({ data: { slug: pagename } });
+					posts = await getPosts({ slug: pagename }, 'Pages' );
 					if ( 0 < posts.length ) {
 						queriedObject = posts[0];
 						break;
 					}
-
 					if ( ! global.themeSettings.useVerbosePageRules ) {
 						break;
 					}
 				}
 
+			// if not found page, search post.
 			case 'post': {
 				if ( state.route.params.postname || state.route.params.pagename ) {
-					posts = await postsCollection.fetch({
-						data: {
-							slug: state.route.params.postname || state.route.params.pagename
-						}
-					});
+					posts = await getPosts({ slug: state.route.params.postname || state.route.params.pagename });
 					if ( 0 < posts.length ) {
 						queriedObject = posts[0];
 					}
 				} else {
-					let model = new wp.api.models.Post({ id: state.route.params.post_id });
-					queriedObject = await model.fetch();
+					queriedObject = await getPost( state.route.params.post_id, 'Post' );
 					posts = [ queriedObject ];
 				}
 
@@ -173,4 +132,43 @@ export const singular = async({ state }) => {
 	};
 };
 
+const getUserbySlug = async( slug ) => {
+	let users = await( new wp.api.collections.Users() ).fetch({ data: { slug: slug } });
+	if ( users[0]) {
+		return users[0];
+	}
+	return {};
+};
 
+
+const getPost = async( id, type = 'Post' ) => {
+	let Model = wp.api.models[type];
+	let model = new Model({ id: id });
+	return await model.fetch();
+};
+
+let instances = [];
+const getCollectionInstance = ( type ) => {
+	let create = () => {
+		if ( instances[type]) {
+			return instances[type];
+		}
+		let Collection = wp.api.collections[type];
+		instances[type] = new Collection();
+		return instances[type];
+	};
+	return create();
+};
+
+
+const getPosts = async( data, type = 'Posts' ) => {
+	return await getCollectionInstance( type ).fetch({ data: data });
+};
+
+const createPostsArguments = ( state, param = {}) => {
+	let page = state.route.params.page || 1;
+	let data = {
+		page: page
+	};
+	return Object.assign( data, param );
+};
