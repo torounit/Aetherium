@@ -32,3 +32,7 @@ For detailed explanation on how things work, consult the [docs for vue-loader](h
 ## Third-party resources
 
 * [eficode/wait-for: ./wait-for is a script to wait for another service to become available.](https://github.com/eficode/wait-for)
+
+## LICENSE
+
+* GPL 2.0 or Later.
