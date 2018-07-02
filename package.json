@@ -3,6 +3,7 @@
 	"description": "A next-generation WordPress theme built with the Rest API and Vue.js.",
 	"version": "0.0.2",
 	"author": "Hiroshi Urabe <mail@torounit.com>",
+	"license": "GPL-2.0+",
 	"private": true,
 	"scripts": {
 		"dist": "cpx -C \"{./dist, ./inc}/**/*\" ./distribution && cpx -C \"./{*.svg,**/*.php,*.css,*.js}\" ./distribution",
