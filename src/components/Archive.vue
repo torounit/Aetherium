@@ -27,7 +27,7 @@
 			}),
 			...mapState({
 				posts: 'posts'
-			}),
+			})
 		}
 	};
 </script>
