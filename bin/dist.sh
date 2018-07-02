@@ -12,7 +12,7 @@ if [[ "master" != "$TRAVIS_BRANCH" ]]; then
 	exit
 fi
 
-git clone -b distribution --quiet "https://github.com/${TRAVIS_REPO_SLUG}.git" distribution
+git clone -b distribution "https://github.com/${TRAVIS_REPO_SLUG}.git" distribution
 
 rm -rf distribution/*.*
 rm -rf distribution/dist
@@ -24,4 +24,4 @@ cd distribution
 
 git add -A
 git commit -m "Update from travis $TRAVIS_COMMIT"
-git push --quiet "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" distribution 2> /dev/null
+git push "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" distribution 2> /dev/null
