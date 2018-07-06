@@ -10,10 +10,11 @@ $manifest = [
 	'short_name'       => esc_html( get_bloginfo( 'name' ) ),
 	'start_url'        => trailingslashit( home_url() ),
 	'display'          => 'standalone',
-	'background_color' => '#42b983',
+	'background_color' => '#ffffff',
 	'description'      => esc_html( get_bloginfo( 'description' ) ),
-	'theme_color'      => '#ffffff'
+	'theme_color'      => '#42b983'
 ];
+
 if ( has_site_icon() ) {
 	$manifest['icons'] = [
 		[
