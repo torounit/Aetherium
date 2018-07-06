@@ -36,7 +36,7 @@ const updateNonce = async() => {
 		if ( data.authentication.cookie && data.authentication.cookie.nonce ) {
 			wp.api.endpoints.forEach( ( model ) => {
 				global.wpApiSettings.nonce = data.authentication.cookie.nonce;
-				model.set( 'nonce', data.authentication.cookie.nonce );
+				model.set( 'nonce', '' );
 			});
 		}
 	}
