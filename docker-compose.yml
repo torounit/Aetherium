@@ -26,8 +26,6 @@ services:
       sh /opt/bin/wait-for.sh mysql:3306 -t 60 -- sh /opt/bin/install.sh
 
   mysql:
-    ports:
-      - 13306:3306
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: wordpress
