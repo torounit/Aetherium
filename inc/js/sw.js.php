@@ -1,4 +1,4 @@
-importScripts( 'https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js' );
+importScripts( 'https://storage.googleapis.com/workbox-cdn/releases/3.3.1/workbox-sw.js' );
 workbox.core.setCacheNameDetails( {
 	prefix: 'aetherium-wp',
 	suffix: 'v1'
@@ -6,7 +6,11 @@ workbox.core.setCacheNameDetails( {
 
 workbox.precaching.precacheAndRoute( [
 	{ url: '/', revision: '0.0.1' },
-	{ url: '/?manifest', revision: '0.0.1' }
+	{ url: '/?manifest', revision: '0.0.1' },
+	<?php if ( has_site_icon() ):?>
+	{ url: '<?php site_icon_url();?>', revision: '0.0.1' },
+	<?php endif;?>
+
 ] );
 
 const PRE_CACHE_ASSETS = JSON.parse( '<?php echo json_encode( get_option( 'aetherium_assets', [] ) ); ?>' );
