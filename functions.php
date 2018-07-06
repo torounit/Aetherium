@@ -36,11 +36,13 @@ add_action( 'after_setup_theme', 'aetherium_setup' );
  * Register assets.
  */
 function aetherium_enqueue_scripts() {
-	wp_enqueue_style( 'vendor', get_theme_file_uri( 'dist/vendor.css' ), [], '0.0.1' );
-	wp_enqueue_style( 'main', get_theme_file_uri( 'dist/main.css' ), [], '0.0.1' );
+	$theme   = wp_get_theme( get_template() );
+	$version = $theme->get( 'Version' );
+	wp_enqueue_style( 'vendor', get_theme_file_uri( 'dist/vendor.css' ), [], $version );
+	wp_enqueue_style( 'main', get_theme_file_uri( 'dist/main.css' ), [], $version );
 	wp_enqueue_script( 'wp-api' );
-	wp_enqueue_script( 'vendor', get_theme_file_uri( 'dist/vendor.bundle.js' ), [ 'wp-api' ], '0.0.1', true );
-	wp_enqueue_script( 'main', get_theme_file_uri( 'dist/main.bundle.js' ), [ 'vendor' ], '0.0.1', true );
+	wp_enqueue_script( 'vendor', get_theme_file_uri( 'dist/vendor.bundle.js' ), [ 'wp-api' ], $version, true );
+	wp_enqueue_script( 'main', get_theme_file_uri( 'dist/main.bundle.js' ), [ 'vendor' ], $version, true );
 
 	/**
 	 * @var WP_Rewrite $wp_rewrite
@@ -61,7 +63,7 @@ function aetherium_enqueue_scripts() {
 add_action( 'wp_enqueue_scripts', 'aetherium_enqueue_scripts' );
 
 function aetherium_setup_assets_cache() {
-	if ( $assets = get_transient( 'aetherium_assets_check' ) ) {
+	if ( $assets = get_transient('aetherium_assets_check' ) ) {
 		return $assets;
 	}
 	$seeker = new Assets_Seeker();
