@@ -40,7 +40,6 @@ const updateNonce = async() => {
 			});
 		}
 	}
-
 };
 
 global.addEventListener( 'load', async () => {
