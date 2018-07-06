@@ -4,17 +4,28 @@ workbox.core.setCacheNameDetails( {
 	suffix: 'v1'
 } );
 
+<?php $theme = wp_get_theme( get_template() );?>
+
+const PRE_CACHE_VERSION = '<?php echo esc_html( $theme->get( 'Version' ) );?>.<?php echo esc_html( get_transient( 'aetherium_assets_check' ) );?>';
+
 workbox.precaching.precacheAndRoute( [
-	{ url: '/', revision: '0.0.1' },
-	{ url: '/?manifest', revision: '0.0.1' },
+	{ url: '/', revision: PRE_CACHE_VERSION },
+	{ url: '/?manifest', revision: PRE_CACHE_VERSION },
 	<?php if ( has_site_icon() ):?>
-	{ url: '<?php site_icon_url();?>', revision: '0.0.1' },
+	{ url: '<?php site_icon_url();?>', revision: PRE_CACHE_VERSION },
 	<?php endif;?>
 
 ] );
 
 const PRE_CACHE_ASSETS = JSON.parse( '<?php echo json_encode( get_option( 'aetherium_assets', [] ) ); ?>' );
-workbox.precaching.precacheAndRoute( PRE_CACHE_ASSETS );
+workbox.precaching.precacheAndRoute( PRE_CACHE_ASSETS.map( url => {
+	{
+		return {
+			url,
+			revision: PRE_CACHE_VERSION
+		};
+	}
+} ) );
 
 
 workbox.routing.registerNavigationRoute( '/', {

@@ -1,15 +1,19 @@
 <?php
 
 add_action( 'wp_enqueue_scripts', function () {
+	$theme   = wp_get_theme( get_template() );
+	$version = $theme->get( 'Version' );
 	if( ! is_user_logged_in() ) {
-		wp_enqueue_script( 'register-sw', get_theme_file_uri( 'register-sw.js' ), [], '0.0.1', true );
+		wp_enqueue_script( 'register-sw', get_theme_file_uri( 'register-sw.js' ), [], $version, true );
 	} else {
-		wp_enqueue_script( 'unregister-sw', get_theme_file_uri( 'unregister-sw.js' ), [], '0.0.1', true );
+		wp_enqueue_script( 'unregister-sw', get_theme_file_uri( 'unregister-sw.js' ), [], $version, true );
 	}
 } );
 
 add_action( 'admin_enqueue_scripts', function () {
-	wp_enqueue_script( 'unregister-sw', get_theme_file_uri( 'unregister-sw.js' ), [], '0.0.1', true );
+	$theme   = wp_get_theme( get_template() );
+	$version = $theme->get( 'Version' );
+	wp_enqueue_script( 'unregister-sw', get_theme_file_uri( 'unregister-sw.js' ), [], $version, true );
 });
 
 add_action( 'wp_head', function () {
