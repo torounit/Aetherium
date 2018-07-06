@@ -6,7 +6,7 @@
 	"license": "GPL-2.0+",
 	"private": true,
 	"scripts": {
-		"dist": "cpx -C \"{./dist, ./inc}/**/*\" ./distribution && cpx -C \"./{*.svg,**/*.php,*.css,*.js}\" ./distribution",
+		"dist": "cpx -C \"{./dist, ./inc}/**/*\" ./distribution && cpx -C \"./{*.svg,*.png,**/*.php,*.css,*.js}\" ./distribution",
 		"dev": "cross-env NODE_ENV=development webpack-dev-server --config devserver.config.js --open --hot -d --inline --progress",
 		"build": "cross-env NODE_ENV=production webpack -d --progress --hide-modules",
 		"production": "cross-env NODE_ENV=production webpack --progress --hide-modules"
