@@ -2,6 +2,10 @@
 
 > A next-generation WordPress theme built with the Rest API and Vue.js .
 
+[![Build Status](https://travis-ci.org/torounit/Aetherium.svg?branch=master)](https://travis-ci.org/torounit/Aetherium)
+
+[DEMO](https://aetherium-demo.torounit.com/)
+
 ## Features
 
 * Single Page Application.
