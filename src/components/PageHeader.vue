@@ -14,6 +14,7 @@
 
 <script>
 	import Media from './Media';
+
 	export default {
 		name: 'PageHeader',
 		components: { Media },
@@ -28,7 +29,9 @@
 	.fade-enter-active, .fade-leave-active {
 		transition: opacity .2s;
 	}
-	.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+	.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+	{
 		opacity: 0;
 	}
 
@@ -41,7 +44,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		margin-bottom: calc( var(--gutter, 16px) * -2);
+		margin-bottom: calc(var(--gutter, 16px) * -1);
+
 	}
 
 	.header.has-media {
@@ -51,7 +55,7 @@
 	.media {
 		width: 100%;
 		height: 100%;
-		top:0;
+		top: 0;
 		left: 0;
 		position: absolute;
 		object-fit: cover;
@@ -60,7 +64,7 @@
 	.headline {
 		position: relative;
 		z-index: 2;
-		text-shadow: 1px 1px 5px rgba(51,51,51,.8);
+		text-shadow: 1px 1px 5px rgba(51, 51, 51, .8);
 	}
 
 	.title {

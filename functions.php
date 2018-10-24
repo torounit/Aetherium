@@ -1,8 +1,12 @@
 <?php
 
-//require __DIR__ . '/inc/optimize.php';
-require __DIR__ . '/inc/pwa.php';
-require __DIR__ . '/inc/class-asset-seeker.php';
+if ( ! WP_DEBUG ) {
+	require __DIR__ . '/inc/optimize.php';
+	require __DIR__ . '/inc/pwa.php';
+	require __DIR__ . '/inc/class-asset-seeker.php';
+}
+
+
 
 /**
  * Setup Theme.
@@ -63,7 +67,7 @@ function aetherium_enqueue_scripts() {
 add_action( 'wp_enqueue_scripts', 'aetherium_enqueue_scripts' );
 
 function aetherium_setup_assets_cache() {
-	if ( $assets = get_transient('aetherium_assets_check' ) ) {
+	if ( $assets = get_transient( 'aetherium_assets_check' ) ) {
 		return $assets;
 	}
 	$seeker = new Assets_Seeker();

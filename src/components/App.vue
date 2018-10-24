@@ -19,7 +19,7 @@
 </template>
 
 <script>
-	import { mapState } from 'vuex';
+	import { mapState, mapActions } from 'vuex';
 	import SiteName from './SiteName.vue';
 	import Post from './Post';
 	import Pagination from './Pagination';
@@ -33,9 +33,9 @@
 			Pagination
 		},
 		created() {
-			this.$store.dispatch( 'initialize' );
+			this.initialize();
 			this.$router.afterEach( () => {
-				this.$store.dispatch( 'fetchPosts' );
+				this.fetchPosts();
 			});
 
 		},
@@ -54,11 +54,15 @@
 				]
 			};
 		},
-		computed: mapState({
-			posts: 'posts',
-			templateType: 'templateType'
-		}),
+		computed: mapState([
+			'posts',
+			'templateType'
+		]),
 		methods: {
+			...mapActions([
+				'initialize',
+				'fetchPosts'
+			]),
 			onScroll() {
 				this.scrollY = window.scrollY;
 			}
@@ -117,10 +121,7 @@
 	}
 
 	.app-navbar {
-		padding-right: var(--gutter, 20px);
-		padding-left: var(--gutter, 20px);
-		padding-top: 4px;
-		padding-bottom: 4px;
+		padding: 4px var(--gutter, 20px);
 		position: fixed;
 		z-index: 5;
 		top: 0;
