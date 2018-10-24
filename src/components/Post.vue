@@ -20,27 +20,27 @@
 </template>
 
 <script>
-	import Media from './Media';
-	import PostCategories from './PostCategories';
-	import PostAuthor from './PostAuthor';
-	import User from './User';
-	import PageHeader from './PageHeader';
-	import PageBody from './PageBody';
-	import Paper from './Paper';
+import Media from './Media';
+import PostCategories from './PostCategories';
+import PostAuthor from './PostAuthor';
+import User from './User';
+import PageHeader from './PageHeader';
+import PageBody from './PageBody';
+import Paper from './Paper';
 
-	export default {
-		components: { Paper, PageBody, PageHeader, User, PostAuthor, PostCategories, Media },
-		props: {
-			post: {
-				featured_media: '',
-				content: {
-					rendered: ''
-				},
-				date: '',
-				type: ''
-			}
-		}
-	};
+export default {
+	components: { Paper, PageBody, PageHeader, User, PostAuthor, PostCategories, Media },
+	props: {
+		post: {
+			featured_media: '',
+			content: {
+				rendered: '',
+			},
+			date: '',
+			type: '',
+		},
+	},
+};
 </script>
 
 <style scoped>
