@@ -6,17 +6,15 @@
 		</PageHeader>
 		<PageBody>
 			<paper>
-				<div >
+				<div>
 					<div class="post-meta">
 						<post-categories :post-id="post.id" :link="true"></post-categories>
 					</div>
 					<div class="post-content" v-html="post.content.rendered"></div>
-					<User :id="post.author"></User>
+					<PostAuthor :id="post.autor"></PostAuthor>
 				</div>
 			</paper>
-
 		</PageBody>
-
 	</article>
 </template>
 

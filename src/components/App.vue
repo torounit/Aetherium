@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
 		<div class="app">
-			<header class="app-navbar" :class="{ 'app-navbar--bg': scrollY > 0}">
+			<header class="app-navbar" :class="{ 'app-navbar--bg': scrollY > 30}">
 				<site-name></site-name>
 			</header>
 
@@ -84,9 +84,15 @@
 		}
 	}
 
-	@media (min-width: 1000px) {
+	@media (min-width: 800px) {
 		:root {
 			--gutter: 32px;
+		}
+	}
+
+	@media (min-width: 1200px) {
+		:root {
+			--gutter: 48px;
 		}
 	}
 
@@ -111,8 +117,10 @@
 	}
 
 	.app-navbar {
-		padding-right: 20px;
-		padding-left: 20px;
+		padding-right: var(--gutter, 20px);
+		padding-left: var(--gutter, 20px);
+		padding-top: 4px;
+		padding-bottom: 4px;
 		position: fixed;
 		z-index: 5;
 		top: 0;
@@ -120,10 +128,12 @@
 		box-sizing: border-box;
 		transition: all 300ms ease-out 0ms;
 		background-color: transparent;
+
 	}
 
 	.app-navbar--bg {
-		background: rgba( 255, 255, 255, 0.75 );
+		//background: rgba( 255, 255, 255, 0.5 );
+		opacity: 0;
 	}
 
 	.app-main {

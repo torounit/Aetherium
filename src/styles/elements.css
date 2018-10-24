@@ -12,7 +12,7 @@ body {
 }
 
 a {
-	color: #42b983;
+	color: var(--interaction-color, #42b983);
 	text-decoration: none;
 }
 

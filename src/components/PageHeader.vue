@@ -1,6 +1,8 @@
 <template>
-	<header class="header">
-		<Media class="media" v-if="mediaId" :id="mediaId"></Media>
+	<header class="header" :class="{ '.has-media' : mediaId }">
+		<transition name="fade">
+			<Media class="media" v-if="mediaId" :id="mediaId"></Media>
+		</transition>
 		<div class="headline container">
 			<div class="meta">
 				<slot name="meta"></slot>
@@ -23,18 +25,27 @@
 </script>
 
 <style scoped>
+	.fade-enter-active, .fade-leave-active {
+		transition: opacity .2s;
+	}
+	.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+		opacity: 0;
+	}
+
 	.header {
 		padding: 24px;
 		background-color: #263238;
 		color: #fff;
 		position: relative;
-		height: 50vh;
 		min-height: 200px;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		margin-bottom: calc( var(--gutter, 16px) * -2);
+	}
 
+	.header.has-media {
+		height: 50vh;
 	}
 
 	.media {

@@ -17,8 +17,6 @@
 				</div>
 			</template>
 
-
-
 		</paper>
 	</article>
 </template>
