@@ -43,6 +43,7 @@
 		"eslint-plugin-promise": "^4.0.1",
 		"eslint-plugin-standard": "^4.0.0",
 		"eslint-plugin-vue": "^5.0.0-beta.3",
+		"eslint-plugin-wordpress": "git://github.com/WordPress-Coding-Standards/eslint-plugin-wordpress.git#1774343f6226052a46b081e01db3fca8793cc9f1",
 		"file-loader": "^2.0.0",
 		"mini-css-extract-plugin": "^0.4.4",
 		"postcss": "^7.0.5",

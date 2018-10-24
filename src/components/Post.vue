@@ -11,7 +11,8 @@
 						<post-categories :post-id="post.id" :link="true"></post-categories>
 					</div>
 					<div class="post-content" v-html="post.content.rendered"></div>
-					<PostAuthor :id="post.autor"></PostAuthor>
+					<PostAuthor :id="post.author"></PostAuthor>
+					<User :id="post.author"></User>
 				</div>
 			</paper>
 		</PageBody>
