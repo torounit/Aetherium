@@ -13,23 +13,23 @@
 </template>
 
 <script>
-	import { mapState, mapGetters } from 'vuex';
-	import Pagination from './Pagination';
-	import PostCard from './PostCard';
-	import PageHeader from './PageHeader';
-	import PageBody from './PageBody';
+import { mapState, mapGetters } from 'vuex';
+import Pagination from './Pagination';
+import PostCard from './PostCard';
+import PageHeader from './PageHeader';
+import PageBody from './PageBody';
 
-	export default {
-		components: { PageBody, PageHeader, PostCard, Pagination },
-		computed: {
-			...mapGetters({
-				title: 'title'
-			}),
-			...mapState({
-				posts: 'posts'
-			})
-		}
-	};
+export default {
+	components: { PageBody, PageHeader, PostCard, Pagination },
+	computed: {
+		...mapGetters( {
+			title: 'title',
+		} ),
+		...mapState( {
+			posts: 'posts',
+		} ),
+	},
+};
 </script>
 
 <style scoped>
@@ -53,7 +53,7 @@
 		}
 	}
 
-	@media (min-width: 900px) {
+	@media (min-width: 1200px) {
 		.archive-card {
 			width: 33.333333333%;
 		}
