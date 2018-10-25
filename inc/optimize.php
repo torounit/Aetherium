@@ -19,7 +19,7 @@ function aetherium_add_filter_remove_origin_from_uri( $hook ) {
 	add_filter( $hook, 'wp_make_link_relative' );
 }
 
-if ( ! is_admin() and $GLOBALS['pagenow'] !== 'wp-login.php' ) {
+if ( ! is_admin() and $GLOBALS['pagenow'] !== 'wp-login.php' and WP_DEBUG ) {
 	array_map( 'aetherium_add_filter_remove_origin_from_uri', [
 		"home_url",
 		"site_url",
