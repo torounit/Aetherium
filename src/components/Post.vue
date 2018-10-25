@@ -29,13 +29,17 @@ export default {
 	components: { Paper, PageBody, PageHeader, PostAuthor, PostCategories },
 	props: {
 		post: {
-			featured_media: '',
-			content: {
-				rendered: '',
+			type: Object,
+			default: () => {
+				return {
+					featured_media: '',
+					content: {
+						rendered: '',
+					},
+					date: '',
+					type: '',
+				};
 			},
-			date: '',
-			// eslint-disable-next-line vue/require-prop-type-constructor
-			type: '',
 		},
 	},
 };

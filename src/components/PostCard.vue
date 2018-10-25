@@ -22,31 +22,36 @@
 </template>
 
 <script>
-	import Media from './Media';
-	import PostCategories from './PostCategories';
-	import Paper from './Paper';
-	export default {
-		name: 'PostCard',
-		components: {
-			Paper,
-			PostCategories,
-			Media
+import Media from './Media';
+import PostCategories from './PostCategories';
+import Paper from './Paper';
+export default {
+	name: 'PostCard',
+	components: {
+		Paper,
+		PostCategories,
+		Media,
+	},
+	props: {
+		post: {
+			type: Object,
+			default: () => {
+				return {
+					featured_media: '',
+					title: {
+						rendered: '',
+					},
+					excerpt: {
+						rendered: '',
+					},
+					content: {
+						rendered: '',
+					},
+				};
+			},
 		},
-		props: {
-			post: {
-				featured_media: '',
-				title: {
-					rendered: ''
-				},
-				excerpt: {
-					rendered: ''
-				},
-				content: {
-					rendered: ''
-				}
-			}
-		}
-	};
+	},
+};
 </script>
 
 <style scoped>

@@ -1,5 +1,5 @@
 <template>
-	<header class="header" :class="{ '.has-media' : mediaId }">
+	<header class="header" :class="{ 'has-media' : mediaId }">
 		<transition name="fade">
 			<Media class="media" v-if="mediaId" :id="mediaId"></Media>
 		</transition>
@@ -13,16 +13,17 @@
 </template>
 
 <script>
-	import Media from './Media';
 
-	export default {
-		name: 'PageHeader',
-		components: { Media },
-		props: {
-			title: '',
-			mediaId: 0
-		}
-	};
+import Media from './Media';
+
+export default {
+	name: 'PageHeader',
+	components: { Media },
+	props: {
+		title: String,
+		mediaId: Number,
+	},
+};
 </script>
 
 <style scoped>

@@ -16,26 +16,26 @@
 </template>
 
 <script>
-	export default {
-		props: {
-			postId: {},
-			link: false
+export default {
+	props: {
+		postId: Number,
+		link: Boolean,
+	},
+	data() {
+		return {
+			categories: [],
+		};
+	},
+	created() {
+		this.fetchMetaData();
+	},
+	methods: {
+		async fetchMetaData() {
+			const collection = new wp.api.collections.Categories();
+			this.categories = await collection.fetch( { data: { post: this.postId } } );
 		},
-		data() {
-			return {
-				categories: []
-			};
-		},
-		created() {
-			this.fetchMetaData();
-		},
-		methods: {
-			async fetchMetaData() {
-				let collection = new wp.api.collections.Categories();
-				this.categories = await collection.fetch({ data: { post: this.postId } });
-			}
-		}
-	};
+	},
+};
 </script>
 
 <style scoped>

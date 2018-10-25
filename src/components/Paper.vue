@@ -10,9 +10,9 @@
 </template>
 
 <script>
-	export default {
-		name: 'Paper'
-	};
+export default {
+	name: 'Paper',
+};
 </script>
 
 <style scoped>
