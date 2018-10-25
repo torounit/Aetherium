@@ -22,11 +22,15 @@ npm run production
 npm run dist
 cd distribution
 
-git diff --quiet; nochanges=$?
-if [ $nochanges -eq 1 ]; then
-	git add -A
-	git commit -m "Update from travis $TRAVIS_COMMIT"
-	git push "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" distribution 2> /dev/null
-fi
+git add -A
+git commit -m "Update from travis $TRAVIS_COMMIT"
+git push "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" distribution 2> /dev/null
+
+#git diff --quiet; nochanges=$?
+#if [ $nochanges -eq 1 ]; then
+#	git add -A
+#	git commit -m "Update from travis $TRAVIS_COMMIT"
+#	git push "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" distribution 2> /dev/null
+#fi
 
 
