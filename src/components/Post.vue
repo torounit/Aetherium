@@ -12,7 +12,6 @@
 					</div>
 					<div class="post-content" v-html="post.content.rendered"></div>
 					<PostAuthor :id="post.author"></PostAuthor>
-					<User :id="post.author"></User>
 				</div>
 			</paper>
 		</PageBody>
@@ -20,16 +19,14 @@
 </template>
 
 <script>
-import Media from './Media';
 import PostCategories from './PostCategories';
 import PostAuthor from './PostAuthor';
-import User from './User';
 import PageHeader from './PageHeader';
 import PageBody from './PageBody';
 import Paper from './Paper';
 
 export default {
-	components: { Paper, PageBody, PageHeader, User, PostAuthor, PostCategories, Media },
+	components: { Paper, PageBody, PageHeader, PostAuthor, PostCategories },
 	props: {
 		post: {
 			featured_media: '',
@@ -37,6 +34,7 @@ export default {
 				rendered: '',
 			},
 			date: '',
+			// eslint-disable-next-line vue/require-prop-type-constructor
 			type: '',
 		},
 	},

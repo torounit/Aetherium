@@ -14,6 +14,12 @@
 				</template>
 			</div>
 
+			<footer class="app-footer">
+				<p>
+					<small>© {{ name }}</small>
+				</p>
+			</footer>
+
 		</div>
 	</div>
 </template>
@@ -51,10 +57,15 @@ export default {
 			],
 		};
 	},
-	computed: mapState( [
-		'posts',
-		'templateType',
-	] ),
+	computed: {
+		...mapState( [
+			'posts',
+			'templateType',
+		] ),
+		...mapState( {
+			name: ( state ) => state.siteOption.name,
+		} ),
+	},
 	methods: {
 		...mapActions( [
 			'initialize',
@@ -125,6 +136,11 @@ export default {
 		transition: all 300ms ease-out 0ms;
 		background-color: transparent;
 
+	}
+
+	.app-footer {
+		overflow: hidden;
+		text-align: center;
 	}
 
 	.app-navbar--bg {
