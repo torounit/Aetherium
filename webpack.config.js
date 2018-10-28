@@ -13,6 +13,7 @@ const port = process.env.DEVSERVER_PORT;
 const config = {
 	mode: nodeEnv || 'development',
 	entry: [
+		'@babel/polyfill',
 		'./src/main.js',
 	],
 	output: {

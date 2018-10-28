@@ -12,7 +12,7 @@
 		"production": "cross-env NODE_ENV=production webpack --progress --hide-modules"
 	},
 	"dependencies": {
-		"babel-polyfill": "^6.26.0",
+		"@babel/polyfill": "^7.0.0",
 		"moment": "^2.22.2",
 		"normalize.css": "^8.0.0",
 		"path-to-regexp": "^2.4.0",
