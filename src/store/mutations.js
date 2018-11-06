@@ -19,7 +19,11 @@ export default {
 	[ types.SET_HASMORE ]( state, more ) {
 		state.hasMore = !! more;
 	},
-	[ types.SET_TEMPLATE_TYPE ]( state ) {
-		state.templateType = state.route.name;
+	[ types.SET_TEMPLATE_TYPE ]( state, type = null ) {
+		if ( type ) {
+			state.templateType = type;
+		} else {
+			state.templateType = state.route.name;
+		}
 	},
 };

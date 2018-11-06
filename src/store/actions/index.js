@@ -32,7 +32,11 @@ export const fetchPosts = async ( { commit, state } ) => {
 	};
 
 	const routeName = state.route.name;
-	if ( [ 'day', 'month', 'year' ].includes( routeName ) ) {
+	let templateType = routeName;
+	if ( state.route.query.preview ) {
+		result = await query.singular( { state } );
+		templateType = result.queriedObject.type;
+	} else if ( [ 'day', 'month', 'year' ].includes( routeName ) ) {
 		result = await query.date( { state } );
 	} else if ( [ 'home' ].includes( routeName ) ) {
 		result = await query.home( { state } );
@@ -40,13 +44,13 @@ export const fetchPosts = async ( { commit, state } ) => {
 		result = await query.term( { state, taxonomyName: routeName } );
 	} else if ( [ 'author' ].includes( routeName ) ) {
 		result = await query.author( { commit, state } );
-	} else if ( state.route.query.preview || [ 'front-page', 'page', 'post' ].includes( routeName ) ) {
+	} else if ( [ 'front-page', 'page', 'post' ].includes( routeName ) ) {
 		result = await query.singular( { state } );
 	}
 
 	commit( types.SET_QUERIED_OBJECT, result.queriedObject );
 	commit( types.SET_HASMORE, result.hasMore );
 	commit( types.SET_POSTS, result.posts );
-	commit( types.SET_TEMPLATE_TYPE );
+	commit( types.SET_TEMPLATE_TYPE, templateType );
 };
 
