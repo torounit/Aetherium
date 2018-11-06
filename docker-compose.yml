@@ -1,21 +1,33 @@
 version: '3.1'
 services:
-  wordpress:
-    image: wordpress
+
+  nginx:
+    image: nginx:1-alpine
     depends_on:
-      - mysql
+      - wordpress
     ports:
       - ${WORDPRESS_PORT}:80
-    environment:
-      WORDPRESS_DB_PASSWORD: wordpress
-      ABSPATH: /usr/src/wordpress/
     volumes:
       - wordpress:/var/www/html
       - .:/var/www/html/wp-content/themes/${WORDPRESS_THEME}
+      - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+  wordpress:
+    image: wordpress:php7.2-fpm-alpine
+    depends_on:
+      - mysql
+    environment:
+      WORDPRESS_DB_HOST: "mysql:3306"
+      WORDPRESS_DB_NAME: "wordpress"
+      WORDPRESS_DB_USER: "wordpress"
+      WORDPRESS_DB_PASSWORD: "wordpress"
+    volumes:
+      - wordpress:/var/www/html
+      - .:/var/www/html/wp-content/themes/${WORDPRESS_THEME}
+      - ./:/app
 
   cli:
     image: wordpress:cli
-    user: xfs
     env_file:
       - .env
     volumes:
@@ -28,8 +40,10 @@ services:
   mysql:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: wordpress
-      MYSQL_DATABASE: wordpress_test
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_DATABASE: "wordpress"
+      MYSQL_USER: "wordpress"
+      MYSQL_PASSWORD: "wordpress"
 
 volumes:
   testsuite:

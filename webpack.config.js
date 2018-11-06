@@ -108,14 +108,14 @@ const config = {
 if ( 'production' === nodeEnv ) {
 	config.devtool = '#source-map';
 
-	// http://vue-loader.vuejs.org/en/workflow/production.html
-	config.plugins = ( config.plugins || [] ).concat( [
-		new webpack.DefinePlugin( {
-			'process.env': {
-				NODE_ENV: '"production"',
-			},
-		} ),
-	] );
+	// // http://vue-loader.vuejs.org/en/workflow/production.html
+	// config.plugins = ( config.plugins || [] ).concat( [
+	// 	new webpack.DefinePlugin( {
+	// 		'process.env': {
+	// 			NODE_ENV: '"production"',
+	// 		},
+	// 	} ),
+	// ] );
 }
 
 module.exports = config;
