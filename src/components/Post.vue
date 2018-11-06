@@ -8,7 +8,9 @@
 			<paper>
 				<div>
 					<div class="post-meta">
-						<post-categories :post-id="post.id" :link="true"></post-categories>
+						<div class="post-categories">
+							<category v-for="category in post.categories" :key="category" :id="category"></category>
+						</div>
 					</div>
 					<div class="post-content" v-html="post.content.rendered"></div>
 					<PostAuthor :id="post.author"></PostAuthor>
@@ -19,14 +21,14 @@
 </template>
 
 <script>
-import PostCategories from './PostCategories';
 import PostAuthor from './PostAuthor';
 import PageHeader from './PageHeader';
 import PageBody from './PageBody';
 import Paper from './Paper';
+import Category from './Category';
 
 export default {
-	components: { Paper, PageBody, PageHeader, PostAuthor, PostCategories },
+	components: { Category, Paper, PageBody, PageHeader, PostAuthor },
 	props: {
 		post: {
 			type: Object,
@@ -55,6 +57,11 @@ export default {
 		position: absolute;
 		top: 0;
 		transform: translateY(-50%);
+	}
+
+	.post-categories {
+		display: flex;
+		align-items: center;
 	}
 
 	.post-content {

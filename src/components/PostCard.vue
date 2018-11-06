@@ -9,7 +9,9 @@
 			<template>
 				<div class="body">
 					<header>
-						<PostCategories class="post-card-categories" :post-id="post.id" :link="true"></PostCategories>
+						<div class="post-card-categories">
+							<category v-for="category in post.categories" :key="category" :id="category"></category>
+						</div>
 						<h1 class="post-card-title"><router-link :to="post.link | path" v-html="post.title.rendered"></router-link></h1>
 					</header>
 					<div v-html="post.excerpt.rendered"></div>
@@ -23,13 +25,13 @@
 
 <script>
 import Media from './Media';
-import PostCategories from './PostCategories';
 import Paper from './Paper';
+import Category from './Category';
 export default {
 	name: 'PostCard',
 	components: {
+		Category,
 		Paper,
-		PostCategories,
 		Media,
 	},
 	props: {
