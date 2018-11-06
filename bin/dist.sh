@@ -26,7 +26,7 @@ cd distribution
 GIT_STATUS="$(git status 2> /dev/null)"
 
 
-if [[ ${GIT_STATUS} =~ "Untracked files:" ]];then
+if [[ ${GIT_STATUS} =~ "Untracked files:" || ${GIT_STATUS} =~ "Changes not staged"  ]];then
 	git add -A
 	git commit -m "Update from travis $TRAVIS_COMMIT"
 	git push "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" distribution 2> /dev/null
