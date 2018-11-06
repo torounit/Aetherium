@@ -1,14 +1,14 @@
 {
 	"name": "aetherium",
-	"description": "A next-generation WordPress theme built with the Rest API and Vue.js.",
 	"version": "0.0.2",
-	"author": "Hiroshi Urabe <mail@torounit.com>",
-	"license": "GPL-2.0+",
 	"private": true,
+	"description": "A next-generation WordPress theme built with the Rest API and Vue.js.",
+	"license": "GPL-2.0+",
+	"author": "Hiroshi Urabe <mail@torounit.com>",
 	"scripts": {
-		"dist": "cpx -C \"{./dist, ./inc}/**/*\" ./distribution && cpx -C \"./{*.svg,*.png,**/*.php,*.css,*.js}\" ./distribution",
-		"dev": "cross-env NODE_ENV=development webpack-dev-server --config devserver.config.js --open --hot -d --inline --progress",
 		"build": "cross-env NODE_ENV=production webpack -d --progress --hide-modules",
+		"dev": "cross-env NODE_ENV=development webpack-dev-server --config devserver.config.js --open --hot -d --inline --progress",
+		"dist": "cpx -C \"{./dist, ./inc}/**/*\" ./distribution && cpx -C \"./{*.svg,*.png,**/*.php,*.css,*.js}\" ./distribution",
 		"production": "cross-env NODE_ENV=production webpack --progress --hide-modules"
 	},
 	"dependencies": {
