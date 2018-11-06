@@ -6,5 +6,5 @@ export default {
 	route: {},
 	queriedObject: {},
 	hasMore: false,
-	templateType: 'home'
+	templateType: 'home',
 };

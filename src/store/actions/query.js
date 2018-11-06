@@ -1,74 +1,71 @@
 import moment from 'moment/moment';
 
-export const date = async({ state }) => {
+export const date = async ( { state } ) => {
+	const year = state.route.params.year;
+	const monthnum = state.route.params.monthnum || '01';
+	const day = state.route.params.day || '01';
 
-	let year = state.route.params.year;
-	let monthnum = state.route.params.monthnum || '01';
-	let day = state.route.params.day || '01';
-
-	let first = `${year}-${monthnum}-${day}T00:00:00`;
-	let last = moment( `${year}-${monthnum}-${day}` ).endOf( 'year' ).format( 'YYYY-MM-DDTHH:mm:ss' );
-	let posts = await getPosts( createPostsArguments( state, { after: first, before: last }) );
-	let queriedObject = {};
+	const first = `${ year }-${ monthnum }-${ day }T00:00:00`;
+	const last = moment( `${ year }-${ monthnum }-${ day }` ).endOf( 'year' ).format( 'YYYY-MM-DDTHH:mm:ss' );
+	const posts = await getPosts( createPostsArguments( state, { after: first, before: last } ) );
+	const queriedObject = {};
 	return {
 		queriedObject,
 		posts,
-		hasMore: getCollectionInstance( 'Posts' ).hasMore()
+		hasMore: getCollectionInstance( 'Posts' ).hasMore(),
 	};
 };
 
-export const term = async({ state }) => {
+export const term = async ( { state } ) => {
 	let posts = [];
 	let queriedObject = {};
-	let taxonomy = state.taxonomies[state.route.name];
+	const taxonomy = state.taxonomies[ state.route.name ];
 	if ( taxonomy ) {
-		let restBase = taxonomy.rest_base;
-		let Collection = wp.api.getCollectionByRoute( `/wp/v2/${restBase}` );
-		let key = taxonomy.slug;
-		let slugs = state.route.params[key].split( '/' );
-		let slug = slugs.pop();
-		let terms = await( new Collection() ).fetch({ data: { slug: slug } });
-		queriedObject = terms[0];
-		posts = await getPosts( createPostsArguments( state, { [restBase]: queriedObject.id }) );
+		const restBase = taxonomy.rest_base;
+		const Collection = wp.api.getCollectionByRoute( `/wp/v2/${ restBase }` );
+		const key = taxonomy.slug;
+		const slugs = state.route.params[ key ].split( '/' );
+		const slug = slugs.pop();
+		const terms = await( new Collection() ).fetch( { data: { slug: slug } } );
+		queriedObject = terms[ 0 ];
+		posts = await getPosts( createPostsArguments( state, { [ restBase ]: queriedObject.id } ) );
 		return {
 			queriedObject,
 			posts,
-			hasMore: getCollectionInstance( 'Posts' ).hasMore()
+			hasMore: getCollectionInstance( 'Posts' ).hasMore(),
 		};
 	}
 	return {
 		queriedObject: {},
 		posts: {},
-		hasMore: false
+		hasMore: false,
 	};
-
 };
 
-export const home = async({ state }) => {
+export const home = async ( { state } ) => {
 	let queriedObject = {};
 	if ( global.themeSettings.pageOnFront ) {
 		queriedObject = await getPost( global.themeSettings.pageForPosts, 'Page' );
 	}
-	let posts = await getPosts( createPostsArguments( state ) );
+	const posts = await getPosts( createPostsArguments( state ) );
 	return {
 		queriedObject,
 		posts,
-		hasMore: getCollectionInstance( 'Posts' ).hasMore()
+		hasMore: getCollectionInstance( 'Posts' ).hasMore(),
 	};
 };
 
-export const author = async({ state }) => {
-	let queriedObject = await getUserbySlug( state.route.params.author );
-	let posts = await getPosts( createPostsArguments( state, { author: queriedObject.id }) );
+export const author = async ( { state } ) => {
+	const queriedObject = await getUserbySlug( state.route.params.author );
+	const posts = await getPosts( createPostsArguments( state, { author: queriedObject.id } ) );
 	return {
 		queriedObject,
 		posts,
-		hasMore: getCollectionInstance( 'Posts' ).hasMore()
+		hasMore: getCollectionInstance( 'Posts' ).hasMore(),
 	};
-
 };
 
-export const singular = async({ state }) => {
+export const singular = async ( { state } ) => {
 	let posts = [];
 	let queriedObject = {};
 
@@ -85,7 +82,6 @@ export const singular = async({ state }) => {
 			posts = [ queriedObject ];
 		}
 	} else {
-
 		// for singular
 		// noinspection FallThroughInSwitchStatementJS
 		switch ( state.route.name ) {
@@ -97,11 +93,11 @@ export const singular = async({ state }) => {
 
 			case 'page':
 				if ( state.route.params.pagename ) {
-					let pagenames = state.route.params.pagename.split( '/' );
-					let pagename = pagenames.pop();
-					posts = await getPosts({ slug: pagename }, 'Pages' );
+					const pagenames = state.route.params.pagename.split( '/' );
+					const pagename = pagenames.pop();
+					posts = await getPosts( { slug: pagename }, 'Pages' );
 					if ( 0 < posts.length ) {
-						queriedObject = posts[0];
+						queriedObject = posts[ 0 ];
 						break;
 					}
 					if ( ! global.themeSettings.useVerbosePageRules ) {
@@ -112,9 +108,9 @@ export const singular = async({ state }) => {
 			// if not found page, search post.
 			case 'post': {
 				if ( state.route.params.postname || state.route.params.pagename ) {
-					posts = await getPosts({ slug: state.route.params.postname || state.route.params.pagename });
+					posts = await getPosts( { slug: state.route.params.postname || state.route.params.pagename } );
 					if ( 0 < posts.length ) {
-						queriedObject = posts[0];
+						queriedObject = posts[ 0 ];
 					}
 				} else {
 					queriedObject = await getPost( state.route.params.post_id, 'Post' );
@@ -128,49 +124,47 @@ export const singular = async({ state }) => {
 	return {
 		queriedObject,
 		posts,
-		hasMore: false
+		hasMore: false,
 	};
 };
 
-const getUserbySlug = async( slug ) => {
-	let users = await( new wp.api.collections.Users() ).fetch({ data: { slug: slug } });
-	if ( users[0]) {
-		return users[0];
+const getUserbySlug = async ( slug ) => {
+	const users = await( new wp.api.collections.Users() ).fetch( { data: { slug: slug } } );
+	if ( users[ 0 ] ) {
+		return users[ 0 ];
 	}
 	return {};
 };
 
-
-const getPost = async( id, type = 'Post' ) => {
-	let Model = wp.api.models[type];
-	let model = new Model({ id: id });
+const getPost = async ( id, type = 'Post' ) => {
+	const Model = wp.api.models[ type ];
+	const model = new Model( { id: id } );
 	return await model.fetch();
 };
 
-let instances = [];
+const instances = [];
 const getCollectionInstance = ( type ) => {
-	let create = () => {
-		if ( instances[type]) {
-			return instances[type];
+	const create = () => {
+		if ( instances[ type ] ) {
+			return instances[ type ];
 		}
-		let Collection = wp.api.collections[type];
-		instances[type] = new Collection();
-		return instances[type];
+		const Collection = wp.api.collections[ type ];
+		instances[ type ] = new Collection();
+		return instances[ type ];
 	};
 	return create();
 };
 
-
-const getPosts = async( data, type = 'Posts' ) => {
-	return await getCollectionInstance( type ).fetch({ data: data });
+const getPosts = async ( data, type = 'Posts' ) => {
+	return await getCollectionInstance( type ).fetch( { data: data } );
 };
 
-const createPostsArguments = ( state, param = {}) => {
-	let page = state.route.params.page || 1;
-	let perPage = global.themeSettings.postsPerPage
-	let data = {
+const createPostsArguments = ( state, param = {} ) => {
+	const page = state.route.params.page || 1;
+	const perPage = global.themeSettings.postsPerPage;
+	const data = {
 		page: page,
-		per_page: perPage
+		per_page: perPage,
 	};
 	return Object.assign( data, param );
 };

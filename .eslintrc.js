@@ -126,6 +126,7 @@ module.exports = {
 		yoda: 'off',
 	},
 	globals: {
+		'global': true,
 		'wpApiSettings': true,
 		'wp': true,
 		'workbox': true,
