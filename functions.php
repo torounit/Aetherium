@@ -7,7 +7,6 @@ if ( ! WP_DEBUG ) {
 }
 
 
-
 /**
  * Setup Theme.
  */
@@ -210,3 +209,20 @@ function aetherium_get_permastructs() {
 
 	return $structs;
 }
+
+/**
+ * Add Cache-Control Header for WP API.
+ *
+ * @param WP_REST_Response $response Current response being served.
+ *
+ * @return WP_REST_Response Response to be served, with "Cache-Control" header.
+ */
+function aetherium_rest_post_dispatch( $response ) {
+	if ( ! is_admin() ) {
+		$response->header( 'Cache-Control', 'max-age=30' );
+	}
+
+	return $response;
+}
+
+add_filter( 'rest_post_dispatch', 'aetherium_rest_post_dispatch', 10 );

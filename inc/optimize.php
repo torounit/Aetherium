@@ -32,5 +32,5 @@ if ( ! is_admin() and $GLOBALS['pagenow'] !== 'wp-login.php' and WP_DEBUG ) {
 		"script_loader_src",
 		"theme_file_uri"
 	] );
-
 }
+
