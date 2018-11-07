@@ -7,11 +7,10 @@ const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 const webpack = require( 'webpack' );
 const UglifyJSPlugin = require( 'uglifyjs-webpack-plugin' );
 const nodeEnv = process.env.NODE_ENV;
-const wpPort = process.env.WORDPRESS_PORT;
-const port = process.env.DEVSERVER_PORT;
-
+const mode = nodeEnv ? nodeEnv : 'development';
+const enableSouceMap = mode === 'development' ? 'source-map' : false;
 const config = {
-	mode: nodeEnv || 'development',
+	mode: mode,
 	entry: [
 		'@babel/polyfill',
 		'./src/main.js',
@@ -40,7 +39,7 @@ const config = {
 		rules: [
 			{
 				test: /\.css$/,
-				use: ( 'production' === nodeEnv ) ? [
+				use: ( 'production' === mode ) ? [
 					'vue-style-loader',
 					MiniCssExtractPlugin.loader,
 					'css-loader?minimize',
@@ -51,11 +50,6 @@ const config = {
 			}, {
 				test: /\.vue$/,
 				loader: 'vue-loader',
-				options: {
-					loaders: {},
-
-					// other vue-loader options go here
-				},
 			},
 			{
 				test: /\.js$/,
@@ -80,34 +74,10 @@ const config = {
 	performance: {
 		hints: false,
 	},
-	devtool: '#inline-source-map',
-	devServer: {
-
-		// contentBase: __dirname,
-		publicPath: '/wp-content/themes/' + basename( __dirname ) + '/',
-		port: port,
-		noInfo: true,
-		historyApiFallback: true,
-		disableHostCheck: true,
-		hot: true,
-		hotOnly: true,
-		quiet: false,
-		stats: { colors: true },
-		proxy: {
-			'**': {
-				target: {
-					protocol: 'http:',
-					host: 'localhost',
-					port: wpPort,
-				},
-			},
-		},
-	},
+	devtool: enableSouceMap,
 };
 
-if ( 'production' === nodeEnv ) {
-	config.devtool = '#source-map';
-
+if ( 'production' === mode ) {
 	// http://vue-loader.vuejs.org/en/workflow/production.html
 	config.plugins = ( config.plugins || [] ).concat( [
 		new webpack.DefinePlugin( {

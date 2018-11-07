@@ -11,7 +11,7 @@ const router = new VueRouter( {
 	mode: 'history',
 	routes: [].concat( global.themeSettings.permastructs ),
 	scrollBehavior( to, from, savedPosition ) {
-		return new Promise( ( resolve, reject ) => {
+		return new Promise( ( resolve ) => {
 			store.watch( ( state ) => state.posts, () => {
 				if ( savedPosition ) {
 					resolve( savedPosition );
