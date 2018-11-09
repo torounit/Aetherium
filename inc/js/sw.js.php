@@ -64,8 +64,8 @@ workbox.routing.registerRoute(
 // fallback navigate
 workbox.routing.registerRoute(
 	( { event } ) => {
-		let destinations = ['audio', 'audioworklet', 'embed', 'font', 'image', 'manifest', 'object', 'paintworklet', 'report', 'script', 'serviceworker', 'sharedworker', 'style', 'track', 'video', 'worker', 'xslt'];
-		let blacklist = ['wp-json', 'wp-admin', 'wp-login', 'preview', 'customize_changeset_uuid'];
+		let destinations = [ 'audio', 'audioworklet', 'embed', 'font', 'image', 'manifest', 'object', 'paintworklet', 'report', 'script', 'serviceworker', 'sharedworker', 'style', 'track', 'video', 'worker', 'xslt' ];
+		let blacklist = [ 'wp-json', 'wp-admin', 'wp-login', 'preview', 'customize_changeset_uuid' ];
 		return 'navigate' === event.request.mode &&
 			-1 === destinations.indexOf( event.request.destination ) &&
 			blacklist.every( ( word ) => -1 === event.request.url.indexOf( word ) );
