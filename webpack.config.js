@@ -12,7 +12,6 @@ const enableSouceMap = mode === 'development' ? 'source-map' : false;
 const config = {
 	mode: mode,
 	entry: [
-		'@babel/polyfill',
 		'./src/main.js',
 	],
 	output: {
