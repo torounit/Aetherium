@@ -38,28 +38,32 @@ const config = {
 		rules: [
 			{
 				test: /\.css$/,
-				use: ( 'production' === mode ) ? [
-					'vue-style-loader',
-					MiniCssExtractPlugin.loader,
-					'css-loader?minimize',
-				] : [
-					'vue-style-loader',
-					'css-loader?minimize',
+				use: [
+					'production' === mode ?
+						'vue-style-loader' :
+						MiniCssExtractPlugin.loader,
+					'css-loader',
 				],
 			}, {
 				test: /\.vue$/,
-				loader: 'vue-loader',
+				use: {
+					loader: 'vue-loader',
+				},
 			},
 			{
 				test: /\.js$/,
-				loader: 'babel-loader',
+				use: {
+					loader: 'babel-loader',
+				},
 				exclude: /node_modules/,
 			},
 			{
 				test: /\.(png|jpg|gif|svg)$/,
-				loader: 'file-loader',
-				options: {
-					name: '[name].[ext]?[hash]',
+				use: {
+					loader: 'file-loader',
+					options: {
+						name: '[name].[ext]?[hash]',
+					},
 				},
 			},
 		],
