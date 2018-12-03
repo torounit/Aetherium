@@ -30,6 +30,9 @@ function aetherium_setup() {
 		'gallery',
 		'caption',
 	) );
+
+	add_theme_support( 'editor-styles' );
+	add_editor_style();
 }
 
 add_action( 'after_setup_theme', 'aetherium_setup' );
