@@ -6,7 +6,6 @@ if [ -n "$DEVSERVER_PORT" ]; then
 else
     SETUP_PORT=$WORDPRESS_PORT
 fi
-echo $SETUP_PORT;
 
 if [ $SETUP_PORT = 80 ]; then
   wp core install --url="http://localhost" --title="WP Theme Test Environment" --admin_user="admin" --admin_password="admin" --admin_email="admin@example.com" --path="/var/www/html"
@@ -14,6 +13,7 @@ else
   wp core install --url="http://localhost:$SETUP_PORT" --title="WP Theme Test Environment" --admin_user="admin" --admin_password="admin" --admin_email="admin@example.com" --path="/var/www/html"
 fi
 
+wp language core install ja
 wp plugin install wordpress-importer --activate
 wp theme activate $WORDPRESS_THEME
 
