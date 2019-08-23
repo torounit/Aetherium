@@ -9,6 +9,9 @@ services:
       - ${WORDPRESS_PORT}:80
     volumes:
       - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - wordpress:/var/www/html
+      - ./data/wp-content:/var/www/html/wp-content
+      - .:/var/www/html/wp-content/themes/${WORDPRESS_THEME}
 
   wordpress:
     image: wordpress:php7.2-fpm-alpine
@@ -23,7 +26,6 @@ services:
     volumes:
       - wordpress:/var/www/html
       - ./data/wp-content:/var/www/html/wp-content
-      - .:/var/www/html/${WORDPRESS_THEME}
       - .:/var/www/html/wp-content/themes/${WORDPRESS_THEME}
 
   cli:
@@ -35,7 +37,6 @@ services:
     volumes:
       - wordpress:/var/www/html
       - ./data/wp-content:/var/www/html/wp-content
-      - .:/var/www/html/${WORDPRESS_THEME}
       - .:/var/www/html/wp-content/themes/${WORDPRESS_THEME}
     command: >
       sh /var/www/html/wp-content/themes/${WORDPRESS_THEME}/bin/wait-for.sh mysql:3306 -t 60 -- sh /var/www/html/wp-content/themes/${WORDPRESS_THEME}/bin/install.sh

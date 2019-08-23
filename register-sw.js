@@ -1,3 +1,3 @@
 if ( 'serviceWorker' in navigator ) {
-	navigator.serviceWorker.register( '/?sw' );
+	//navigator.serviceWorker.register( '/?sw' );
 }
