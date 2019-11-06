@@ -37,8 +37,6 @@ add_action( 'after_setup_theme', 'aetherium_setup' );
 function aetherium_enqueue_scripts() {
 	$theme   = wp_get_theme( get_template() );
 	$version = $theme->get( 'Version' );
-	wp_enqueue_style( 'vendor', get_theme_file_uri( 'dist/vendor.css' ), [], $version );
-	wp_enqueue_style( 'main', get_theme_file_uri( 'dist/main.css' ), [], $version );
 	wp_enqueue_script( 'wp-api' );
 	wp_enqueue_script( 'vendor', get_theme_file_uri( 'dist/vendor.bundle.js' ), [ 'wp-api' ], $version, true );
 	wp_enqueue_script( 'main', get_theme_file_uri( 'dist/main.bundle.js' ), [ 'vendor' ], $version, true );
