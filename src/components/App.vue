@@ -84,7 +84,7 @@ export default {
 	@import "../styles/elements.css";
 	@import "../styles/captions.css";
 	@import "../styles/gallery.css";
-
+	@import "../styles/wp-blocks.css";
 	:root {
 		--gutter: 20px;
 		--interaction-color: #42b983;

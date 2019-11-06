@@ -1,0 +1,60 @@
+.wp-block-embed {
+	position: relative;
+}
+
+.wp-block-embed.wp-embed-aspect-21-9::before {
+	content: "";
+	display: block;
+	padding-top: 42.8571429%
+}
+
+.wp-block-embed.wp-embed-aspect-18-9::before {
+	content: "";
+	display: block;
+	padding-top: 50%;
+}
+
+.wp-block-embed.wp-embed-aspect-16-9::before {
+	content: "";
+	display: block;
+	padding-top: 56.25%;
+}
+
+
+.wp-block-embed.wp-embed-aspect-4-3::before {
+	content: "";
+	display: block;
+	padding-top: 75%;
+}
+
+.wp-block-embed.wp-embed-aspect-1-1::before {
+	content: "";
+	display: block;
+	padding-top: 100%;
+}
+
+
+.wp-block-embed.wp-embed-aspect-9-16::before {
+	content: "";
+	display: block;
+	padding-top: 177.77777778%;
+}
+
+.wp-block-embed.wp-embed-aspect-1-2::before {
+	content: "";
+	display: block;
+	padding-top: 200%;
+}
+
+.wp-block-embed .wp-block-embed__wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.wp-block-embed .wp-block-embed__wrapper iframe {
+	height: 100%;
+	width: 100%;
+}
