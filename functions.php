@@ -1,5 +1,11 @@
 <?php
 
+add_action( 'wp_enqueue_scripts', function () {
+	$theme   = wp_get_theme( get_template() );
+	$version = $theme->get( 'Version' );
+	wp_enqueue_script( 'register-sw', get_theme_file_uri( 'register-sw.js' ), [], $version, true );
+} );
+
 /**
  * Setup Theme.
  */
