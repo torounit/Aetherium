@@ -46,7 +46,6 @@ export default {
 		flex-direction: column;
 		justify-content: center;
 		margin-bottom: calc(var(--gutter, 16px) * -1);
-
 	}
 
 	.header.has-media {

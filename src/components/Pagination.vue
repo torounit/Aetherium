@@ -6,7 +6,6 @@
 			<router-link v-if="hasMore" :to="next">Next</router-link>
 		</div>
 	</div>
-
 </template>
 
 <script>
@@ -24,7 +23,7 @@ export default {
 				name: this.route.name,
 				params: {
 					endpoint: 'page',
-					page: page,
+					page,
 				},
 			};
 		},
@@ -34,7 +33,7 @@ export default {
 				name: this.route.name,
 				params: {
 					endpoint: 'page',
-					page: page,
+					page,
 				},
 			};
 		},

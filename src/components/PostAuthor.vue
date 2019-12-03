@@ -1,7 +1,5 @@
 <template>
-	<p>Author:
-		<router-link :to="user.link | path">{{ user.name }}</router-link>
-	</p>
+	<p>Author: <router-link :to="user.link | path">{{ user.name }}</router-link></p>
 </template>
 
 <script>
