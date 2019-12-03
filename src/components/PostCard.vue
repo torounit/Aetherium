@@ -3,16 +3,16 @@
 		<paper>
 			<div class="post-card-media" slot="paper-header" v-if="post.featured_media">
 				<router-link :to="post.link | path">
-					<Media :id="post.featured_media" class="post-card-media-image"></Media>
+					<Media :id="post.featured_media" class="post-card-media-image" />
 				</router-link>
 			</div>
 			<template>
 				<div class="body">
 					<header>
 						<div class="post-card-categories">
-							<category v-for="category in post.categories" :key="category" :id="category"></category>
+							<category v-for="category in post.categories" :key="category" :id="category" />
 						</div>
-						<h1 class="post-card-title"><router-link :to="post.link | path" v-html="post.title.rendered"></router-link></h1>
+						<h1 class="post-card-title"><router-link :to="post.link | path" v-html="post.title.rendered" /></h1>
 					</header>
 					<div v-html="post.excerpt.rendered"></div>
 					<p><router-link :to="post.link | path">Read more</router-link></p>

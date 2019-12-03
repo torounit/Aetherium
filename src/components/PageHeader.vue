@@ -1,13 +1,13 @@
 <template>
 	<header class="header" :class="{ 'has-media' : mediaId }">
 		<transition name="fade">
-			<Media class="media" v-if="mediaId" :id="mediaId"></Media>
+			<Media class="media" v-if="mediaId" :id="mediaId" />
 		</transition>
 		<div class="headline container">
 			<div class="meta">
-				<slot name="meta"></slot>
+				<slot name="meta" />
 			</div>
-			<h1 class="title" v-html="title"></h1>
+			<h1 class="title" v-html="title" />
 		</div>
 	</header>
 </template>

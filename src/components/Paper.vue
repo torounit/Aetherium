@@ -1,10 +1,10 @@
 <template>
 	<div class="paper">
-		<slot name="paper-header"></slot>
+		<slot name="paper-header" />
 		<div class="paper-body">
-			<slot></slot>
+			<slot />
 		</div>
-		<slot name="paper-footer"></slot>
+		<slot name="paper-footer" />
 	</div>
 
 </template>

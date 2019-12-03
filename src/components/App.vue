@@ -2,15 +2,15 @@
 	<div id="app">
 		<div class="app">
 			<header class="app-navbar" :class="{ 'app-navbar--bg': scrollY > 30}">
-				<site-name></site-name>
+				<site-name />
 			</header>
 
 			<div class="app-main">
 				<template v-if="posts.length === 1 && singular.includes( templateType )">
-					<post :post="post" v-for="post in posts" :key="post.id"></post>
+					<post :post="post" v-for="post in posts" :key="post.id" />
 				</template>
 				<template v-else>
-					<archive></archive>
+					<archive />
 				</template>
 			</div>
 

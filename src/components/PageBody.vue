@@ -1,15 +1,15 @@
 <template>
 	<div class="container">
 		<div class="body">
-			<slot></slot>
+			<slot />
 		</div>
 	</div>
 </template>
 
 <script>
-	export default {
-		name: 'PageBody'
-	};
+export default {
+	name: 'PageBody',
+};
 </script>
 
 <style scoped>

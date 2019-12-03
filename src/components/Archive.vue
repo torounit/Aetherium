@@ -1,13 +1,13 @@
 <template>
 	<section class="archive">
-		<page-header :title="title"></page-header>
+		<page-header :title="title" />
 		<page-body>
 			<div class="archive-posts">
-				<post-card class="archive-card" :post="post" v-for="post in posts" :key="post.id"></post-card>
+				<post-card class="archive-card" :post="post" v-for="post in posts" :key="post.id" />
 			</div>
 		</page-body>
 
-		<pagination></pagination>
+		<pagination />
 
 	</section>
 </template>

@@ -9,11 +9,11 @@
 				<div>
 					<div class="post-meta">
 						<div class="post-categories">
-							<category v-for="category in post.categories" :key="category" :id="category"></category>
+							<category v-for="category in post.categories" :key="category" :id="category" />
 						</div>
 					</div>
 					<div class="post-content" v-html="post.content.rendered"></div>
-					<PostAuthor :id="post.author"></PostAuthor>
+					<PostAuthor :id="post.author" />
 				</div>
 			</paper>
 		</PageBody>

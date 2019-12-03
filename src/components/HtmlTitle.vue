@@ -4,18 +4,18 @@
 </template>
 
 <script>
-	import { mapGetters, mapState } from 'vuex';
-	export default {
-		name: 'HtmlTitle',
-		computed: {
-			...mapGetters({
-				title: 'title'
-			}),
-			...mapState({
-				siteName: state => state.siteOption.name
-			})
-		}
-	};
+import { mapGetters, mapState } from 'vuex';
+export default {
+	name: 'HtmlTitle',
+	computed: {
+		...mapGetters( {
+			title: 'title',
+		} ),
+		...mapState( {
+			siteName: ( state ) => state.siteOption.name,
+		} ),
+	},
+};
 </script>
 
 <style scoped>
