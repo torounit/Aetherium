@@ -7,13 +7,12 @@ module.exports = {
 		browser: true,
 	},
 	plugins: [
-		'vue',
-		'wordpress'
+		'vue'
 	],
 	extends: [
-		'wordpress',
-		'plugin:vue/essential',
-		'plugin:wordpress/esnext',
+		"plugin:@wordpress/eslint-plugin/recommended",
+		"plugin:@wordpress/eslint-plugin/esnext",
+		'plugin:vue/essential'
 	],
 	rules: {
 		'array-bracket-spacing': [ 'error', 'always' ],
