@@ -2,7 +2,7 @@ version: '3'
 services:
 
   nginx:
-    image: nginx:1-alpine
+    image: nginx:alpine
     depends_on:
       - wordpress
     ports:
@@ -14,7 +14,7 @@ services:
       - .:/var/www/html/wp-content/themes/${WORDPRESS_THEME}
 
   wordpress:
-    image: wordpress:php7.2-fpm-alpine
+    image: wordpress:fpm-alpine
     depends_on:
       - mysql
     environment:
