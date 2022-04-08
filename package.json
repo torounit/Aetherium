@@ -16,7 +16,7 @@
 	},
 	"dependencies": {
 		"core-js": "^3.4.7",
-		"moment": "^2.24.0",
+		"moment": "^2.29.2",
 		"normalize.css": "^8.0.1",
 		"path-to-regexp": "^6.1.0",
 		"vue": "^2.6.10",
